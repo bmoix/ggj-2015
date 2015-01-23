@@ -29,3 +29,7 @@
 
 # Mac
 .DS_Store
+
+# Builds
+build
+.release_time
