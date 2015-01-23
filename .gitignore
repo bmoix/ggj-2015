@@ -32,4 +32,6 @@
 
 # Builds
 build
+bin
 .release_time
+ggj2015
