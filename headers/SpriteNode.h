@@ -9,7 +9,7 @@ class SpriteNode: public SceneNode {
         explicit SpriteNode(const sf::Texture& texture);
         SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect);
 
-        virtual void setSize(sf::Vector2u desiredSize);
+        void setSize(sf::Vector2u desiredSize);
         void setColor(sf::Color color);
         sf::Color getColor();
 
@@ -17,7 +17,8 @@ class SpriteNode: public SceneNode {
         sf::Sprite mSprite;
 
     private:
-        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+
+        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;      
 };
 
 #endif // SPRITE_NODE_HPP

@@ -7,6 +7,7 @@
 #include "State.h"
 #include "SceneNode.h"
 #include "TextNode.h"
+#include "Player.h"
 #include "SpriteNode.h"
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
@@ -38,6 +39,8 @@ class GameScreen: public State {
         std::array<SceneNode*, LayerCount> mSceneLayers;
 
         TextNode* mText;
+
+        Player* mPlayer;
 
         std::string str;
 };

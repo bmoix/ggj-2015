@@ -13,7 +13,8 @@ namespace Textures
 {
 	enum ID
 	{
-        GameBackground
+        GameBackground,
+        Player1
 	};
 }
 

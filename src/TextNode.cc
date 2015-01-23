@@ -2,6 +2,7 @@
 
 TextNode::TextNode(const sf::Font& font, const std::string& text) {
 	mText.setFont(font);
+	mText.setColor(sf::Color::Black);
 	setString(text);
 }
 
