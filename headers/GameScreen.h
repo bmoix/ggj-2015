@@ -1,7 +1,7 @@
-/********************************TitleScreen.h***************************************/
+/********************************GameScreen.h***************************************/
 
-#ifndef TITLE_SCREEN_H
-#define TITLE_SCREEN_H
+#ifndef GAME_SCREEN_H
+#define GAME_SCREEN_H
 
 #include "Utils.h"
 #include "State.h"
@@ -11,21 +11,25 @@
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
 
-class TitleScreen: public State {
+class GameScreen: public State {
 
     public:
         //Constructor with name of the image it want's to display
-        TitleScreen(StatesStack& stack, Context context);
+        GameScreen(StatesStack& stack, Context context);
 
         void draw();
         bool update(sf::Time dt);
         bool handleEvent(const sf::Event& event);
 
     private:
+        void handleRealtimeInput();
         void click(mouseButtons mouseButton, sf::Vector2f mouseClick);
 
         enum Layer {
             Background,
+            World,
+            Players,
+            Traps,
             Text,
             LayerCount
         };
@@ -33,8 +37,10 @@ class TitleScreen: public State {
         SceneNode mSceneGraph;
         std::array<SceneNode*, LayerCount> mSceneLayers;
 
+        TextNode* mText;
+
         std::string str;
 };
 
 
-#endif // TITLE_SCREEN_H
+#endif // GAME_SCREEN_H

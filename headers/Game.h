@@ -8,6 +8,7 @@
 #include "StateIdentifiers.h"
 
 #include "TitleScreen.h"
+#include "GameScreen.h"
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>

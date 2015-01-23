@@ -40,7 +40,7 @@ Game::Game() :
     mWindow.setVerticalSyncEnabled(true);
 
     registerStates();
-    mStatesStack.pushState(States::Title);
+    mStatesStack.pushState(States::Game);
 }
 
 int Game::play() {
@@ -132,5 +132,6 @@ void Game::updateStatistics(sf::Time dt) {
 
 void Game::registerStates() {
     mStatesStack.registerState<TitleScreen>(States::Title);
+    mStatesStack.registerState<GameScreen>(States::Game);
 }
 
