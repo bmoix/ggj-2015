@@ -1,5 +1,5 @@
-#ifndef SPRITENODE_HPP
-#define SPRITENODE_HPP
+#ifndef SPRITE_NODE_HPP
+#define SPRITE_NODE_HPP
 
 #include "Utils.h"
 #include "SceneNode.h"
@@ -19,4 +19,4 @@ class SpriteNode: public SceneNode {
         sf::Sprite mSprite;
 };
 
-#endif // SPRITENODE_HPP
+#endif // SPRITE_NODE_HPP

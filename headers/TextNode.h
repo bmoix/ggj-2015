@@ -1,5 +1,5 @@
-#ifndef TEXTNODE_HPP
-#define TEXTNODE_HPP
+#ifndef TEXT_NODE_HPP
+#define TEXT_NODE_HPP
 
 #include "Utils.h"
 #include "SceneNode.h"
@@ -16,4 +16,4 @@ class TextNode: public SceneNode {
 		sf::Text mText;
 };
 
-#endif // TEXTNODE_HPP
+#endif // TEXT_NODE_HPP

@@ -1,5 +1,5 @@
-#ifndef RESOURCEHOLDER_H
-#define RESOURCEHOLDER_H
+#ifndef RESOURCE_HOLDER_H
+#define RESOURCE_HOLDER_H
 
 #include <map>
 #include <string>
@@ -25,4 +25,4 @@ class ResourceHolder {
 };
 
 #include "ResourceHolder.inl"
-#endif // RESOURCEHOLDER_H
+#endif // RESOURCE_HOLDER_H

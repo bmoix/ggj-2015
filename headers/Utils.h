@@ -105,4 +105,4 @@ namespace Utils {
     }
 }
 
-#endif
+#endif // UTILS_H

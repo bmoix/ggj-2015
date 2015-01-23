@@ -1,5 +1,5 @@
-#ifndef RESOURCEIDENTIFIERS_H
-#define RESOURCEIDENTIFIERS_H
+#ifndef RESOURCE_IDENTIFIERS_H
+#define RESOURCE_IDENTIFIERS_H
 
 
 // Forward declaration of SFML classes
@@ -33,4 +33,4 @@ class ResourceHolder;
 typedef ResourceHolder<sf::Texture, Textures::ID> TextureHolder;
 typedef ResourceHolder<sf::Font, Fonts::ID>	FontHolder;
 
-#endif // RESOURCEIDENTIFIERS_H
+#endif // RESOURCE_IDENTIFIERS_H
