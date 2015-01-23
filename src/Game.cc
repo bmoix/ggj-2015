@@ -32,6 +32,7 @@ Game::Game() :
     // Carrega recursos comuns
     mFonts.load(Fonts::AlluraRegular, "res/media/AlluraRegular.otf");
     mFonts.load(Fonts::Sansation, "res/media/Sansation.ttf");
+    mTextures.load(Textures::GameBackground, "res/pictures/background.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Sansation));
     mStatisticsText.setPosition(5.f, 5.f);

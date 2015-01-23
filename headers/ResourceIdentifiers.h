@@ -13,31 +13,8 @@ namespace Textures
 {
 	enum ID
 	{
-        Llibre,
-        Player,
-        Caixa,
-        Fons1,
-        MFIFons,
-        MFIPlayer,
-        MG1Fons,
-        MG1Player,
-        WMBackground,
-        WMPlayer,
-        WMPerson,
-        WMObject,
-        FightBackground,
-        FightPlayer,
-        FightGroundEnemy,
-        FightSmallAirEnemy,
-        FightBigAirEnemy
+        GameBackground
 	};
-
-    namespace SplashImage {
-        enum ID {
-            Fons,
-            Fletxa
-        };
-    }
 }
 
 namespace Fonts

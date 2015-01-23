@@ -12,14 +12,14 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 	}
 	// Prepara el fons de pantalla i la font
 	sf::Font& font = getContext().mFonts->get(Fonts::Sansation);
+	sf::Texture& backTexture = getContext().mTextures->get(Textures::GameBackground);
 
 	// Add the background sprite to the scene
-	//std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
+	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
 	//centrar la pantalla i escalar la imatge
-	//float esc = float(gameSize.x)/float(backTexture.getSize().x);
-	//backgroundSprite->setScale(sf::Vector2f(esc, esc));
-	//backgroundSprite->setPosition(sf::Vector2f(0.0f, (gameSize.y-backTexture.getSize().y*esc)/2));
-	//mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
+	backgroundSprite->setPosition(sf::Vector2f(0.0f, 0.0f));
+	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
+	
 	// Prepara el text
 	std::unique_ptr<TextNode> textNode(new TextNode(font, "WOLOLO"));
 	mText = textNode.get(); // Guarda una referència al TextNode
