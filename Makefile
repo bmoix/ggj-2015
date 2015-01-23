@@ -34,7 +34,7 @@ INC_PATH = headers
 # Space-separated pkg-config libraries used by this project
 LIBS =
 # General compiler flags
-ifeq ($(UNAME), Darwin)
+ifeq ($(shell uname -s), Darwin)
 	COMPILE_FLAGS = -std=c++11 -stdlib=libc++ -Wall -Wextra -g
 else
 	COMPILE_FLAGS = -std=c++11 -Wall -Wextra -g
@@ -46,10 +46,10 @@ DCOMPILE_FLAGS = -D DEBUG
 # Add additional include paths
 INCLUDES = -I $(INC_PATH)/
 # General linker settings
-ifeq ($(UNAME), Darwin)
+ifeq ($(shell uname -s), Darwin)
 	LINK_FLAGS = -stdlib=libc++ -L/usr/local/lib -lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio
 else
-	LINK_FLAGS = -lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio -lBox2D
+	LINK_FLAGS = -lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio
 endif
 # Additional release-specific linker settings
 RLINK_FLAGS = 
