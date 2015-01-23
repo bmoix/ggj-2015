@@ -9,7 +9,7 @@ class SpriteNode: public SceneNode {
         explicit SpriteNode(const sf::Texture& texture);
         SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect);
 
-        void setSize(sf::Vector2u desiredSize);
+        virtual void setSize(sf::Vector2u desiredSize);
         void setColor(sf::Color color);
         sf::Color getColor();
 
