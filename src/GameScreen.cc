@@ -14,6 +14,7 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
 , mTrapButtons(4)
 , mTrapsAvailable(3)
 , mTextTraps(4)
+, mPlatforms(2, nullptr)
 , mCountdown() {
     // CREACIÓ ESCENA
     // Create box2D world;
@@ -83,16 +84,19 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     // wood -> 0.8 0.7
     // stone -> 0.8 0.7
 
-    std::unique_ptr<SpriteNode> platform(new SpriteNode(platformWoodTexture));
-    platform->setPosition(600.f, 700.f);
-    platform->setSize(sf::Vector2u(250, 75));
-    platform->createBody(mWorld, false, 0.8, 0.7);
+    std::unique_ptr<PlatformNode> platform(new PlatformNode(platformWoodTexture));
+    mPlatforms[0] = platform.get();
+    mPlatforms[0]->setPosition(600.f, 700.f);
+    mPlatforms[0]->setSize(sf::Vector2u(250, 75));
+    mPlatforms[0]->createBody(mWorld, false, 0.8, 0.7);
     mSceneLayers[World]->attachChild(std::move(platform));
 
-    std::unique_ptr<SpriteNode> platform2(new SpriteNode(platformStoneTexture));
-    platform2->setPosition(1200.f, 500.f);
-    platform2->setSize(sf::Vector2u(250, 75));
-    platform2->createBody(mWorld, false, 0.8, 0.7);
+    std::unique_ptr<PlatformNode> platform2(new PlatformNode(platformStoneTexture));
+    mPlatforms[1] = platform2.get();
+    mPlatforms[1]->setPosition(1200.f, 500.f);
+    mPlatforms[1]->setSize(sf::Vector2u(250, 75));
+    mPlatforms[1]->createBody(mWorld, false, 0.8, 0.7);
+    mPlatforms[1]->changeVisibility();
     mSceneLayers[World]->attachChild(std::move(platform2));
 
     
@@ -220,10 +224,8 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 
         }
         if (event.key.code == sf::Keyboard::Num0) {
-            if (mTrapsAvailable[Traps::Platform]) {
-                mTextTraps[Traps::Platform]->setString(
-                    std::to_string(--mTrapsAvailable[Traps::Platform])
-                );
+            for (auto pltf : mPlatforms) {
+                pltf->changeVisibility();
             }
         }
     }

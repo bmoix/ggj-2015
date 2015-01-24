@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "SpriteNode.h"
 #include "InvisibleNode.h"
+#include "PlatformNode.h"
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
 
@@ -57,6 +58,7 @@ class GameScreen: public State {
         std::vector<SpriteNode*> mTrapButtons;
         std::vector<int> mTrapsAvailable;
         std::vector<TextNode*> mTextTraps;
+        std::vector<PlatformNode*> mPlatforms;
 
         b2World* mWorld;
 

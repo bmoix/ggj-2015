@@ -5,7 +5,7 @@ SpriteNode::SpriteNode(const sf::Texture& texture) :
     mSprite(texture),
     mSize(texture.getSize()) {
     Utils::centerOrigin(mSprite);
-}   
+}
 
 SpriteNode::SpriteNode(const sf::Texture& texture, CollisionType type) : 
     SpriteNode(texture) {
