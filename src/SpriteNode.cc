@@ -11,10 +11,6 @@ void SpriteNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) 
     target.draw(mSprite, states);
 }
 
-void SpriteNode::setPosition(const sf::Vector2f &position) {
-    mSprite.setPosition(position);
-}
-
 void SpriteNode::setSize(sf::Vector2u desiredSize){
     float scalex, scaley;
     scalex = scaley = 0.0;
