@@ -23,7 +23,6 @@ class SpriteNode: public SceneNode {
         virtual void createBody(b2World* world, bool dynamic, float bbscalex = 1.0f, float bbscaley = 1.0f, float density = 1.0f);
         virtual void collidedWith(SpriteNode* other, b2Vec2 normal);
         virtual b2Body* createSphericBody(b2World* world, bool dynamic, float bbscalex, float bbscaley, float density);
-        virtual void collidedWith(SpriteNode* other);
 
         sf::Vector2f mSize;
 

@@ -115,8 +115,8 @@ b2Body* SpriteNode::createSphericBody(b2World* world, bool dynamic, float bbscal
     fixture_def.friction = 20.0f;
     mBody->CreateFixture(&fixture_def);
     mBody->SetUserData(this);
+    return mBody;
 }
-
 
 void SpriteNode::collidedWith(SpriteNode* other, b2Vec2 normal) {
   (void) other;

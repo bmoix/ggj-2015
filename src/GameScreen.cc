@@ -139,13 +139,6 @@ bool GameScreen::handleEvent(const sf::Event& event) {
                 }
             }
         }
-        if (event.key.code == sf::Keyboard::Num1) {
-            addTrap(0, sf::Vector2f(1000, 50));
-        }
-
-        if (event.key.code == sf::Keyboard::Num2) {
-            addTrap(2, sf::Vector2f(500, 1030));
-        }
         if (event.key.code == sf::Keyboard::Num7) {
             if (mTrapsAvailable[0]) {
                 addTrap(0, sf::Vector2f(500, 50));
@@ -154,6 +147,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         }
         if (event.key.code == sf::Keyboard::Num8) {
             if (mTrapsAvailable[1]) {
+                addTrap(1, sf::Vector2f(500, 1030));
                 mTextTraps[1]->setString(std::to_string(--mTrapsAvailable[1]));
             }
 
@@ -212,7 +206,8 @@ void GameScreen::addTrap(int type, sf::Vector2f pos) {
             mTraps[mTraps.size()-1]->setPosition(pos);
             mTraps[mTraps.size()-1]->setSize(sf::Vector2u(75, 75));
             mTraps[mTraps.size()-1]->mType = 1;
-            mTraps[mTraps.size()-1]->createSphericBody(mWorld, true, 0.9, 0.9, 1);
+            (mTraps[mTraps.size()-1]->createSphericBody(mWorld, true, 0.9, 0.9, 1))
+                ->SetLinearSpeed(std::rand()*100.0f, std::rand()*100.0f);
             
             mSceneLayers[Traps]->attachChild(std::move(trap));
             break;
