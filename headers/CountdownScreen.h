@@ -7,6 +7,7 @@
 #include "State.h"
 #include "SceneNode.h"
 #include "TextNode.h"
+#include "AnimatedTextNode.h"
 #include "SpriteNode.h"
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
@@ -32,7 +33,7 @@ class CountdownScreen: public State {
         std::array<SceneNode*, LayerCount> mSceneLayers;
         
         //std::array<TextNode*> mTextNodes;
-        TextNode* mText;
+        AnimatedTextNode* mText;
 
         float mWaitingTime;
         sf::Clock mClock;

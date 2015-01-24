@@ -10,7 +10,7 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
         mSceneGraph.attachChild(std::move(layer));
     }
     // Prepara el fons de pantalla i la font
-    sf::Font& font = getContext().mFonts->get(Fonts::Sansation);
+    sf::Font& font = getContext().mFonts->get(Fonts::Gomo);
     sf::Texture& backTexture = getContext().mTextures->get(Textures::CountdownBackground);
     //sf::Texture& player1Texture = getContext().mTextures->Get(Textures::FacePlayer1);
     //sf::Texture& player1Texture = getContext().mTextures->Get(Textures::FacePlayer1);
@@ -23,11 +23,17 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
 
 
     // Prepara el text
-    std::unique_ptr<TextNode> textNode(new TextNode(font, "Get ready"));
+    std::unique_ptr<AnimatedTextNode> textNode(new AnimatedTextNode(font, "3"));
     mText = textNode.get(); // Guarda una referència al TextNode
     mText->setCharacterSize(500.0f);
     mText->setString("3");
     mText->centerText();
+    mText->setInitPosition(sf::Vector2f(1920.0/2.0f, 1080.0f/2.0f));
+    mText->setFinalPosition(sf::Vector2f(1920.0/2.0f, 1080.0f/2.0f));
+    mText->setInitSize(100.0f);
+    mText->setFinalSize(500.0f);
+    mText->setDuration(3.0f);
+    mText->initAnimation();
     
 
     mSceneLayers[Text]->attachChild(std::move(textNode));
@@ -37,6 +43,7 @@ void CountdownScreen::draw() {
     getContext().mRTexture->draw(mSceneGraph);
 }
 bool CountdownScreen::update(sf::Time dt) {
+    mSceneGraph.update(dt);
     float timeLeft = mWaitingTime - mClock.getElapsedTime().asSeconds();
     if (timeLeft < 0.0f) {
         requestStackPop();

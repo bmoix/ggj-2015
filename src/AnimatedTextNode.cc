@@ -1,7 +1,13 @@
 #include "AnimatedTextNode.h"
 
 AnimatedTextNode::AnimatedTextNode(const sf::Font& font, const std::string& text) :
-    TextNode(font, text) {
+    TextNode(font, text),
+    mInitPosition(1920.0f/2.0f, 1080.0f/2.0f),
+    mFinalPosition(mInitPosition),
+    mInitSize(10.0f),
+    mFinalSize(mInitSize),
+    mInitRotation(0.0f),
+    mFinalRotation(0.0f) {
 }
 
 void AnimatedTextNode::setInitPosition(sf::Vector2f position) {
@@ -41,10 +47,10 @@ void AnimatedTextNode::updateCurrent(sf::Time dt) {
     sf::Vector2f newPosition = mInitPosition + posPerTime*elapsedTime;
     mText.setPosition(newPosition);
     
-
     float sizePerTime = (mFinalSize - mInitSize)/mDuration;
     float newSize = mInitSize + sizePerTime*elapsedTime;
     mText.setCharacterSize(newSize);
+    std::cout << "size: " << newSize << std::endl;
 
     float rotPerTime = (mFinalRotation - mInitRotation)/mDuration;
     float newRotation = mInitRotation + rotPerTime*elapsedTime;
