@@ -13,6 +13,8 @@ class AnimatedTextNode: public TextNode {
     void setFinalSize(float size);
     void setInitRotation(float rotation);
     void setFinalRotation(float rotation);
+    void setInitColor(sf::Color color);
+    void setFinalColor(sf::Color color);
     void setDuration(float seconds);
     void initAnimation();
     void updateCurrent(sf::Time dt) override;
@@ -24,6 +26,8 @@ class AnimatedTextNode: public TextNode {
     float mFinalSize;
     float mInitRotation;
     float mFinalRotation;
+    sf::Color mInitColor;
+    sf::Color mFinalColor;
     float mDuration;
     sf::Clock mClock;
 };

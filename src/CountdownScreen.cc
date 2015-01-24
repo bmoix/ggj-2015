@@ -33,6 +33,11 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     mText->setInitSize(100.0f);
     mText->setFinalSize(500.0f);
     mText->setDuration(3.0f);
+    mText->setInitColor(sf::Color::Black);
+    mText->setFinalColor(sf::Color::Red);
+    mText->setInitRotation(-10.0f);
+    mText->setFinalRotation(10.0f);
+
     mText->initAnimation();
     
 

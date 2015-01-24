@@ -7,7 +7,9 @@ AnimatedTextNode::AnimatedTextNode(const sf::Font& font, const std::string& text
     mInitSize(10.0f),
     mFinalSize(mInitSize),
     mInitRotation(0.0f),
-    mFinalRotation(0.0f) {
+    mFinalRotation(0.0f),
+    mInitColor(sf::Color::Black), 
+    mFinalColor(mInitColor) {
 }
 
 void AnimatedTextNode::setInitPosition(sf::Vector2f position) {
@@ -34,6 +36,14 @@ void AnimatedTextNode::setFinalRotation(float rotation) {
     mFinalRotation = rotation;
 }
 
+void AnimatedTextNode::setInitColor(sf::Color color) {
+    mInitColor = color;
+}
+
+void AnimatedTextNode::setFinalColor(sf::Color color) {
+    mFinalColor = color;
+}
+
 void AnimatedTextNode::setDuration(float seconds) {
     mDuration = seconds;
 }
@@ -50,10 +60,19 @@ void AnimatedTextNode::updateCurrent(sf::Time dt) {
     float sizePerTime = (mFinalSize - mInitSize)/mDuration;
     float newSize = mInitSize + sizePerTime*elapsedTime;
     mText.setCharacterSize(newSize);
-    std::cout << "size: " << newSize << std::endl;
 
     float rotPerTime = (mFinalRotation - mInitRotation)/mDuration;
     float newRotation = mInitRotation + rotPerTime*elapsedTime;
     mText.rotate(newRotation);
+
+    float r = (mFinalColor.r - mInitColor.r)/mDuration;
+    float g = (mFinalColor.g - mInitColor.g)/mDuration;
+    float b = (mFinalColor.b - mInitColor.b)/mDuration;
+    sf::Color newColor(
+        sf::Uint8(mInitColor.r + r*elapsedTime),
+        sf::Uint8(mInitColor.g + g*elapsedTime),
+        sf::Uint8(mInitColor.b + b*elapsedTime)
+    );
+    mText.setColor(newColor);
 }
 
