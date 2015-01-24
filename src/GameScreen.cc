@@ -9,8 +9,9 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 , mMovVel(1000.0f)
 , mWalls(2) 
 , mGround()
-, mTrapButtons(5) 
-, mTrapsAvailable(5,3) {
+, mTrapButtons(4) 
+, mTrapsAvailable(4,3)
+, mTextTraps(4) {
     // CREACIÓ ESCENA
     // Create box2D world;
     const b2Vec2 gravity(0, 30.0f);
@@ -102,10 +103,11 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
         mSceneLayers[Text]->attachChild(std::move(trapButton));
 
         std::unique_ptr<TextNode> textTrap(new TextNode(font, std::to_string(mTrapsAvailable[i])));
-        mText = textTrap.get();
-        mText->setPosition(510.f + i*100.f, 50.f);
-        mText->setScale(sf::Vector2f(1.5,1.5));
+        mTextTraps[i] = textTrap.get();
+        mTextTraps[i]->setPosition(510.f + i*100.f, 50.f);
+        mTextTraps[i]->setScale(sf::Vector2f(1.5,1.5));
         mSceneLayers[Text]->attachChild(std::move(textTrap));
+
     }
 
 }
@@ -132,6 +134,30 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         }
         if (event.key.code == sf::Keyboard::Num1) {
             addTrap(0, sf::Vector2f(1000, 50));
+        }
+        if (event.key.code == sf::Keyboard::Num7) {
+            if (mTrapsAvailable[0]) {
+                addTrap(0, sf::Vector2f(500, 50));
+                mTextTraps[0]->setString(std::to_string(--mTrapsAvailable[0]));
+            }
+        }
+        if (event.key.code == sf::Keyboard::Num8) {
+            if (mTrapsAvailable[1]) {
+                mTextTraps[1]->setString(std::to_string(--mTrapsAvailable[1]));
+            }
+
+        }
+        if (event.key.code == sf::Keyboard::Num9) {
+            if (mTrapsAvailable[2]) {
+                mTextTraps[2]->setString(std::to_string(--mTrapsAvailable[2]));
+            }
+
+        }
+        if (event.key.code == sf::Keyboard::Num0) {
+            if (mTrapsAvailable[3]) {
+                mTextTraps[3]->setString(std::to_string(--mTrapsAvailable[3]));
+            }
+
         }
     }
     return true;
