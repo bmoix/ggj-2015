@@ -63,7 +63,7 @@ void AnimatedTextNode::updateCurrent(sf::Time dt) {
 
     float rotPerTime = (mFinalRotation - mInitRotation)/mDuration;
     float newRotation = mInitRotation + rotPerTime*elapsedTime;
-    mText.rotate(newRotation);
+    mText.setRotation(newRotation);
 
     float r = (mFinalColor.r - mInitColor.r)/mDuration;
     float g = (mFinalColor.g - mInitColor.g)/mDuration;

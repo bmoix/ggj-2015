@@ -37,9 +37,7 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     mText->setFinalColor(sf::Color::Red);
     mText->setInitRotation(-10.0f);
     mText->setFinalRotation(10.0f);
-
     mText->initAnimation();
-    
 
     mSceneLayers[Text]->attachChild(std::move(textNode));
 }
