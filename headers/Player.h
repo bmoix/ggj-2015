@@ -27,7 +27,7 @@ class Player: public AnimationNode {
         void setVel(float x, float y);
         sf::Vector2f getVel();
 
-        virtual void createBody(b2World* world, bool dynamic) override;
+        virtual void createBody(b2World* world, bool dynamic, float bbscale = 1.0f) override;
         virtual void collidedWith(SpriteNode* other) override;
 
     private:
