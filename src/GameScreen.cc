@@ -9,6 +9,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 , mMovVel(1000.0f)
 , mWalls(2) 
 , mGround()
+, mCursor()
 , mTrapButtons(4)
 , mTrapsAvailable(4,3)
 , mTextTraps(4)
@@ -35,6 +36,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     sf::Texture& platformWoodTexture = getContext().mTextures->get(Textures::PlatformWood);
     sf::Texture& platformStoneTexture = getContext().mTextures->get(Textures::PlatformStone);
     sf::Texture& animationTexture = getContext().mTextures->get(Textures::PlayerAnimation);
+    sf::Texture& cursorTexture = getContext().mTextures->get(Textures::Cursor);
     std::vector<sf::Texture*> iconTexture(4, nullptr);
     iconTexture[0] = &getContext().mTextures->get(Textures::IconBox);
     iconTexture[1] = &getContext().mTextures->get(Textures::IconBall);
@@ -43,7 +45,6 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 
     // Add the background sprite to the scene
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
-    //centrar la pantalla i escalar la imatge
     backgroundSprite->setPosition(sf::Vector2f(1920.0/2.0f, 1080.0/2.0f));
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
@@ -122,6 +123,11 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 
     // Start timer
     mCountdown.restart();
+
+    std::unique_ptr<SpriteNode> cursorSprite(new SpriteNode(cursorTexture));
+    cursorSprite->setSize(sf::Vector2u(100, 100));
+    cursorSprite->setPosition(sf::Vector2f(500.f, 500.f));
+    mSceneLayers[Text]->attachChild(std::move(cursorSprite));
 }
 
 void GameScreen::draw() {
@@ -205,6 +211,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 
 void GameScreen::handleRealtimeInput(){
     if (!mPlayer->isDead()) {
+        float speed = 100.f;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             mPlayer->setLookingRight(false);
             mPlayer->setVel(-mMovVel,0.0f);
@@ -212,6 +219,18 @@ void GameScreen::handleRealtimeInput(){
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
             mPlayer->setLookingRight(true);
             mPlayer->setVel(mMovVel,0.0f);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            mCursor->move(0.f, -speed);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            
         }
         else {
             mPlayer->scaleVel(0.0f, 1.0f);

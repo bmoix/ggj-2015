@@ -32,6 +32,7 @@ namespace Textures
         Start,
         Help,
         Exit,
+        Cursor
 	};
 }
 

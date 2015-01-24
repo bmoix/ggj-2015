@@ -53,6 +53,7 @@ class GameScreen: public State {
         std::array<SceneNode*, LayerCount> mSceneLayers;
         std::vector<SpriteNode*> mWalls;
         SpriteNode* mGround;
+        SpriteNode* mCursor;
         std::vector<SpriteNode*> mTrapButtons;
         std::vector<int> mTrapsAvailable;
         std::vector<TextNode*> mTextTraps;

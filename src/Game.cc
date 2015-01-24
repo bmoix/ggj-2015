@@ -52,6 +52,7 @@ Game::Game() :
     mTextures.load(Textures::Start, "res/pictures/starticon.png");
     mTextures.load(Textures::Help, "res/pictures/helpicon.png");
     mTextures.load(Textures::Exit, "res/pictures/exiticon.png");
+    mTextures.load(Textures::Cursor, "res/pictures/cursor.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Sansation));
     mStatisticsText.setPosition(5.f, 5.f);
