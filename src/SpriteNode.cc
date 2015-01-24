@@ -54,7 +54,8 @@ void SpriteNode::setupBody(b2World* world, bool dynamic) {
 
         b2PolygonShape dynamic_box;
         dynamic_box.SetAsBox(size.x/2.0, size.y/2.0);
-        std::cout << pos.x << " " << pos.y << "\t" << getWorldPosition().x << " " << getWorldPosition().y << std::endl;
+
+        cout << pos.x << " " << pos.y << " " << mSize.x << " " << mSize.y << endl;
 
         b2FixtureDef fixture_def;
         fixture_def.shape = &dynamic_box;
@@ -72,8 +73,6 @@ void SpriteNode::setupBody(b2World* world, bool dynamic) {
 
         // Add fixture to the body
         mBody->CreateFixture(&shape, 0.0f);
-
-        std::cout << pos.x << " " << pos.y << "\t" << getWorldPosition().x << " " << getWorldPosition().y << " " << mBody->GetLocalCenter().x << " " << mBody->GetLocalCenter().y << std::endl;
     }
 }
 
@@ -87,10 +86,8 @@ void SpriteNode::collidedWith(SpriteNode* other) {
 }
 
 sf::IntRect SpriteNode::getBounds() {
-    sf::FloatRect local = mSprite.getLocalBounds();
-    cout << local.width << " " << local.height << endl;
     sf::Vector2f pos = getWorldPosition();
-    sf::Vector2i newPos = sf::Vector2i(local.left + pos.x, local.top + pos.y);
+    sf::Vector2i newPos = sf::Vector2i(pos.x-mSize.x/2, pos.y-mSize.y/2);
     sf::Vector2i size = sf::Vector2i(mSize.x, mSize.y);
     return sf::IntRect(newPos, size);
 }

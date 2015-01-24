@@ -18,10 +18,12 @@ class SpriteNode: public SceneNode {
         virtual void createBody(b2World* world, bool dynamic);
         virtual void collidedWith(SpriteNode* other);
 
+        sf::Vector2f mSize;
+
     protected:
         b2Body* mBody;
         sf::Sprite mSprite;
-        sf::Vector2f mSize;
+        
         // Setup the body definition and fixtures
         void setupBody(b2World* world, bool dynamic); 
 

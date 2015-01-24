@@ -17,7 +17,7 @@ TitleScreen::TitleScreen(StatesStack& stack, Context context)
     // Add the background sprite to the scene
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
     //centrar la pantalla i escalar la imatge
-    backgroundSprite->setPosition(sf::Vector2f(0.0f, 0.0f));
+    backgroundSprite->setPosition(sf::Vector2f(1920.0/2.f, 1080.0f/2.0f));
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
     std::unique_ptr<SpriteNode> button1(new SpriteNode(button1Texture));

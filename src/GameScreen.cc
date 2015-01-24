@@ -17,9 +17,9 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 
     // Inicialitza les dues capes
     for (std::size_t i = 0; i < LayerCount; ++i) {
-    SceneNode::Ptr layer(new SceneNode());
-    mSceneLayers[i] = layer.get();
-    mSceneGraph.attachChild(std::move(layer));
+        SceneNode::Ptr layer(new SceneNode());
+        mSceneLayers[i] = layer.get();
+        mSceneGraph.attachChild(std::move(layer));
     }
     // Prepara el fons de pantalla i la font
     sf::Font& font = getContext().mFonts->get(Fonts::Sansation);

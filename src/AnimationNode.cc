@@ -7,8 +7,7 @@ AnimationNode::AnimationNode(const sf::Texture& texture, const std::string& file
     mCurrentFrame(0),
     mCurrentCycle(0),
     mCurrentAnim(""),
-    mCurrentTime(0.0f),
-    mSize(0,0)
+    mCurrentTime(0.0f)
     {
     load(filename);
 }   
@@ -91,7 +90,7 @@ void AnimationNode::updateCurrent(sf::Time dt) {
 }
 
 void AnimationNode::setSize(sf::Vector2u desiredSize) {
-    mSize = desiredSize;
+    mSize = sf::Vector2f(desiredSize.x, desiredSize.y);
     updateTextureRect();
 }
 
@@ -111,7 +110,7 @@ void AnimationNode::updateTextureRect() {
 
   float scaleX = mSize.x / float(frame.mSize.x);
   float scaleY = mSize.y / float(frame.mSize.y);
-  setScale(std::abs(scaleX), std::abs(scaleY));
+  mSprite.setScale(std::abs(scaleX), std::abs(scaleY));
 }
 
 void AnimationNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
