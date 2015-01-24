@@ -16,7 +16,7 @@ Game::Game() :
 , mFonts()
 , mWindowSize(mWindow.getSize().x, mWindow.getSize().y)
 , mScale(float(mWindow.getSize().x)/1920.0, 9.0/16.0*float(mWindow.getSize().x)/1920.0)
-, mGameData(5,0,0,0, false)
+, mGameData(5,0,0,0, 0)
 , mStatesStack(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow, mGameData))
 , mStatisticsText()
 , mStatisticsUpdateTime()
@@ -37,7 +37,7 @@ Game::Game() :
     mFonts.load(Fonts::Gomo, "res/media/Gomo.ttf");
     mTextures.load(Textures::GameBackground1, "res/pictures/background1.png");
     mTextures.load(Textures::GameBackground2, "res/pictures/background2.png");
-    mTextures.load(Textures::CountdownBackground, "res/pictures/countdownBackground.png"); // update this
+    mTextures.load(Textures::CountdownBackground, "res/pictures/countdownBackground.png");
     mTextures.load(Textures::Player1, "res/pictures/playerAnimation1.png");
     mTextures.load(Textures::Player2, "res/pictures/playerAnimation2.png");
     mTextures.load(Textures::Blue, "res/pictures/blue.png");

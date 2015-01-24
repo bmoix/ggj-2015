@@ -30,14 +30,16 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     }
     // Prepara el fons de pantalla i la font
     sf::Font& font = getContext().mFonts->get(Fonts::Gomo);
-    sf::Texture& backTexture = getContext().mTextures->get(Textures::GameBackground1);
-    sf::Texture& animationTexture = getContext().mTextures->get(Textures::Player1);
+    Textures::ID backgroundTexture = Textures::GameBackground1;
+    Textures::ID playerTexture = Textures::Player1;
     std::string animationFile = "res/anim/player1.anim";
     if (getContext().mGameData->mSurvivingPlayer == 1) {
-        backTexture = getContext().mTextures->get(Textures::GameBackground2);
-        animationTexture = getContext().mTextures->get(Textures::Player2);
         animationFile = "res/anim/player2.anim";
+        backgroundTexture = Textures::GameBackground2;
+        playerTexture = Textures::Player2;
     }
+    sf::Texture& backTexture = getContext().mTextures->get(backgroundTexture);
+    sf::Texture& animationTexture = getContext().mTextures->get(playerTexture);
     sf::Texture& wallTexture = getContext().mTextures->get(Textures::Red);
     sf::Texture& groundTexture = getContext().mTextures->get(Textures::Blue);
     sf::Texture& platform1Texture = getContext().mTextures->get(Textures::Platform1);
@@ -181,8 +183,7 @@ bool GameScreen::update(sf::Time dt) {
         }
         getContext().mGameData->mSurvivingPlayer = 1-getContext().mGameData->mSurvivingPlayer;
     }
-
-    if (mPlayer->isDead()) {
+    else if (mPlayer->isDead()) {
         requestStackPop();
         requestStackPush(States::Countdown);
         if (getContext().mGameData->mSurvivingPlayer) {
