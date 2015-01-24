@@ -10,13 +10,14 @@ class Player: public AnimationNode {
         explicit Player(const sf::Texture& texture, const std::string& file);
 
         enum class States {
-            Idle,
-            Left,
+            IdleRight,
+            IdleLeft,
             Right,
-            JumpLeft,
+            Left,
             JumpRight,
-            FallLeft,
+            JumpLeft,
             FallRight,
+            FallLeft,
             Dying
         };
 
@@ -45,6 +46,7 @@ class Player: public AnimationNode {
         sf::Vector2f mAcceleration;
 
         bool mDoubleJumpUsed;
+        bool mLookingRight;
 };
 
 #endif // PLAYER_H

@@ -23,6 +23,7 @@
 using namespace std;
 
 const float metersToPixels = 192.0f;
+const float epsilon = 1e-4f;
 
 const float bbscalex_p1 = 0.70f;
 const float bbscaley_p1 = 0.69f;

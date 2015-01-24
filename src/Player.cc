@@ -4,8 +4,9 @@ Player::Player(const sf::Texture& texture, const std::string& file) :
     AnimationNode(texture, file),
     mVelocity(sf::Vector2f(0.0f,0.0f)),
     mAcceleration(sf::Vector2f(0.0f,3000.0f)),
-    mState(Player::States::Idle),
-    mDoubleJumpUsed(false) {
+    mState(Player::States::IdleRight),
+    mDoubleJumpUsed(false),
+    mLookingRight(true) {
 }
 
 void Player::updateCurrent(sf::Time dt) {
@@ -94,55 +95,54 @@ void Player::setState(Player::States state) {
 void Player::updateState() {
     b2Vec2 v = mBody->GetLinearVelocity();
     mVelocity = sf::Vector2f(v.x, v.y);
-    if (abs(mVelocity.x) < 1e-4 && abs(mVelocity.y) < 1e-4) {
-        setState(Player::States::Idle);
+    if (mVelocity.x < -epsilon) mLookingRight = false;
+    else if (mVelocity.x > epsilon) mLookingRight = true;
+
+    if (abs(mVelocity.x) < 1e-4 && abs(mVelocity.y) < epsilon) {
+        if (mLookingRight) setState(Player::States::IdleRight);
+        else setState(Player::States::IdleLeft);
         mDoubleJumpUsed = false;
     }
-    else if (mVelocity.x > 0 && abs(mVelocity.y) < 1e-4) {
-        setState(Player::States::Right);
+    else if (abs(mVelocity.y) < epsilon) {
+        if (mLookingRight) setState(Player::States::Right);
+        else setState(Player::States::Left);
         mDoubleJumpUsed = false;
     }
-    else if (mVelocity.x < 0 && abs(mVelocity.y) < 1e-4) {
-        setState(Player::States::Left);
-        mDoubleJumpUsed = false;
+    else if (mVelocity.y < 0) {
+        if (mLookingRight) setState(Player::States::JumpRight);
+        else setState(Player::States::JumpLeft);
     }
-    else if (mVelocity.x >= 0 && mVelocity.y < 0) {
-        setState(Player::States::JumpRight);
+    else if (mVelocity.y > 0) { 
+        if (mLookingRight) setState(Player::States::FallRight);
+        else setState(Player::States::FallLeft);
     }
-    else if (mVelocity.x < 0 && mVelocity.y < 0) {
-        setState(Player::States::JumpLeft);
-    }
-    else if (mVelocity.x > 0 && mVelocity.y > 0) {
-        setState(Player::States::FallRight);
-    }
-    else if (mVelocity.x < 0 && mVelocity.y > 0) {
-        setState(Player::States::FallLeft);
-    }
-    
 }
 
 void Player::changeAnimation() {
     switch(mState) {
-        case States::Idle:
-            setAnimation("idle");
+        case States::IdleRight:
+            setAnimation("IdleRight");
+            break;
+        case States::IdleLeft:
+            setAnimation("IdleLeft");
             break;
         case States::JumpRight:
-            setAnimation("jumpright");
+            setAnimation("JumpRight");
             break;
         case States::JumpLeft:
-            setAnimation("jumpleft");
+            setAnimation("JumpLeft");
             break;
         case States::FallRight:
-            setAnimation("fallright");
+            setAnimation("FallRight");
             break;
         case States::FallLeft:
-            setAnimation("fallleft");
+            setAnimation("FallLeft");
             break;
         case States::Right:
-            setAnimation("right");
+            setAnimation("Right");
             break;
         case States::Left:
-            setAnimation("left");
+            setAnimation("Left");
             break;
         default:
             break;
