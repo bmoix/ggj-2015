@@ -7,15 +7,17 @@
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 //Constructor
+
 Game::Game() :
-  mWindow(sf::VideoMode(sf::VideoMode::getDesktopMode()), L"1714: La resistència de l'Història"
+  mWindow(sf::VideoMode(sf::VideoMode::getDesktopMode()), L"Kill Or Survive"
     , sf::Style::None/*sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize*/)
 , mRenderTexture()
 , mTextures()
 , mFonts()
 , mWindowSize(mWindow.getSize().x, mWindow.getSize().y)
 , mScale(float(mWindow.getSize().x)/1920.0, 9.0/16.0*float(mWindow.getSize().x)/1920.0)
-, mStatesStack(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow))
+, mGameData(5,0,0,0)
+, mStatesStack(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow, mGameData))
 , mStatisticsText()
 , mStatisticsUpdateTime()
 , mStatisticsNumFrames(0){
@@ -25,7 +27,7 @@ Game::Game() :
 
     mWindowSize = mWindow.getSize();
     mScale = sf::Vector2f(float(mWindow.getSize().x)/1920.0, float(mWindow.getSize().x)/1920.0);
-    mStatesStack.setContext(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow));
+    mStatesStack.setContext(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow, mGameData));
 
     mWindow.setKeyRepeatEnabled(false);
 

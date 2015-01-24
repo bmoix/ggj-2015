@@ -22,6 +22,21 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+struct GameData {
+    GameData(int numRounds, int roundsPassed, int pointsP1, int pointsP2);
+    int mNumRounds;
+    int mRoundsPassed;
+    int mPointsP1;
+    int mPointsP2;
+};
+
+inline GameData::GameData(int numRounds, int roundsPassed, int pointsP1, int pointsP2)
+: mNumRounds(numRounds)
+, mRoundsPassed(roundsPassed)
+, mPointsP1(pointsP1)
+, mPointsP2(pointsP2) {
+}  
+
 const float metersToPixels = 192.0f;
 const float epsilon = 1e-2f;
 

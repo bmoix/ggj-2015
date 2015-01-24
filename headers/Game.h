@@ -42,6 +42,7 @@ class Game {
         FontHolder mFonts;
         StatesStack mStatesStack;
         TextureHolder mTextures;
+        GameData mGameData;
         std::size_t mStatisticsNumFrames;
 };
 
