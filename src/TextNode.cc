@@ -22,3 +22,10 @@ void TextNode::setCharacterSize(unsigned int size) {
 void TextNode::setColor(const sf::Color& color) {
 	mText.setColor(color);
 }
+
+void TextNode::centerText() {
+    sf::FloatRect textRect = mText.getLocalBounds();
+    mText.setOrigin(textRect.left + textRect.width/2.0f,
+                   textRect.top  + textRect.height/2.0f);
+    mText.setPosition(sf::Vector2f(1920/2.0f, 1080/2.0f));
+}

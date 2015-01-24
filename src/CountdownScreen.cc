@@ -25,8 +25,11 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     // Prepara el text
     std::unique_ptr<TextNode> textNode(new TextNode(font, "Get ready"));
     mText = textNode.get(); // Guarda una referència al TextNode
-    mText->setPosition(1920/2, 200);
     mText->setCharacterSize(500.0f);
+    mText->setString("3");
+    mText->centerText();
+    
+
     mSceneLayers[Text]->attachChild(std::move(textNode));
 }
 
@@ -41,6 +44,7 @@ bool CountdownScreen::update(sf::Time dt) {
     }
     else {
         mText->setString(std::to_string(int(std::ceil(timeLeft))));
+        mText->centerText();
     }
     return false;
 }
