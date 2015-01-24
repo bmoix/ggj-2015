@@ -26,7 +26,7 @@ class GameScreen: public State {
 
     public:
         //Constructor with name of the image it want's to display
-        GameScreen(StatesStack& stack, Context context);
+        GameScreen(StatesStack& stack, Context& context);
 
         void draw();
         bool update(sf::Time dt);

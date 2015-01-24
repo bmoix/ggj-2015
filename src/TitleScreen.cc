@@ -1,7 +1,7 @@
 /*********************************TitleScreen.cc***********************************/
 #include "TitleScreen.h"
 
-TitleScreen::TitleScreen(StatesStack& stack, Context context)
+TitleScreen::TitleScreen(StatesStack& stack, Context& context)
 : State(stack, context) {
     for (std::size_t i = 0; i < LayerCount; ++i) {
         SceneNode::Ptr layer(new SceneNode());

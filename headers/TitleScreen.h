@@ -15,7 +15,7 @@ class TitleScreen: public State {
 
     public:
         //Constructor with name of the image it want's to display
-        TitleScreen(StatesStack& stack, Context context);
+        TitleScreen(StatesStack& stack, Context& context);
 
         void draw();
         bool update(sf::Time dt);

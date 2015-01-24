@@ -3,7 +3,7 @@
 #include "AnimationNode.h"
 #include "Collision.h"
 
-GameScreen::GameScreen(StatesStack& stack, Context context)
+GameScreen::GameScreen(StatesStack& stack, Context& context)
 : State(stack, context)
 , mJumpVel(2000.0f)
 , mMovVel(1000.0f)
