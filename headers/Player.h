@@ -23,6 +23,7 @@ class Player: public AnimationNode {
 
         Player::States getState();
         void setState(Player::States state);
+        void setLookingRight(bool state);
 
         void addVel(float x, float y);
         void setVel(float x, float y);

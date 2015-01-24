@@ -142,9 +142,11 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 
 void GameScreen::handleRealtimeInput(){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        mPlayer->setLookingRight(false);
         mPlayer->setVel(-mMovVel,0.0f);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        mPlayer->setLookingRight(true);
         mPlayer->setVel(mMovVel,0.0f);
     }
     else {

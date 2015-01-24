@@ -89,8 +89,6 @@ void Player::setState(Player::States state) {
 void Player::updateState() {
     b2Vec2 v = mBody->GetLinearVelocity();
     mVelocity = sf::Vector2f(v.x, v.y);
-    if (mVelocity.x < -epsilon) mLookingRight = false;
-    else if (mVelocity.x > epsilon) mLookingRight = true;
 
     if (abs(mVelocity.x) < epsilon && abs(mVelocity.y) < epsilon) {
         if (mLookingRight) setState(Player::States::IdleRight);
@@ -108,6 +106,10 @@ void Player::updateState() {
         if (mLookingRight) setState(Player::States::FallRight);
         else setState(Player::States::FallLeft);
     }
+}
+
+void Player::setLookingRight(bool state) {
+    mLookingRight = state;
 }
 
 void Player::changeAnimation() {
