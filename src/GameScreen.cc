@@ -22,19 +22,24 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     sf::Font& font = getContext().mFonts->get(Fonts::Sansation);
     sf::Texture& backTexture = getContext().mTextures->get(Textures::GameBackground);
     sf::Texture& playerTexture = getContext().mTextures->get(Textures::Player1);
+<<<<<<< HEAD
     sf::Texture& wallTexture = getContext().mTextures->get(Textures::Red);
     sf::Texture& groundTexture = getContext().mTextures->get(Textures::Blue);
+=======
+    sf::Texture& animationTexture = getContext().mTextures->get(Textures::PlayerAnimation);
+>>>>>>> Animations and player states finished
 
     // Add the background sprite to the scene
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
     //centrar la pantalla i escalar la imatge
-    backgroundSprite->setPosition(sf::Vector2f(0.0f, 0.0f));
+    backgroundSprite->setPosition(sf::Vector2f(1920.0/2.0f, 1080.0/2.0f));
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
     // Add the player to the scene
-    std::unique_ptr<Player> player(new Player(playerTexture));
+    std::unique_ptr<Player> player(new Player(animationTexture, "res/anim/player.anim"));
     mPlayer = player.get();
-    mPlayer->setPosition(0.0f,500-256); // HARD
+    mPlayer->setPosition(500, 500);
+    mPlayer->setSize(sf::Vector2u(411, 423));
     mSceneLayers[Players]->attachChild(std::move(player));
 
     // Add walls
@@ -64,15 +69,6 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mText->setScale(sf::Vector2f(2,2));
     mSceneLayers[Text]->attachChild(std::move(textNode));
 
-  // Animationtest
-    sf::Texture& animationTexture = getContext().mTextures->get(Textures::PlayerAnimation);
-    std::unique_ptr<AnimationNode> animation(
-        new AnimationNode(animationTexture, "res/anim/player.anim")
-    );
-    animation->setPosition(500, 500);
-    animation->setSize(sf::Vector2u(822, 846));
-    mSceneLayers[Players]->attachChild(std::move(animation));
-
 }
 
 void GameScreen::draw() {
@@ -88,7 +84,6 @@ bool GameScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::W) {
             //if (!mPlayer->isJumping()) {
-                mPlayer->isJumping(true);
                 mPlayer->setVel(mPlayer->getVel().x,-mJumpVel);
             //}
         }
@@ -98,7 +93,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         else if (event.key.code == sf::Keyboard::D) {
             mPlayer->setVel(mMovVel,mPlayer->getVel().y);
         }
-    } 
+    }
     return true;
 }
 

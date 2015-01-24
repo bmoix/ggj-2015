@@ -3,22 +3,37 @@
 
 #include "Utils.h"
 #include "SceneNode.h"
-#include "SpriteNode.h"
+#include "AnimationNode.h"
 
-class Player: public SpriteNode {
+class Player: public AnimationNode {
     public:
-        explicit Player(const sf::Texture& texture);
+        explicit Player(const sf::Texture& texture, const std::string& file);
 
-        bool isJumping();
-        void isJumping(bool isJumping);
+        enum class States {
+            Idle,
+            Left,
+            Right,
+            JumpLeft,
+            JumpRight,
+            FallLeft,
+            FallRight,
+            Dying
+        };
+
+        Player::States getState();
+        void setState(Player::States state);
 
         void addVel(float x, float y);
         void setVel(float x, float y);
         sf::Vector2f getVel();
+
+
     private:
         void updateCurrent(sf::Time dt);
+        void updateState();
+        void changeAnimation();
 
-        bool mIsJumping;
+        States mState;
 
         sf::Vector2f mVelocity;
         sf::Vector2f mAcceleration;

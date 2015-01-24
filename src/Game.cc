@@ -9,7 +9,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 //Constructor
 Game::Game() :
   mWindow(sf::VideoMode(sf::VideoMode::getDesktopMode()), L"1714: La resistència de l'Història"
-    , sf::Style::None/*sf::Style::Titlebar | sf::Style::Close*/)
+    , sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize)
 , mRenderTexture()
 , mTextures()
 , mFonts()

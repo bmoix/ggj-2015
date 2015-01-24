@@ -17,9 +17,11 @@ class AnimationNode: public SpriteNode {
         void setSize(sf::Vector2u desiredSize) override;
         void setAnimation(const std::string& animation);
 
-
-    private:
+    protected:
         void updateCurrent(sf::Time dt) override;
+        
+    private:
+        
         void load(const std::string& filename);
         void updateTextureRect();
 

@@ -2,10 +2,12 @@
 
 SpriteNode::SpriteNode(const sf::Texture& texture)
 : mSprite(texture) {
+	Utils::centerOrigin(mSprite);
 }   
 
 SpriteNode::SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect) 
 : mSprite(texture, textureRect) {
+	Utils::centerOrigin(mSprite);
 }
 
 void SpriteNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
