@@ -32,7 +32,7 @@ class CountdownScreen: public State {
         SceneNode mSceneGraph;
         std::array<SceneNode*, LayerCount> mSceneLayers;
         
-        //std::array<TextNode*> mTextNodes;
+        std::array<AnimatedTextNode*, 2> mTextNodes;
         AnimatedTextNode* mText;
 
         float mWaitingTime;

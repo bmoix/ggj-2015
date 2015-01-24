@@ -1,5 +1,6 @@
 /*********************************CountdownScreen.cc***********************************/
 #include "CountdownScreen.h"
+#include <memory>
 
 CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) : 
     State(stack, context),
@@ -22,7 +23,6 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     // Prepara el text
     std::unique_ptr<AnimatedTextNode> textNode(new AnimatedTextNode(font, "3"));
     mText = textNode.get(); // Guarda una referència al TextNode
-    mText->setCharacterSize(500.0f);
     mText->setString("3");
     mText->centerText();
     mText->setInitPosition(sf::Vector2f(1920.0/2.0f, 1080.0f/2.0f));
@@ -35,8 +35,50 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     mText->setInitRotation(-10.0f);
     mText->setFinalRotation(10.0f);
     mText->initAnimation();
-
     mSceneLayers[Text]->attachChild(std::move(textNode));
+
+    GameData* gd = getContext().mGameData;
+    std::string player1Mission = "Player 1 ";
+    std::string player2Mission = "Player 2 ";
+    if (gd->mSurvivingPlayer == 0) {
+        player1Mission += "Survives";
+        player2Mission += "Attacks";
+    }
+    else {
+        player1Mission += "Attacks";
+        player2Mission += "Survives";
+    }
+    // Players' texts
+    std::unique_ptr<AnimatedTextNode> player1Text(new AnimatedTextNode(font, player1Mission));
+    mTextNodes[0] = player1Text.get();
+    mTextNodes[0]->centerText();
+    mTextNodes[0]->setInitPosition(sf::Vector2f(1920.0/4.0f, 1080.0f/8.0f));
+    mTextNodes[0]->setFinalPosition(sf::Vector2f(1920.0/4.0f, 1080.0f/8.0f));
+    mTextNodes[0]->setInitSize(60.0f);
+    mTextNodes[0]->setFinalSize(100.0f);
+    mTextNodes[0]->setDuration(3.0f);
+    mTextNodes[0]->setInitColor(sf::Color::Red);
+    mTextNodes[0]->setFinalColor(sf::Color::Black);
+    mTextNodes[0]->setInitRotation(-4.0f);
+    mTextNodes[0]->setFinalRotation(4.0f);
+    mTextNodes[0]->initAnimation();
+    mSceneLayers[Text]->attachChild(std::move(player1Text));
+
+
+    std::unique_ptr<AnimatedTextNode> player2Text(new AnimatedTextNode(font, player2Mission));
+    mTextNodes[1] = player2Text.get();
+    mTextNodes[1]->centerText();
+    mTextNodes[1]->setInitPosition(sf::Vector2f(3.0f*1920.0/4.0f, 1080.0f/8.0f));
+    mTextNodes[1]->setFinalPosition(sf::Vector2f(3.0f*1920.0/4.0f, 1080.0f/8.0f));
+    mTextNodes[1]->setInitSize(60.0f);
+    mTextNodes[1]->setFinalSize(100.0f);
+    mTextNodes[1]->setDuration(3.0f);
+    mTextNodes[1]->setInitColor(sf::Color::Blue);
+    mTextNodes[1]->setFinalColor(sf::Color::Black);
+    mTextNodes[1]->setInitRotation(2.0f);
+    mTextNodes[1]->setFinalRotation(-5.0f);
+    mTextNodes[1]->initAnimation();
+    mSceneLayers[Text]->attachChild(std::move(player2Text));
 }
 
 void CountdownScreen::draw() {

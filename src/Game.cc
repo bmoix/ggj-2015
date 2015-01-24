@@ -36,7 +36,7 @@ Game::Game() :
     mFonts.load(Fonts::Sansation, "res/media/Sansation.ttf");
     mFonts.load(Fonts::Gomo, "res/media/Gomo.ttf");
     mTextures.load(Textures::GameBackground, "res/pictures/background2.png");
-    mTextures.load(Textures::CountdownBackground, "res/pictures/background2.png"); // update this
+    mTextures.load(Textures::CountdownBackground, "res/pictures/countdownBackground.png"); // update this
     mTextures.load(Textures::Player1, "res/pictures/player1.png");
     mTextures.load(Textures::PlayerAnimation, "res/pictures/playerAnimation1.png");
     mTextures.load(Textures::Blue, "res/pictures/blue.png");
