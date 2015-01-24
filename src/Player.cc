@@ -4,7 +4,7 @@ Player::Player(const sf::Texture& texture)
 : SpriteNode(texture),
 mIsJumping(false),
 mVelocity(sf::Vector2f(0.0f,0.0f)),
-mAcceleration(sf::Vector2f(0.0f,1500.0f)) {
+mAcceleration(sf::Vector2f(0.0f,3000.0f)) {
 
 }
 

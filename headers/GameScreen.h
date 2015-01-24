@@ -24,6 +24,7 @@ class GameScreen: public State {
 
     private:
         void handleRealtimeInput();
+        void handleCollisions();
         void click(mouseButtons mouseButton, sf::Vector2f mouseClick);
 
         enum Layer {
@@ -43,6 +44,8 @@ class GameScreen: public State {
         Player* mPlayer;
         float mJumpVel;
         float mMovVel;
+
+        std::list<SpriteNode*> mCollisonObjects;
 
         std::string str;
 };

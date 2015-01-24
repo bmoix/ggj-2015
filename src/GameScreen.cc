@@ -4,7 +4,7 @@
 
 GameScreen::GameScreen(StatesStack& stack, Context context)
 : State(stack, context),
-mJumpVel(900.0f),
+mJumpVel(1200.0f),
 mMovVel(300.0f) {
 	// CREACIÓ ESCENA
 	// Inicialitza les dues capes
@@ -53,6 +53,7 @@ void GameScreen::draw() {
 }
 bool GameScreen::update(sf::Time dt) {
 	handleRealtimeInput();
+	handleCollisions();
 	mSceneGraph.update(dt);
     return true;
 }
@@ -60,10 +61,10 @@ bool GameScreen::update(sf::Time dt) {
 bool GameScreen::handleEvent(const sf::Event& event) {
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::W) {
-			if (!mPlayer->isJumping()) {
+			//if (!mPlayer->isJumping()) {
 				mPlayer->isJumping(true);
 				mPlayer->setVel(mPlayer->getVel().x,-mJumpVel);
-			}
+			//}
         }
         else if (event.key.code == sf::Keyboard::A) {
         	mPlayer->setVel(-mMovVel,mPlayer->getVel().y);
@@ -76,4 +77,14 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 }
 
 void GameScreen::handleRealtimeInput(){
+}
+
+void GameScreen::handleCollisions() {
+	for (auto it: mCollisionObjects) {
+		for (auto jt: mCollisionObjects) {
+			if (it->getID() != jt->getID()) {
+				checkCollision();
+			}
+		}
+	}
 }
