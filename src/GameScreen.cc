@@ -1,6 +1,7 @@
 /*********************************GameScreen.cc***********************************/
 #include "GameScreen.h"
 #include "AnimationNode.h"
+#include "Collision.h"
 
 GameScreen::GameScreen(StatesStack& stack, Context context)
 : State(stack, context)
@@ -12,6 +13,8 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     // Create box2D world;
     const b2Vec2 gravity(0, 60.0f);
     mWorld = new b2World(gravity);
+    mWorld->SetContactListener(new Collision());
+
     // Inicialitza les dues capes
     for (std::size_t i = 0; i < LayerCount; ++i) {
     SceneNode::Ptr layer(new SceneNode());

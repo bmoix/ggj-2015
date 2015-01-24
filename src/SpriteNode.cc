@@ -82,6 +82,10 @@ void SpriteNode::createBody(b2World* world, bool dynamic) {
     mBody->SetUserData(this);
 }
 
+void SpriteNode::collidedWith(SpriteNode* other) {
+  (void) other;
+}
+
 sf::IntRect SpriteNode::getBounds() {
     sf::FloatRect local = mSprite.getLocalBounds();
     cout << local.width << " " << local.height << endl;

@@ -16,6 +16,7 @@ class SpriteNode: public SceneNode {
 
         // Create a body from the sprite
         virtual void createBody(b2World* world, bool dynamic);
+        virtual void collidedWith(SpriteNode* other);
 
     protected:
         b2Body* mBody;
