@@ -11,26 +11,30 @@ mState(Player::States::Idle) {
 void Player::updateCurrent(sf::Time dt) {
     AnimationNode::updateCurrent(dt);
     float dtime = dt.asSeconds();
-    float dx = mVelocity.x*dtime + 0.5*mAcceleration.x*dtime*dtime;
-    float dy = mVelocity.y*dtime + 0.5*mAcceleration.y*dtime*dtime;
-    mVelocity.x += mAcceleration.x*dtime;
-    mVelocity.y += mAcceleration.y*dtime;
     Player::States oldState = mState;
     updateState();
     if (mState != oldState) {
         changeAnimation();
     }
-    mSprite.move(dx,dy);
+	//float dtime = dt.asSeconds();
+	//float dx = mVelocity.x*dtime + 0.5*mAcceleration.x*dtime*dtime;
+	//float dy = mVelocity.y*dtime + 0.5*mAcceleration.y*dtime*dtime;
+	//mVelocity.x += mAcceleration.x*dtime;
+	//mVelocity.y += mAcceleration.y*dtime;
+	//mSprite.move(dx,dy);
+    if (mBody != NULL) {
+        b2Vec2 pos = mBody->GetPosition();
+        std::cout << "pos player: (" << pos.x << ", " << pos.y << ")" << std::endl;
+        mSprite.setPosition(pos.x*metersToPixels, pos.y*metersToPixels);
+    }
 }
 
 void Player::addVel(float x, float y) {
-    mVelocity.x += x;
-    mVelocity.y += y;
 }
 
 void Player::setVel(float x, float y) {
-    mVelocity.x = x;
-    mVelocity.y = y;
+    b2Vec2 velocity = mBody->GetLinearVelocity();
+    mBody->SetLinearVelocity(velocity + b2Vec2(x/metersToPixels, y/metersToPixels));
 }
 
 sf::Vector2f Player::getVel() {
@@ -46,13 +50,15 @@ void Player::setState(Player::States state) {
 }
 
 void Player::updateState() {
-    if (abs(mVelocity.x) < 1e-6 && abs(mVelocity.y) < 1e-6) {
+    b2Vec2 v = mBody->GetLinearVelocity();
+    mVelocity = sf::Vector2f(v.x, v.y);
+    if (abs(mVelocity.x) < 1e-4 && abs(mVelocity.y) < 1e-4) {
         setState(Player::States::Idle);
     }
-    else if (mVelocity.x > 0 && abs(mVelocity.y) < 1e-6) {
+    else if (mVelocity.x > 0 && abs(mVelocity.y) < 1e-4) {
         setState(Player::States::Right);
     }
-    else if (mVelocity.x < 0 && abs(mVelocity.y) < 1e-6) {
+    else if (mVelocity.x < 0 && abs(mVelocity.y) < 1e-4) {
         setState(Player::States::Left);
     }
     else if (mVelocity.x > 0 && mVelocity.y < 0) {

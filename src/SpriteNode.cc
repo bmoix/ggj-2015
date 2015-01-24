@@ -1,7 +1,9 @@
 #include "SpriteNode.h"
 
-SpriteNode::SpriteNode(const sf::Texture& texture)
-: mSprite(texture) {
+SpriteNode::SpriteNode(const sf::Texture& texture) : 
+    mBody(NULL),
+    mSprite(texture),
+    mSize(texture.getSize()) {
 	Utils::centerOrigin(mSprite);
 }   
 
@@ -20,6 +22,7 @@ void SpriteNode::setSize(sf::Vector2u desiredSize){
     scalex = float(desiredSize.x)/mSprite.getTexture()->getSize().x;
     scaley = float(desiredSize.y)/mSprite.getTexture()->getSize().y;
     setScale(scalex, scaley);
+    mSize = sf::Vector2f(desiredSize.x, desiredSize.y);
 }
 
 void SpriteNode::setColor(sf::Color color){
@@ -30,10 +33,18 @@ sf::Color SpriteNode::getColor(){
     return mSprite.getColor();
 }
 
+void SpriteNode::updateCurrent(sf::Time dt) {
+    if (mBody != NULL) {
+        b2Vec2 pos = mBody->GetPosition();
+        this->setPosition(pos.x*metersToPixels, pos.y*metersToPixels);
+    }
+}
+
 void SpriteNode::setupBody(b2World* world, bool dynamic) {
-    const sf::FloatRect rect = mSprite.getGlobalBounds();
-    b2Vec2 pos(rect.left, rect.top);
-    b2Vec2 size(rect.width, rect.height);
+    sf::Vector2f vpos = this->getPosition();
+
+    b2Vec2 pos(vpos.x/metersToPixels, vpos.y/metersToPixels);
+    b2Vec2 size(mSize.x/metersToPixels, mSize.y/metersToPixels);
 
     if (dynamic) {
         b2BodyDef body_def;

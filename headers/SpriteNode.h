@@ -19,9 +19,11 @@ class SpriteNode: public SceneNode {
     protected:
         b2Body* mBody;
         sf::Sprite mSprite;
+        sf::Vector2f mSize;
 
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+        virtual void updateCurrent(sf::Time dt) override;
         // Setup the body definition and fixtures
         void setupBody(b2World* world, bool dynamic); 
 };

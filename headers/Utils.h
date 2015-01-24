@@ -22,6 +22,8 @@
 #include <SFML/Graphics.hpp>
 using namespace std;
 
+const float metersToPixels = 192.0f;
+
 enum directions {
     dir_up, dir_down, dir_right, dir_left, dir_up_right, dir_down_left, dir_up_left, dir_down_right, dir_none
 };
