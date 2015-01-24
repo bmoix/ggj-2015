@@ -25,7 +25,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
         mSceneGraph.attachChild(std::move(layer));
     }
     // Prepara el fons de pantalla i la font
-    sf::Font& font = getContext().mFonts->get(Fonts::Sansation);
+    sf::Font& font = getContext().mFonts->get(Fonts::Gomo);
     sf::Texture& backTexture = getContext().mTextures->get(Textures::GameBackground);
     sf::Texture& playerTexture = getContext().mTextures->get(Textures::Player1);
     sf::Texture& wallTexture = getContext().mTextures->get(Textures::Red);

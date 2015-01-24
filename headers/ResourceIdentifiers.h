@@ -36,7 +36,8 @@ namespace Fonts
 	enum ID
 	{
         AlluraRegular,
-        Sansation
+        Sansation,
+        Gomo
 	};
 }
 
