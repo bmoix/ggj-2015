@@ -1,4 +1,7 @@
-ANIM walk
+# ANIM animation_name num_of_repetitions (0 for infinite)
+  # xPos yPos Width Height FrameTime
+
+ANIM walk 5
   0 0 828 846 0.1
   784 0 828 846 0.1
   1648 0 828 846 0.1

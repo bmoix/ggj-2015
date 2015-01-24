@@ -2,15 +2,22 @@
 #include "Utils.h"
 #include <fstream>
 
-AnimationNode::AnimationNode(const sf::Texture& texture, const std::string& filename)
-: SpriteNode(texture) {
-  load(filename);
+AnimationNode::AnimationNode(const sf::Texture& texture, const std::string& filename) :
+    SpriteNode(texture),
+    mCurrentFrame(0),
+    mCurrentCycle(0),
+    mCurrentAnim(""),
+    mCurrentTime(0.0f),
+    mSize(0,0)
+    {
+    load(filename);
 }   
 
 void AnimationNode::load(const std::string &filename) {
   std::ifstream file(filename.c_str());
   std::string line;
   std::string current;
+  unsigned int cycles;
   std::vector<AnimFrame> animation;
   while (getline(file, line)) {
 
@@ -32,12 +39,14 @@ void AnimationNode::load(const std::string &filename) {
       if (current != "") {
         assert(mAnimations.find(current) == mAnimations.end());
         mAnimations[current] = animation;
+        mAnimationCycles[current] = cycles;
         animation.resize(0);
       }
       else {
         mCurrentAnim = token;
       }
       current = token;
+      stream >> cycles;
     }
     else {
       AnimFrame frame;
@@ -51,21 +60,34 @@ void AnimationNode::load(const std::string &filename) {
   }
   if (animation.size() > 0) {
    mAnimations[current] = animation;
+   mAnimationCycles[current] = cycles;
   }
 }
 
 void AnimationNode::updateCurrent(sf::Time dt) {
-  float deltaTime = dt.asSeconds();
-  mCurrentTime += deltaTime;
-  const std::vector<AnimFrame> CurrentFramess = mAnimations[mCurrentAnim];
+    float deltaTime = dt.asSeconds();
+    mCurrentTime += deltaTime;
+    const std::vector<AnimFrame> CurrentFrames = mAnimations[mCurrentAnim];
 
-  while (mCurrentTime > CurrentFramess[mCurrentFrame].mTime) {
-    mCurrentTime -= CurrentFramess[mCurrentFrame].mTime;
-    mCurrentFrame = (mCurrentFrame+1)%(CurrentFramess.size());
-
-  }
-  // Readjust texture tect
-  updateTextureRect();
+    bool needUpdate = true;
+    while (mCurrentTime > CurrentFrames[mCurrentFrame].mTime) {
+        mCurrentTime -= CurrentFrames[mCurrentFrame].mTime;
+        ++mCurrentFrame;
+        if (mCurrentFrame >= CurrentFrames.size()) {
+            ++mCurrentCycle;
+            unsigned int animationCycles = mAnimationCycles[mCurrentAnim];
+            // If reached limit of animaton cycles, keep with last cycle
+            if (animationCycles and mCurrentCycle >= animationCycles) {
+                --mCurrentFrame;
+                needUpdate = 0;
+            }
+            else {
+                mCurrentFrame = 0;
+            }
+        }
+    }
+    // Readjust texture rect if frame has changed
+    if (needUpdate) updateTextureRect();
 }
 
 void AnimationNode::setSize(sf::Vector2u desiredSize) {

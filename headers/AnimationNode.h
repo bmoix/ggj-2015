@@ -26,7 +26,9 @@ class AnimationNode: public SpriteNode {
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;      
 
         std::map<std::string, std::vector<AnimFrame>> mAnimations;
-        int mCurrentFrame;
+        std::map<std::string, unsigned int> mAnimationCycles;
+        unsigned int mCurrentFrame;
+        unsigned int mCurrentCycle;
         std::string mCurrentAnim;
         float mCurrentTime;
         sf::Vector2u mSize;
