@@ -140,27 +140,36 @@ bool GameScreen::handleEvent(const sf::Event& event) {
             }
         }
         if (event.key.code == sf::Keyboard::Num7) {
-            if (mTrapsAvailable[0]) {
-                addTrap(0, sf::Vector2f(500, 50));
-                mTextTraps[0]->setString(std::to_string(--mTrapsAvailable[0]));
+            if (mTrapsAvailable[Traps::Boxes]) {
+                addTrap(Traps::Boxes, sf::Vector2f(500, 50));
+                mTextTraps[Traps::Boxes]->setString(
+                    std::to_string(--mTrapsAvailable[Traps::Boxes])
+                );
             }
         }
         if (event.key.code == sf::Keyboard::Num8) {
-            if (mTrapsAvailable[1]) {
-                addTrap(1, sf::Vector2f(500, 1030));
-                mTextTraps[1]->setString(std::to_string(--mTrapsAvailable[1]));
+            if (mTrapsAvailable[Traps::SpikesBall]) {
+                addTrap(Traps::SpikesBall, sf::Vector2f(500, 1030));
+                mTextTraps[Traps::SpikesBall]->setString(
+                    std::to_string(--mTrapsAvailable[Traps::SpikesBall])
+                );
             }
 
         }
         if (event.key.code == sf::Keyboard::Num9) {
-            if (mTrapsAvailable[2]) {
-                mTextTraps[2]->setString(std::to_string(--mTrapsAvailable[2]));
+            if (mTrapsAvailable[Traps::Spikes]) {
+                addTrap(Traps::Spikes, sf::Vector2f(500, 1030));
+                mTextTraps[Traps::Spikes]->setString(
+                    std::to_string(--mTrapsAvailable[Traps::Spikes])
+                );
             }
 
         }
         if (event.key.code == sf::Keyboard::Num0) {
-            if (mTrapsAvailable[3]) {
-                mTextTraps[3]->setString(std::to_string(--mTrapsAvailable[3]));
+            if (mTrapsAvailable[Traps::Platform]) {
+                mTextTraps[Traps::Platform]->setString(
+                    std::to_string(--mTrapsAvailable[Traps::Platform])
+                );
             }
         }
     }

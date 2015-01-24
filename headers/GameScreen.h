@@ -13,12 +13,14 @@
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
 
-enum class Traps {
-    Boxes,
-    SpikesBall,
-    Spikes,
-    Platform,
-};
+namespace Traps {
+    enum Traps {
+        Boxes = 0,
+        SpikesBall,
+        Spikes,
+        Platform,
+    };
+}
 
 class GameScreen: public State {
 
