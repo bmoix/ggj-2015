@@ -34,6 +34,7 @@ Game::Game() :
     mFonts.load(Fonts::Sansation, "res/media/Sansation.ttf");
     mTextures.load(Textures::GameBackground, "res/pictures/background.png");
     mTextures.load(Textures::Player1, "res/pictures/player1.png");
+    mTextures.load(Textures::PlayerAnimation, "res/pictures/playerAnimation.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Sansation));
     mStatisticsText.setPosition(5.f, 5.f);

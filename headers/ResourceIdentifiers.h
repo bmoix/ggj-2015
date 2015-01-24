@@ -14,7 +14,8 @@ namespace Textures
 	enum ID
 	{
         GameBackground,
-        Player1
+        Player1,
+        PlayerAnimation,
 	};
 }
 

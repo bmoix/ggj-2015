@@ -1,5 +1,6 @@
 /*********************************GameScreen.cc***********************************/
 #include "GameScreen.h"
+#include "AnimationNode.h"
 
 GameScreen::GameScreen(StatesStack& stack, Context context)
 : State(stack, context),
@@ -35,6 +36,15 @@ mMovVel(300.0f) {
 	mText->setPosition(100 , 0);
 	mText->setScale(sf::Vector2f(2,2));
 	mSceneLayers[Text]->attachChild(std::move(textNode));
+
+  // Animationtest
+	sf::Texture& animationTexture = getContext().mTextures->get(Textures::PlayerAnimation);
+  std::unique_ptr<AnimationNode> animation(
+      new AnimationNode(animationTexture, "res/anim/player.anim")
+  );
+  animation->setPosition(500, 500);
+  animation->setSize(sf::Vector2u(822, 846));
+  mSceneLayers[Players]->attachChild(std::move(animation));
 
 }
 
