@@ -36,7 +36,9 @@ sf::Color SpriteNode::getColor(){
 void SpriteNode::updateCurrent(sf::Time dt) {
     if (mBody != NULL) {
         b2Vec2 pos = mBody->GetPosition();
+        float rot = mBody->GetAngle();
         this->setPosition(pos.x*metersToPixels, pos.y*metersToPixels);
+        this->setRotation(rot*180/(atan(1)*2));
     }
 }
 

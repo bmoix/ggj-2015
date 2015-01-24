@@ -22,6 +22,8 @@ class GameScreen: public State {
         bool update(sf::Time dt);
         bool handleEvent(const sf::Event& event);
 
+        void addTrap(int type, sf::Vector2f pos);
+
     private:
         void handleRealtimeInput();
         void handleCollisions();
@@ -43,13 +45,15 @@ class GameScreen: public State {
         SpriteNode* mGround;
         std::vector<SpriteNode*> mTrapButtons;
 
-        b2World* mWorld;        
+        b2World* mWorld;
 
         TextNode* mText;
 
         Player* mPlayer;
         float mJumpVel;
         float mMovVel;
+
+        std::vector<SpriteNode*> mTraps;
 
         std::string str;
 };

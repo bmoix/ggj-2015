@@ -118,6 +118,9 @@ bool GameScreen::handleEvent(const sf::Event& event) {
                 //mPlayer->setVel(mPlayer->getVel().x,-mJumpVel);
             }
         }
+        if (event.key.code == sf::Keyboard::Num1) {
+            addTrap(0, sf::Vector2f(500, 50));
+        }
     }
     return true;
 }
@@ -133,4 +136,29 @@ void GameScreen::handleRealtimeInput(){
         mPlayer->scaleVel(0.0f, 1.0f);
     }
 
+}
+
+void GameScreen::addTrap(int type, sf::Vector2f pos) {
+    switch(type) {
+        case 0: // Box line
+        {
+            sf::Texture& trapTexture = getContext().mTextures->get(Textures::TrapBox);
+            for (int i = 0; i < 5; ++i) {
+                std::unique_ptr<SpriteNode> trap(new SpriteNode(trapTexture));
+                mTraps.push_back(trap.get());
+                mTraps[mTraps.size()-1]->setPosition(pos);
+                mTraps[mTraps.size()-1]->setSize(sf::Vector2u(75, 75));
+                mTraps[mTraps.size()-1]->createBody(mWorld, true, 0.9, 0.9);
+                mTraps[mTraps.size()-1]->mType = 1;
+                mSceneLayers[Traps]->attachChild(std::move(trap));
+            }
+            break;
+        }
+        case 1: // Spikes ball
+            break;
+        case 2: // Spikes
+            break;
+        case 3: // Platform switcher
+            break;
+    }
 }
