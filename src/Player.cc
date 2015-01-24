@@ -17,12 +17,6 @@ void Player::updateCurrent(sf::Time dt) {
     if (mState != oldState) {
         changeAnimation();
     }
-	//float dtime = dt.asSeconds();
-	//float dx = mVelocity.x*dtime + 0.5*mAcceleration.x*dtime*dtime;
-	//float dy = mVelocity.y*dtime + 0.5*mAcceleration.y*dtime*dtime;
-	//mVelocity.x += mAcceleration.x*dtime;
-	//mVelocity.y += mAcceleration.y*dtime;
-	//mSprite.move(dx,dy);
     if (mBody != NULL) {
         b2Vec2 pos = mBody->GetPosition();
         setPosition(pos.x*metersToPixels, pos.y*metersToPixels);
@@ -98,15 +92,13 @@ void Player::updateState() {
     if (mVelocity.x < -epsilon) mLookingRight = false;
     else if (mVelocity.x > epsilon) mLookingRight = true;
 
-    if (abs(mVelocity.x) < 1e-4 && abs(mVelocity.y) < epsilon) {
+    if (abs(mVelocity.x) < epsilon && abs(mVelocity.y) < epsilon) {
         if (mLookingRight) setState(Player::States::IdleRight);
         else setState(Player::States::IdleLeft);
-        mDoubleJumpUsed = false;
     }
     else if (abs(mVelocity.y) < epsilon) {
         if (mLookingRight) setState(Player::States::Right);
         else setState(Player::States::Left);
-        mDoubleJumpUsed = false;
     }
     else if (mVelocity.y < 0) {
         if (mLookingRight) setState(Player::States::JumpRight);
@@ -155,8 +147,10 @@ void Player::createBody(b2World* world, bool dynamic, float bbscalex, float bbsc
     mBody->SetFixedRotation(true);
 }
 
-void Player::collidedWith(SpriteNode* other) {
+void Player::collidedWith(SpriteNode* other, b2Vec2 normal) {
     if (other) {
+        if (normal.y > 0) mDoubleJumpUsed = false;
+
         if (other->mType == 1) std::cout << "Left wall" << std::endl;
         else if (other->mType == 2) std::cout << "Right wall" << std::endl;
     }

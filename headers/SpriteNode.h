@@ -16,7 +16,7 @@ class SpriteNode: public SceneNode {
 
         // Create a body from the sprite
         virtual void createBody(b2World* world, bool dynamic, float bbscalex = 1.0f, float bbscaley = 1.0f);
-        virtual void collidedWith(SpriteNode* other);
+        virtual void collidedWith(SpriteNode* other, b2Vec2 normal);
 
         sf::Vector2f mSize;
 

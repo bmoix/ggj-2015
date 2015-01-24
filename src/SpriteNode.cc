@@ -81,7 +81,7 @@ void SpriteNode::createBody(b2World* world, bool dynamic, float bbscalex, float 
     mBody->SetUserData(this);
 }
 
-void SpriteNode::collidedWith(SpriteNode* other) {
+void SpriteNode::collidedWith(SpriteNode* other, b2Vec2 normal) {
   (void) other;
 }
 
