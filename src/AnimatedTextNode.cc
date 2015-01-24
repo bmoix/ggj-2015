@@ -53,6 +53,8 @@ void AnimatedTextNode::initAnimation() {
 }
 void AnimatedTextNode::updateCurrent(sf::Time dt) {
     float elapsedTime = mClock.getElapsedTime().asSeconds();
+    if (elapsedTime > mDuration) return;
+
     sf::Vector2f posPerTime = (mFinalPosition - mInitPosition)/mDuration;
     sf::Vector2f newPosition = mInitPosition + posPerTime*elapsedTime;
     mText.setPosition(newPosition);

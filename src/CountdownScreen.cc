@@ -12,15 +12,12 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     // Prepara el fons de pantalla i la font
     sf::Font& font = getContext().mFonts->get(Fonts::Gomo);
     sf::Texture& backTexture = getContext().mTextures->get(Textures::CountdownBackground);
-    //sf::Texture& player1Texture = getContext().mTextures->Get(Textures::FacePlayer1);
-    //sf::Texture& player1Texture = getContext().mTextures->Get(Textures::FacePlayer1);
 
     // Add the background sprite to the scene
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
     //centrar la pantalla i escalar la imatge
     backgroundSprite->setPosition(sf::Vector2f(1920.0/2.f, 1080.0f/2.0f));
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
-
 
     // Prepara el text
     std::unique_ptr<AnimatedTextNode> textNode(new AnimatedTextNode(font, "3"));
