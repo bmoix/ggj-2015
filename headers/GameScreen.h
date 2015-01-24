@@ -39,6 +39,8 @@ class GameScreen: public State {
 
         SceneNode mSceneGraph;
         std::array<SceneNode*, LayerCount> mSceneLayers;
+        std::vector<SpriteNode*> mWalls;
+        SpriteNode* mGround;
 
         TextNode* mText;
 

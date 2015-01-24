@@ -16,6 +16,8 @@ namespace Textures
         GameBackground,
         Player1,
         PlayerAnimation,
+        Blue,
+        Red,
 	};
 }
 

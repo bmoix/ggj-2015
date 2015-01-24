@@ -35,6 +35,8 @@ Game::Game() :
     mTextures.load(Textures::GameBackground, "res/pictures/background.png");
     mTextures.load(Textures::Player1, "res/pictures/player1.png");
     mTextures.load(Textures::PlayerAnimation, "res/pictures/playerAnimation.png");
+    mTextures.load(Textures::Blue, "res/pictures/Blue.png");
+    mTextures.load(Textures::Red, "res/pictures/Red.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Sansation));
     mStatisticsText.setPosition(5.f, 5.f);

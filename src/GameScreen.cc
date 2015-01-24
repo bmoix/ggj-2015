@@ -3,9 +3,11 @@
 #include "AnimationNode.h"
 
 GameScreen::GameScreen(StatesStack& stack, Context context)
-: State(stack, context),
-mJumpVel(1200.0f),
-mMovVel(300.0f) {
+: State(stack, context)
+, mJumpVel(1200.0f)
+, mMovVel(300.0f)
+, mWalls(2) 
+, mGround() {
     // CREACIÓ ESCENA
     // Inicialitza les dues capes
     for (std::size_t i = 0; i < LayerCount; ++i) {
@@ -17,6 +19,8 @@ mMovVel(300.0f) {
     sf::Font& font = getContext().mFonts->get(Fonts::Sansation);
     sf::Texture& backTexture = getContext().mTextures->get(Textures::GameBackground);
     sf::Texture& playerTexture = getContext().mTextures->get(Textures::Player1);
+    sf::Texture& wallTexture = getContext().mTextures->get(Textures::Red);
+    sf::Texture& groundTexture = getContext().mTextures->get(Textures::Blue);
 
     // Add the background sprite to the scene
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
@@ -29,6 +33,26 @@ mMovVel(300.0f) {
     mPlayer = player.get();
     mPlayer->setPosition(0.0f,500-256); // HARD
     mSceneLayers[Players]->attachChild(std::move(player));
+
+    // Add walls
+    std::unique_ptr<SpriteNode> wallLeft(new SpriteNode(wallTexture));
+    mWalls[0] = wallLeft.get();
+    mWalls[0]->setPosition(0.f, 0.f);
+    mWalls[0]->setSize(sf::Vector2u(50, 1030));
+    mSceneLayers[World]->attachChild(std::move(wallLeft));
+
+    std::unique_ptr<SpriteNode> wallRight(new SpriteNode(wallTexture));
+    mWalls[0] = wallRight.get();
+    mWalls[0]->setPosition(1870.f, 0.f);
+    mWalls[0]->setSize(sf::Vector2u(50, 1030));
+    mSceneLayers[World]->attachChild(std::move(wallRight));
+
+    std::unique_ptr<SpriteNode> ground(new SpriteNode(groundTexture));
+    mGround = ground.get();
+    mGround->setPosition(0.f, 1030.f);
+    mGround->setSize(sf::Vector2u(1920, 50));
+    mSceneLayers[World]->attachChild(std::move(ground));
+
 
     // Prepara el text
     std::unique_ptr<TextNode> textNode(new TextNode(font, "WOLOLO"));
