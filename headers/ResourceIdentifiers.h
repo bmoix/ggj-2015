@@ -18,6 +18,7 @@ namespace Textures
         PlayerAnimation,
         Blue,
         Red,
+        Platform1,
 	};
 }
 

@@ -8,7 +8,8 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 , mJumpVel(2000.0f)
 , mMovVel(1000.0f)
 , mWalls(2) 
-, mGround() {
+, mGround()
+, mTrapButtons(5) {
     // CREACIÓ ESCENA
     // Create box2D world;
     const b2Vec2 gravity(0, 30.0f);
@@ -27,6 +28,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     sf::Texture& playerTexture = getContext().mTextures->get(Textures::Player1);
     sf::Texture& wallTexture = getContext().mTextures->get(Textures::Red);
     sf::Texture& groundTexture = getContext().mTextures->get(Textures::Blue);
+    sf::Texture& platform1Texture = getContext().mTextures->get(Textures::Platform1);
     sf::Texture& animationTexture = getContext().mTextures->get(Textures::PlayerAnimation);
 
     // Add the background sprite to the scene
@@ -67,16 +69,16 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mGround->createBody(mWorld, false);
     mSceneLayers[World]->attachChild(std::move(ground));
 
-    std::unique_ptr<SpriteNode> platform(new SpriteNode(groundTexture));
+    std::unique_ptr<SpriteNode> platform(new SpriteNode(platform1Texture));
     platform->setPosition(600.f, 700.f);
-    platform->setSize(sf::Vector2u(250, 25));
-    platform->createBody(mWorld, false);
+    platform->setSize(sf::Vector2u(250, 75));
+    platform->createBody(mWorld, false, 0.6, 0.6);
     mSceneLayers[World]->attachChild(std::move(platform));
 
-    std::unique_ptr<SpriteNode> platform2(new SpriteNode(groundTexture));
+    std::unique_ptr<SpriteNode> platform2(new SpriteNode(platform1Texture));
     platform2->setPosition(1200.f, 500.f);
-    platform2->setSize(sf::Vector2u(250, 25));
-    platform2->createBody(mWorld, false);
+    platform2->setSize(sf::Vector2u(250, 75));
+    platform2->createBody(mWorld, false, 0.6, 0.6);
     mSceneLayers[World]->attachChild(std::move(platform2));
 
     // Prepara el text
@@ -85,6 +87,13 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mText->setPosition(100 , 0);
     mText->setScale(sf::Vector2f(2,2));
     mSceneLayers[Text]->attachChild(std::move(textNode));
+
+    // Add items
+    std::unique_ptr<SpriteNode> trapButton1(new SpriteNode(wallTexture));
+    mTrapButtons[0] = trapButton1.get();
+    mTrapButtons[0]->setPosition(500.f, 50.f);
+    mTrapButtons[0]->setSize(sf::Vector2u(100, 100));
+    mSceneLayers[Text]->attachChild(std::move(trapButton1));
 
 }
 
