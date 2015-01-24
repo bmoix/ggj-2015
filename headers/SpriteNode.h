@@ -13,12 +13,17 @@ class SpriteNode: public SceneNode {
         void setColor(sf::Color color);
         sf::Color getColor();
 
+        // Create a body from the sprite
+        virtual void createBody(b2World* world, bool dynamic);
+
     protected:
+        b2Body* mBody;
         sf::Sprite mSprite;
 
     private:
-
-        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;      
+        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+        // Setup the body definition and fixtures
+        void setupBody(b2World* world, bool dynamic); 
 };
 
 #endif // SPRITE_NODE_HPP

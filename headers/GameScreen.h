@@ -42,6 +42,8 @@ class GameScreen: public State {
         std::vector<SpriteNode*> mWalls;
         SpriteNode* mGround;
 
+        b2World* mWorld;        
+
         TextNode* mText;
 
         Player* mPlayer;

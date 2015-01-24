@@ -9,11 +9,14 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 , mWalls(2) 
 , mGround() {
     // CREACIÓ ESCENA
+    // Create box2D world;
+    const b2Vec2 gravity(0, 60.0f);
+    mWorld = new b2World(gravity);
     // Inicialitza les dues capes
     for (std::size_t i = 0; i < LayerCount; ++i) {
-        SceneNode::Ptr layer(new SceneNode());
-        mSceneLayers[i] = layer.get();
-        mSceneGraph.attachChild(std::move(layer));
+    SceneNode::Ptr layer(new SceneNode());
+    mSceneLayers[i] = layer.get();
+    mSceneGraph.attachChild(std::move(layer));
     }
     // Prepara el fons de pantalla i la font
     sf::Font& font = getContext().mFonts->get(Fonts::Sansation);
