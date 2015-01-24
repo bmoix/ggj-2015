@@ -19,7 +19,9 @@ namespace Textures
         Blue,
         Red,
         Platform1,
-        TrapBox
+        TrapBox,
+        PlatformWood,
+        PlatformStone,
 	};
 }
 

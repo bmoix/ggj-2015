@@ -38,7 +38,12 @@ Game::Game() :
     mTextures.load(Textures::Blue, "res/pictures/blue.png");
     mTextures.load(Textures::Red, "res/pictures/red.png");
     mTextures.load(Textures::Platform1, "res/pictures/platform1.png");
+<<<<<<< HEAD
     mTextures.load(Textures::TrapBox, "res/pictures/trap_box.png");
+=======
+    mTextures.load(Textures::PlatformWood, "res/pictures/platformWood.png");
+    mTextures.load(Textures::PlatformStone, "res/pictures/platformStone.png");
+>>>>>>> New platforms
 
     mStatisticsText.setFont(mFonts.get(Fonts::Sansation));
     mStatisticsText.setPosition(5.f, 5.f);
