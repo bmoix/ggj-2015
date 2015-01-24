@@ -12,6 +12,7 @@ class SpriteNode: public SceneNode {
 
         void setColor(sf::Color color);
         sf::Color getColor();
+        sf::IntRect getBounds();
 
         // Create a body from the sprite
         virtual void createBody(b2World* world, bool dynamic);

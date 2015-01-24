@@ -12,12 +12,13 @@ class State {
         typedef std::unique_ptr<State> Ptr;
 
         struct Context {
-            Context(sf::RenderTexture& rTexture, TextureHolder& textures, FontHolder& fonts, sf::Vector2f Scale);
+            Context(sf::RenderTexture& rTexture, TextureHolder& textures, FontHolder& fonts, sf::Vector2f Scale, sf::RenderWindow& window);
 
             sf::RenderTexture* mRTexture;
             TextureHolder* mTextures;
             FontHolder* mFonts;
             sf::Vector2f mScale;
+            sf::RenderWindow* mWindow;
         };
 
         State(StatesStack& stack, Context context);

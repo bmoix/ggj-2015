@@ -78,3 +78,12 @@ void SpriteNode::createBody(b2World* world, bool dynamic) {
     setupBody(world, dynamic);
     mBody->SetUserData(this);
 }
+
+sf::IntRect SpriteNode::getBounds() {
+    sf::FloatRect local = mSprite.getLocalBounds();
+    cout << local.width << " " << local.height << endl;
+    sf::Vector2f pos = getWorldPosition();
+    sf::Vector2i newPos = sf::Vector2i(local.left + pos.x, local.top + pos.y);
+    sf::Vector2i size = sf::Vector2i(local.width, local.height);
+    return sf::IntRect(newPos, size);
+}

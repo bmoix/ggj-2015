@@ -23,7 +23,7 @@ class TitleScreen: public State {
 
     private:
         void click(mouseButtons mouseButton, sf::Vector2f mouseClick);
-
+        bool contains(const sf::FloatRect& rect, sf::Vector2i pos);
         enum Layer {
             Background,
             Text,
@@ -32,6 +32,11 @@ class TitleScreen: public State {
 
         SceneNode mSceneGraph;
         std::array<SceneNode*, LayerCount> mSceneLayers;
+
+        TextNode* mText;
+        SpriteNode* mButtonPlay;
+        SpriteNode* mButtonHelp;
+        SpriteNode* mButtonExit;
 
         std::string str;
 };

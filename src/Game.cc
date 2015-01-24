@@ -15,7 +15,7 @@ Game::Game() :
 , mFonts()
 , mWindowSize(mWindow.getSize().x, mWindow.getSize().y)
 , mScale(float(mWindow.getSize().x)/1920.0, 9.0/16.0*float(mWindow.getSize().x)/1920.0)
-, mStatesStack(State::Context(mRenderTexture, mTextures, mFonts, mScale))
+, mStatesStack(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow))
 , mStatisticsText()
 , mStatisticsUpdateTime()
 , mStatisticsNumFrames(0){
@@ -25,7 +25,7 @@ Game::Game() :
 
     mWindowSize = mWindow.getSize();
     mScale = sf::Vector2f(float(mWindow.getSize().x)/1920.0, float(mWindow.getSize().x)/1920.0);
-    mStatesStack.setContext(State::Context(mRenderTexture, mTextures, mFonts, mScale));
+    mStatesStack.setContext(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow));
 
     mWindow.setKeyRepeatEnabled(false);
 
@@ -46,7 +46,7 @@ Game::Game() :
     mWindow.setVerticalSyncEnabled(true);
 
     registerStates();
-    mStatesStack.pushState(States::Game);
+    mStatesStack.pushState(States::Title);
 }
 
 int Game::play() {

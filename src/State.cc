@@ -1,11 +1,12 @@
 #include "State.h"
 #include "StatesStack.h"
 
-State::Context::Context(sf::RenderTexture& rTexture, TextureHolder& textures, FontHolder& fonts, sf::Vector2f Scale)
+State::Context::Context(sf::RenderTexture& rTexture, TextureHolder& textures, FontHolder& fonts, sf::Vector2f Scale, sf::RenderWindow& window)
 : mRTexture(&rTexture)
 , mTextures(&textures)
 , mFonts(&fonts)
-, mScale(Scale) {
+, mScale(Scale)
+, mWindow(&window) {
 }
 
 State::State(StatesStack& stack, Context context)
