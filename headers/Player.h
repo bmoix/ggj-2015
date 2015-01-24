@@ -28,6 +28,7 @@ class Player: public AnimationNode {
         sf::Vector2f getVel();
 
         virtual void createBody(b2World* world, bool dynamic) override;
+        virtual void collidedWith(SpriteNode* other) override;
 
     private:
         void updateCurrent(sf::Time dt);

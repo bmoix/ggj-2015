@@ -49,6 +49,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mWalls[0]->setPosition(25.f, 515.f);
     mWalls[0]->setSize(sf::Vector2u(50, 1030));
     mWalls[0]->createBody(mWorld, false);
+    mWalls[0]->mType = 1;
     mSceneLayers[World]->attachChild(std::move(wallLeft));
 
     std::unique_ptr<SpriteNode> wallRight(new SpriteNode(wallTexture));
@@ -56,6 +57,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mWalls[1]->setPosition(1895.f, 515.f);
     mWalls[1]->setSize(sf::Vector2u(50, 1030));
     mWalls[1]->createBody(mWorld, false);
+    mWalls[1]->mType = 2;
     mSceneLayers[World]->attachChild(std::move(wallRight));
 
     std::unique_ptr<SpriteNode> ground(new SpriteNode(groundTexture));

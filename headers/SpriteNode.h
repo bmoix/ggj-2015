@@ -20,6 +20,8 @@ class SpriteNode: public SceneNode {
 
         sf::Vector2f mSize;
 
+        int mType;
+
     protected:
         b2Body* mBody;
         sf::Sprite mSprite;

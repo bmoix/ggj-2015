@@ -108,3 +108,10 @@ void Player::createBody(b2World* world, bool dynamic) {
     mBody->SetUserData(this);
     mBody->SetFixedRotation(true);
 }
+
+void Player::collidedWith(SpriteNode* other) {
+    if (other) {
+        if (other->mType == 1) std::cout << "Left wall" << std::endl;
+        else if (other->mType == 2) std::cout << "Right wall" << std::endl;
+    }
+}
