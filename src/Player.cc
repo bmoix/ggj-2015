@@ -34,7 +34,7 @@ void Player::addVel(float x, float y) {
 
 void Player::setVel(float x, float y) {
     b2Vec2 velocity = mBody->GetLinearVelocity();
-    mBody->SetLinearVelocity(velocity + b2Vec2(x/metersToPixels, y/metersToPixels));
+    mBody->SetLinearVelocity(b2Vec2(x/metersToPixels, y/metersToPixels+velocity.y));
 }
 
 sf::Vector2f Player::getVel() {

@@ -58,7 +58,7 @@ void SpriteNode::setupBody(b2World* world, bool dynamic) {
         b2FixtureDef fixture_def;
         fixture_def.shape = &dynamic_box;
         fixture_def.density = 1.0f;
-        fixture_def.friction = 0.3f;
+        fixture_def.friction = 20.0f;
         mBody->CreateFixture(&fixture_def);
     }
     else {
