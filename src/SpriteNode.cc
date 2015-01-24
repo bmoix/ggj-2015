@@ -41,7 +41,7 @@ void SpriteNode::updateCurrent(sf::Time dt) {
 }
 
 void SpriteNode::setupBody(b2World* world, bool dynamic) {
-    sf::Vector2f vpos = this->getPosition();
+    sf::Vector2f vpos = this->getWorldPosition();
 
     b2Vec2 pos(vpos.x/metersToPixels, vpos.y/metersToPixels);
     b2Vec2 size(mSize.x/metersToPixels, mSize.y/metersToPixels);
@@ -54,6 +54,7 @@ void SpriteNode::setupBody(b2World* world, bool dynamic) {
 
         b2PolygonShape dynamic_box;
         dynamic_box.SetAsBox(size.x/2.0, size.y/2.0);
+        std::cout << pos.x << " " << pos.y << "\t" << getWorldPosition().x << " " << getWorldPosition().y << std::endl;
 
         b2FixtureDef fixture_def;
         fixture_def.shape = &dynamic_box;
@@ -71,6 +72,8 @@ void SpriteNode::setupBody(b2World* world, bool dynamic) {
 
         // Add fixture to the body
         mBody->CreateFixture(&shape, 0.0f);
+
+        std::cout << pos.x << " " << pos.y << "\t" << getWorldPosition().x << " " << getWorldPosition().y << " " << mBody->GetLocalCenter().x << " " << mBody->GetLocalCenter().y << std::endl;
     }
 }
 
@@ -84,6 +87,6 @@ sf::IntRect SpriteNode::getBounds() {
     cout << local.width << " " << local.height << endl;
     sf::Vector2f pos = getWorldPosition();
     sf::Vector2i newPos = sf::Vector2i(local.left + pos.x, local.top + pos.y);
-    sf::Vector2i size = sf::Vector2i(local.width, local.height);
+    sf::Vector2i size = sf::Vector2i(mSize.x, mSize.y);
     return sf::IntRect(newPos, size);
 }

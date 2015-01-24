@@ -24,7 +24,7 @@ void Player::updateCurrent(sf::Time dt) {
 	//mSprite.move(dx,dy);
     if (mBody != NULL) {
         b2Vec2 pos = mBody->GetPosition();
-        std::cout << "pos player: (" << pos.x << ", " << pos.y << ")" << std::endl;
+        std::cout << "pos player: (" << pos.x << ", " << pos.y << ")" << getPosition().x << " " << getPosition().y << std::endl;
         mSprite.setPosition(pos.x*metersToPixels, pos.y*metersToPixels);
     }
 }
