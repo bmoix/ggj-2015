@@ -38,6 +38,7 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     mSceneLayers[Text]->attachChild(std::move(textNode));
 
     GameData* gd = getContext().mGameData;
+    assert(gd != NULL);
     std::string player1Mission = "Player 1 ";
     std::string player2Mission = "Player 2 ";
     if (gd->mSurvivingPlayer == 0) {

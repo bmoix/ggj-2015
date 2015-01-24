@@ -23,15 +23,15 @@
 #include <SFML/Graphics.hpp>
 
 struct GameData {
-    GameData(int numRounds, int roundsPassed, int pointsP1, int pointsP2, bool survivingPlayer);
+    GameData(int numRounds, int roundsPassed, int pointsP1, int pointsP2, int survivingPlayer);
     int mNumRounds;
     int mRoundsPassed;
     int mPointsP1;
     int mPointsP2;
-    bool mSurvivingPlayer;
+    int mSurvivingPlayer;
 };
 
-inline GameData::GameData(int numRounds, int roundsPassed, int pointsP1, int pointsP2, bool survivingPlayer)
+inline GameData::GameData(int numRounds, int roundsPassed, int pointsP1, int pointsP2, int survivingPlayer)
 : mNumRounds(numRounds)
 , mRoundsPassed(roundsPassed)
 , mPointsP1(pointsP1)
