@@ -13,10 +13,13 @@ namespace Textures
 {
 	enum ID
 	{
-        GameBackground,
+        GameBackground1,
+        GameBackground2,
         CountdownBackground,
         Player1,
-        PlayerAnimation,
+        Player2,
+        PlayerAnimation1,
+        PlayerAnimation2,
         Blue,
         Red,
         Platform1,

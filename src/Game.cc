@@ -35,10 +35,11 @@ Game::Game() :
     mFonts.load(Fonts::AlluraRegular, "res/media/AlluraRegular.otf");
     mFonts.load(Fonts::Sansation, "res/media/Sansation.ttf");
     mFonts.load(Fonts::Gomo, "res/media/Gomo.ttf");
-    mTextures.load(Textures::GameBackground, "res/pictures/background2.png");
+    mTextures.load(Textures::GameBackground1, "res/pictures/background1.png");
+    mTextures.load(Textures::GameBackground2, "res/pictures/background2.png");
     mTextures.load(Textures::CountdownBackground, "res/pictures/countdownBackground.png"); // update this
-    mTextures.load(Textures::Player1, "res/pictures/player1.png");
-    mTextures.load(Textures::PlayerAnimation, "res/pictures/playerAnimation1.png");
+    mTextures.load(Textures::Player1, "res/pictures/playerAnimation1.png");
+    mTextures.load(Textures::Player2, "res/pictures/playerAnimation2.png");
     mTextures.load(Textures::Blue, "res/pictures/blue.png");
     mTextures.load(Textures::Red, "res/pictures/red.png");
     mTextures.load(Textures::Platform1, "res/pictures/platform1.png");

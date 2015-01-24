@@ -49,8 +49,9 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
         player2Mission += "Survives";
     }
     // Players' texts
-    std::unique_ptr<AnimatedTextNode> player1Text(new AnimatedTextNode(font, player1Mission));
-    mTextNodes[0] = player1Text.get();
+    textNode = std::unique_ptr<AnimatedTextNode> (new AnimatedTextNode(font, player1Mission));
+    //std::unique_ptr<AnimatedTextNode> player1Text(new AnimatedTextNode(font, player1Mission));
+    mTextNodes[0] = textNode.get();
     mTextNodes[0]->centerText();
     mTextNodes[0]->setInitPosition(sf::Vector2f(1920.0/4.0f, 1080.0f/8.0f));
     mTextNodes[0]->setFinalPosition(sf::Vector2f(1920.0/4.0f, 1080.0f/8.0f));
@@ -62,11 +63,10 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     mTextNodes[0]->setInitRotation(-4.0f);
     mTextNodes[0]->setFinalRotation(4.0f);
     mTextNodes[0]->initAnimation();
-    mSceneLayers[Text]->attachChild(std::move(player1Text));
+    mSceneLayers[Text]->attachChild(std::move(textNode));
 
-
-    std::unique_ptr<AnimatedTextNode> player2Text(new AnimatedTextNode(font, player2Mission));
-    mTextNodes[1] = player2Text.get();
+    textNode = std::unique_ptr<AnimatedTextNode> (new AnimatedTextNode(font, player2Mission));
+    mTextNodes[1] = textNode.get();
     mTextNodes[1]->centerText();
     mTextNodes[1]->setInitPosition(sf::Vector2f(3.0f*1920.0/4.0f, 1080.0f/8.0f));
     mTextNodes[1]->setFinalPosition(sf::Vector2f(3.0f*1920.0/4.0f, 1080.0f/8.0f));
@@ -78,7 +78,7 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     mTextNodes[1]->setInitRotation(2.0f);
     mTextNodes[1]->setFinalRotation(-5.0f);
     mTextNodes[1]->initAnimation();
-    mSceneLayers[Text]->attachChild(std::move(player2Text));
+    mSceneLayers[Text]->attachChild(std::move(textNode));
 }
 
 void CountdownScreen::draw() {

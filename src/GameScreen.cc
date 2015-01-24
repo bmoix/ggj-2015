@@ -30,14 +30,19 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     }
     // Prepara el fons de pantalla i la font
     sf::Font& font = getContext().mFonts->get(Fonts::Gomo);
-    sf::Texture& backTexture = getContext().mTextures->get(Textures::GameBackground);
-    sf::Texture& playerTexture = getContext().mTextures->get(Textures::Player1);
+    sf::Texture& backTexture = getContext().mTextures->get(Textures::GameBackground1);
+    sf::Texture& animationTexture = getContext().mTextures->get(Textures::Player1);
+    std::string animationFile = "res/anim/player1.anim";
+    if (getContext().mGameData->mSurvivingPlayer == 1) {
+        backTexture = getContext().mTextures->get(Textures::GameBackground2);
+        animationTexture = getContext().mTextures->get(Textures::Player2);
+        animationFile = "res/anim/player2.anim";
+    }
     sf::Texture& wallTexture = getContext().mTextures->get(Textures::Red);
     sf::Texture& groundTexture = getContext().mTextures->get(Textures::Blue);
     sf::Texture& platform1Texture = getContext().mTextures->get(Textures::Platform1);
     sf::Texture& platformWoodTexture = getContext().mTextures->get(Textures::PlatformWood);
     sf::Texture& platformStoneTexture = getContext().mTextures->get(Textures::PlatformStone);
-    sf::Texture& animationTexture = getContext().mTextures->get(Textures::PlayerAnimation);
     sf::Texture& cursorTexture = getContext().mTextures->get(Textures::Cursor);
     std::vector<sf::Texture*> iconTexture(4, nullptr);
     iconTexture[0] = &getContext().mTextures->get(Textures::IconBox);
@@ -51,7 +56,7 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
     // Add the player to the scene
-    std::unique_ptr<Player> player(new Player(animationTexture, "res/anim/player1.anim"));
+    std::unique_ptr<Player> player(new Player(animationTexture, animationFile));
     mPlayer = player.get();
     mPlayer->setPosition(500, 500);
     mPlayer->setSize(sf::Vector2u(150, 163));
@@ -167,22 +172,26 @@ bool GameScreen::update(sf::Time dt) {
     }
     if (sec > 30000) {
         requestStackPop();
+        requestStackPush(States::Countdown);
         if (getContext().mGameData->mSurvivingPlayer) {
             ++getContext().mGameData->mPointsP2;
         }
         else {
             ++getContext().mGameData->mPointsP1;
         }
+        getContext().mGameData->mSurvivingPlayer = 1-getContext().mGameData->mSurvivingPlayer;
     }
 
     if (mPlayer->isDead()) {
         requestStackPop();
+        requestStackPush(States::Countdown);
         if (getContext().mGameData->mSurvivingPlayer) {
             ++getContext().mGameData->mPointsP1;
         }
         else {
             ++getContext().mGameData->mPointsP2;
         }
+        getContext().mGameData->mSurvivingPlayer = 1-getContext().mGameData->mSurvivingPlayer;
     }
     mSceneGraph.update(dt);
     return true;
