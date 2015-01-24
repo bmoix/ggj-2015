@@ -3,6 +3,13 @@
 
 #include <Box2D/Box2D.h>
 
+enum class CollisionType {
+    None,
+    Ground,
+    Walls,
+    Spikes,
+};
+
 class Collision : public b2ContactListener {
 private:
   void BeginContact(b2Contact* contact) override;

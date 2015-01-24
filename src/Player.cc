@@ -152,8 +152,5 @@ void Player::createBody(b2World* world, bool dynamic, float bbscalex, float bbsc
 void Player::collidedWith(SpriteNode* other, b2Vec2 normal) {
     if (other) {
         if (normal.y > 0) mDoubleJumpUsed = false;
-
-        if (other->mType == 1) std::cout << "Left wall" << std::endl;
-        else if (other->mType == 2) std::cout << "Right wall" << std::endl;
     }
 }

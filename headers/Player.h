@@ -34,7 +34,7 @@ class Player: public AnimationNode {
         void jump(float v);
 
         virtual void createBody(b2World* world, bool dynamic, float bbscalex = 1.0f, float bbscaley = 1.0f, float density=1.0f) override;
-        virtual void collidedWith(SpriteNode* other) override;
+        virtual void collidedWith(SpriteNode* other, b2Vec2 normal) override;
 
     private:
         void updateCurrent(sf::Time dt);

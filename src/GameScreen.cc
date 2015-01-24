@@ -54,7 +54,6 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mWalls[0]->setPosition(25.f, 515.f);
     mWalls[0]->setSize(sf::Vector2u(50, 1030));
     mWalls[0]->createBody(mWorld, false);
-    mWalls[0]->mType = 1;
     mSceneLayers[World]->attachChild(std::move(wallLeft));
 
     std::unique_ptr<InvisibleNode> wallRight(new InvisibleNode(wallTexture));
@@ -62,7 +61,6 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mWalls[1]->setPosition(1895.f, 515.f);
     mWalls[1]->setSize(sf::Vector2u(50, 1030));
     mWalls[1]->createBody(mWorld, false);
-    mWalls[1]->mType = 2;
     mSceneLayers[World]->attachChild(std::move(wallRight));
 
     std::unique_ptr<InvisibleNode> ground(new InvisibleNode(groundTexture));
@@ -130,7 +128,6 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         if (event.key.code == sf::Keyboard::W) {
             if (mPlayer->canJump()) {
                 mPlayer->jump(-mJumpVel);
-                //mPlayer->setVel(mPlayer->getVel().x,-mJumpVel);
             }
         }
         if (event.key.code == sf::Keyboard::Num1) {
@@ -166,7 +163,6 @@ void GameScreen::addTrap(int type, sf::Vector2f pos) {
                 mTraps[mTraps.size()-1]->setPosition(pos);
                 mTraps[mTraps.size()-1]->setSize(sf::Vector2u(75, 75));
                 mTraps[mTraps.size()-1]->createBody(mWorld, true, 0.9, 0.9, 10);
-                mTraps[mTraps.size()-1]->mType = 1;
                 mSceneLayers[Traps]->attachChild(std::move(trap));
             }
             break;

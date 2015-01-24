@@ -4,12 +4,18 @@ SpriteNode::SpriteNode(const sf::Texture& texture) :
     mBody(NULL),
     mSprite(texture),
     mSize(texture.getSize()) {
-	Utils::centerOrigin(mSprite);
+    Utils::centerOrigin(mSprite);
+}   
+
+SpriteNode::SpriteNode(const sf::Texture& texture, CollisionType type) : 
+    SpriteNode(texture) {
+    Utils::centerOrigin(mSprite);
+    mCollisionType = type;
 }   
 
 SpriteNode::SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect) 
 : mSprite(texture, textureRect) {
-	Utils::centerOrigin(mSprite);
+    Utils::centerOrigin(mSprite);
 }
 
 void SpriteNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -79,6 +85,14 @@ void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscalex, float b
 void SpriteNode::createBody(b2World* world, bool dynamic, float bbscalex, float bbscaley, float density) {
     setupBody(world, dynamic, bbscalex, bbscaley, density);
     mBody->SetUserData(this);
+}
+
+CollisionType SpriteNode::getCollisionType() const {
+  return mCollisionType;
+}
+
+void SpriteNode::setCollisionType(CollisionType type) {
+  mCollisionType = type;
 }
 
 void SpriteNode::collidedWith(SpriteNode* other, b2Vec2 normal) {
