@@ -61,7 +61,7 @@ void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscalex, float b
         mBody = world->CreateBody(&body_def);
 
         b2PolygonShape dynamic_box;
-        dynamic_box.SetAsBox(size.x*0.9/2.0, size.y*0.9/2.0);
+        dynamic_box.SetAsBox(size.x*bbscalex/2.0, size.y*bbscaley/2.0);
 
         b2FixtureDef fixture_def;
         fixture_def.shape = &dynamic_box;

@@ -59,21 +59,21 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mWalls[0] = wallLeft.get();
     mWalls[0]->setPosition(25.f, 515.f);
     mWalls[0]->setSize(sf::Vector2u(50, 1030));
-    mWalls[0]->createBody(mWorld, false);
+    mWalls[0]->createBody(mWorld, false,0.8,1.0);
     mSceneLayers[World]->attachChild(std::move(wallLeft));
 
     std::unique_ptr<InvisibleNode> wallRight(new InvisibleNode(wallTexture));
     mWalls[1] = wallRight.get();
     mWalls[1]->setPosition(1895.f, 515.f);
     mWalls[1]->setSize(sf::Vector2u(50, 1030));
-    mWalls[1]->createBody(mWorld, false);
+    mWalls[1]->createBody(mWorld, false,0.8,1.0);
     mSceneLayers[World]->attachChild(std::move(wallRight));
 
     std::unique_ptr<InvisibleNode> ground(new InvisibleNode(groundTexture));
     mGround = ground.get();
     mGround->setPosition(960.f, 1055.f);
     mGround->setSize(sf::Vector2u(1920, 50));
-    mGround->createBody(mWorld, false);
+    mGround->createBody(mWorld, false,1.0,0.7);
     mSceneLayers[World]->attachChild(std::move(ground));
 
     // grass -> 0.6 0.58
