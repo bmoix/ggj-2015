@@ -106,7 +106,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
         std::unique_ptr<TextNode> textTrap(new TextNode(font, std::to_string(mTrapsAvailable[i])));
         mTextTraps[i] = textTrap.get();
         mTextTraps[i]->setPosition(520.f + i*150.f, 90.f);
-        mTextTraps[i]->setScale(sf::Vector2f(2,2));
+        mTextTraps[i]->setCharacterSize(50);
         mTextTraps[i]->setColor(sf::Color::Red);
         mSceneLayers[Text]->attachChild(std::move(textTrap));
 
@@ -115,8 +115,9 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     // Prepara el text of timer
     std::unique_ptr<TextNode> textNode(new TextNode(font, "30:00"));
     mText = textNode.get(); // Guarda una referència al TextNode
-    mText->setPosition(100 , 0);
-    mText->setScale(sf::Vector2f(2,2));
+    mText->setPosition(100, 0);
+    mText->setCharacterSize(120);
+    mText->setColor(sf::Color::Red);
     mSceneLayers[Text]->attachChild(std::move(textNode));
 
     // Start timer
@@ -136,12 +137,22 @@ bool GameScreen::update(sf::Time dt) {
     sf::Time elapsed = mCountdown.getElapsedTime();
     std::stringstream ss;
     int sec = elapsed.asMilliseconds();
-    ss << std::setfill('0') << std::setw(2) << (29-sec/1000) << ":" 
+    ss << std::setfill('0') << std::setw(2) << (29-sec/1000) << "." 
         << std::setfill('0') << std::setw(2) << (1000-sec%1000)/10;
     std::string s;
     ss >> s;
-    std::cout << s << std::endl;
     mText->setString(s);
+    if (sec > 20000) {
+        mText->setPosition(50, 0);
+        mText->setCharacterSize(150);
+    }
+    if (sec > 25000) {
+        mText->setPosition(10, 0);
+        mText->setCharacterSize(180);
+    }
+    if (sec > 30000) {
+        requestStackPop();
+    }
     mSceneGraph.update(dt);
     return true;
 }
