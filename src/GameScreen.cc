@@ -9,7 +9,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 , mMovVel(1000.0f)
 , mWalls(2) 
 , mGround()
-, mTrapButtons(4) 
+, mTrapButtons(4)
 , mTrapsAvailable(4,3)
 , mTextTraps(4) {
     // CREACIÓ ESCENA
