@@ -55,7 +55,6 @@ void SpriteNode::setupBody(b2World* world, bool dynamic) {
         b2PolygonShape dynamic_box;
         dynamic_box.SetAsBox(size.x/2.0, size.y/2.0);
 
-        cout << pos.x << " " << pos.y << " " << mSize.x << " " << mSize.y << endl;
 
         b2FixtureDef fixture_def;
         fixture_def.shape = &dynamic_box;
@@ -73,6 +72,9 @@ void SpriteNode::setupBody(b2World* world, bool dynamic) {
 
         // Add fixture to the body
         mBody->CreateFixture(&shape, 0.0f);
+
+
+        cout << pos.x << " " << pos.y << " " << size.x << " " << size.y << endl;
     }
 }
 
