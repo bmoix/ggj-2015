@@ -2,8 +2,8 @@
 #include "Utils.h"
 #include <fstream>
 
-AnimationNode::AnimationNode(const sf::Texture& texture, const std::string& filename) :
-    SpriteNode(texture),
+AnimationNode::AnimationNode(const sf::Texture& texture, const std::string& filename, ObjectTypes::ID type) :
+    SpriteNode(texture, type),
     mCurrentFrame(0),
     mCurrentCycle(0),
     mCurrentAnim(""),

@@ -19,13 +19,13 @@ mMovVel(300.0f) {
 	sf::Texture& playerTexture = getContext().mTextures->get(Textures::Player1);
 
 	// Add the background sprite to the scene
-	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
+	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture, ObjectTypes::None));
 	//centrar la pantalla i escalar la imatge
 	backgroundSprite->setPosition(sf::Vector2f(0.0f, 0.0f));
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
 	// Add the player to the scene
-	std::unique_ptr<Player> player(new Player(playerTexture));
+	std::unique_ptr<Player> player(new Player(playerTexture, ObjectTypes::Player));
 	mPlayer = player.get();
 	mPlayer->setPosition(0.0f,500-256); // HARD
 	mSceneLayers[Players]->attachChild(std::move(player));
@@ -40,14 +40,14 @@ mMovVel(300.0f) {
   // Animationtest
 	sf::Texture& animationTexture = getContext().mTextures->get(Textures::PlayerAnimation);
   std::unique_ptr<AnimationNode> animation(
-      new AnimationNode(animationTexture, "res/anim/player.anim")
+      new AnimationNode(animationTexture, "res/anim/player.anim", ObjectTypes::None)
   );
   animation->setPosition(500, 500);
   animation->setSize(sf::Vector2u(822, 846));
   mSceneLayers[Players]->attachChild(std::move(animation));
 
   	// Add things that collide in the collision list
-  	mCollisonObjects.push(mPlayer);
+  	mCollisionObjects.push_back(mPlayer);
   	// Walls, etc...
 
 }
@@ -96,6 +96,6 @@ void GameScreen::handleCollisions() {
 	}
 }
 
-bool checkCollision(SpriteNode* a, SpriteNode* b) {
-
+bool GameScreen::checkCollision(SpriteNode* a, SpriteNode* b) {
+	return false;
 }

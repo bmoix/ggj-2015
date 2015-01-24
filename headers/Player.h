@@ -7,7 +7,7 @@
 
 class Player: public SpriteNode {
     public:
-        explicit Player(const sf::Texture& texture);
+        explicit Player(const sf::Texture& texture, ObjectTypes::ID type);
 
         bool isJumping();
         void isJumping(bool isJumping);

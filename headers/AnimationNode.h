@@ -12,8 +12,8 @@ class AnimationNode: public SpriteNode {
     };
 
     public:
-        explicit AnimationNode(const sf::Texture& texture, const std::string& file);
-        AnimationNode(const sf::Texture& texture, const sf::IntRect& textureRect, const std::string& file);
+        explicit AnimationNode(const sf::Texture& texture, const std::string& file, ObjectTypes::ID type);
+        AnimationNode(const sf::Texture& texture, const sf::IntRect& textureRect, const std::string& file, ObjectTypes::ID type);
         void setSize(sf::Vector2u desiredSize) override;
         void setAnimation(const std::string& animation);
 

@@ -13,7 +13,8 @@ class SpriteNode: public SceneNode {
 
         ObjectTypes::ID getType();
 
-        virtual bool canCollideWith();
+        virtual bool canCollideWith(ObjectTypes::ID type);
+        virtual void hasCollidedWith(SpriteNode* other);
 
         void setColor(sf::Color color);
         sf::Color getColor();

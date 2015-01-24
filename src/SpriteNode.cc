@@ -33,3 +33,11 @@ sf::Color SpriteNode::getColor(){
 ObjectTypes::ID SpriteNode::getType(){
 	return mType;
 }
+
+bool SpriteNode::canCollideWith(ObjectTypes::ID type) {
+	(void) type;
+	return false;
+}
+void SpriteNode::hasCollidedWith(SpriteNode* other) {
+	(void) other;
+}
