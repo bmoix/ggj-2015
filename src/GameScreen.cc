@@ -8,8 +8,9 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
 , mJumpVel(2000.0f)
 , mMovVel(1000.0f)
 , mWalls(2) 
-, mGround()
-, mCursor()
+, mPlayer(nullptr)
+, mGround(nullptr)
+, mCursor(nullptr)
 , mTrapButtons(4)
 , mTrapsAvailable(4,3)
 , mTextTraps(4)
@@ -125,6 +126,7 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     mCountdown.restart();
 
     std::unique_ptr<SpriteNode> cursorSprite(new SpriteNode(cursorTexture));
+    mCursor = cursorSprite.get();
     cursorSprite->setSize(sf::Vector2u(100, 100));
     cursorSprite->setPosition(sf::Vector2f(500.f, 500.f));
     mSceneLayers[Text]->attachChild(std::move(cursorSprite));
