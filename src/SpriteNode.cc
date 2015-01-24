@@ -58,7 +58,7 @@ void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscalex, float b
         b2BodyDef body_def;
         body_def.type = b2_dynamicBody;
         body_def.position.Set(pos.x, pos.y);
-        mBody = mWorld->CreateBody(&body_def);
+        mBody = world->CreateBody(&body_def);
 
         b2PolygonShape dynamic_box;
         dynamic_box.SetAsBox(size.x*0.9/2.0, size.y*0.9/2.0);
@@ -95,7 +95,7 @@ void SpriteNode::setCollisionType(CollisionType type) {
   mCollisionType = type;
 }
 
-b2Body* SpriteNode::createSphericBody(b2World* world, bool dynamic, float bbscalex, float bbscaley, float density) {
+b2Body* SpriteNode::createSphericBody(b2World* world, bool dynamic, float bbscale, float density) {
     sf::Vector2f vpos = this->getWorldPosition();
 
     b2Vec2 pos(vpos.x/metersToPixels, vpos.y/metersToPixels);
@@ -103,11 +103,11 @@ b2Body* SpriteNode::createSphericBody(b2World* world, bool dynamic, float bbscal
     b2BodyDef body_def;
     body_def.type = b2_dynamicBody;
     body_def.position.Set(pos.x, pos.y);
-    mBody = mWorld->CreateBody(&body_def);
+    mBody = world->CreateBody(&body_def);
 
     b2CircleShape circle;
     circle.m_p.Set(0.0f, 0.0f);
-    circle.m_radius = mSize.x/2.0;
+    circle.m_radius = size.x*bbscale/2.0;
 
     b2FixtureDef fixture_def;
     fixture_def.shape = &circle;

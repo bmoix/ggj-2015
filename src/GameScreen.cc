@@ -193,21 +193,22 @@ void GameScreen::addTrap(int type, sf::Vector2f pos) {
                 mTraps.push_back(trap.get());
                 mTraps[mTraps.size()-1]->setPosition(pos);
                 mTraps[mTraps.size()-1]->setSize(sf::Vector2u(75, 75));
-                mTraps[mTraps.size()-1]->createBody(mWorld, true, 0.9, 0.9, 10);
+                mTraps[mTraps.size()-1]->createBody(mWorld, true, 0.9, 0.9, 1);
                 mSceneLayers[Traps]->attachChild(std::move(trap));
             }
             break;
         }
         case 1: // Spikes ball
         {
+            float mVel = 50.0f;
             sf::Texture& trapTexture = getContext().mTextures->get(Textures::SpikesBall);
-            std::unique_ptr<SpriteNode> trap(new SpriteNode(trapTexture));
+            std::unique_ptr<SpriteNode> trap(new SpriteNode(trapTexture, CollisionType::Spikes));
             mTraps.push_back(trap.get());
             mTraps[mTraps.size()-1]->setPosition(pos);
-            mTraps[mTraps.size()-1]->setSize(sf::Vector2u(75, 75));
-            mTraps[mTraps.size()-1]->mType = 1;
-            (mTraps[mTraps.size()-1]->createSphericBody(mWorld, true, 0.9, 0.9, 1))
-                ->SetLinearSpeed(std::rand()*100.0f, std::rand()*100.0f);
+            mTraps[mTraps.size()-1]->setSize(sf::Vector2u(85, 85));
+            std::srand (std::time(NULL));
+            (mTraps[mTraps.size()-1]->createSphericBody(mWorld, true, 0.9, 1))
+                ->SetLinearVelocity(b2Vec2(-mVel/2.0f+float(std::rand())/float(RAND_MAX)*mVel, -mVel/2.0f+float(std::rand())/float(RAND_MAX)*mVel));
             
             mSceneLayers[Traps]->attachChild(std::move(trap));
             break;
