@@ -220,16 +220,16 @@ void GameScreen::handleRealtimeInput(){
             mPlayer->setLookingRight(true);
             mPlayer->setVel(mMovVel,0.0f);
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
             mCursor->move(0.f, -speed);
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
             
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             
         }
         else {
