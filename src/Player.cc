@@ -6,7 +6,8 @@ Player::Player(const sf::Texture& texture, const std::string& file) :
     mAcceleration(sf::Vector2f(0.0f,3000.0f)),
     mState(Player::States::IdleRight),
     mDoubleJumpUsed(false),
-    mLookingRight(true) {
+    mLookingRight(true),
+    mDead(false) {
 }
 
 void Player::updateCurrent(sf::Time dt) {
@@ -78,6 +79,10 @@ void Player::jump(float v) {
     }
 }
 
+bool Player::isDead() const {
+    return mDead;
+}
+
 Player::States Player::getState() {
     return mState;
 }
@@ -87,6 +92,12 @@ void Player::setState(Player::States state) {
 }
 
 void Player::updateState() {
+    if (mDead) {
+        if (mLookingRight) setState(States::DeadRight);
+        else setState(States::DeadLeft);
+        return;
+    }
+
     b2Vec2 v = mBody->GetLinearVelocity();
     mVelocity = sf::Vector2f(v.x, v.y);
 
@@ -138,6 +149,12 @@ void Player::changeAnimation() {
         case States::Left:
             setAnimation("Left");
             break;
+        case States::DeadRight:
+            setAnimation("DeadRight");
+            break;
+        case States::DeadLeft:
+            setAnimation("DeadLeft");
+            break;
         default:
             break;
     }
@@ -152,5 +169,10 @@ void Player::createBody(b2World* world, bool dynamic, float bbscalex, float bbsc
 void Player::collidedWith(SpriteNode* other, b2Vec2 normal) {
     if (other) {
         if (normal.y > 0) mDoubleJumpUsed = false;
+        CollisionType type = other->getCollisionType();
+        if (type == CollisionType::Spikes) {
+            mDead = true;
+            setVel(0, -1000);
+        }
     }
 }

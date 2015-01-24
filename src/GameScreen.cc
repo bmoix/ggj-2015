@@ -127,13 +127,19 @@ bool GameScreen::update(sf::Time dt) {
 
 bool GameScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::W) {
-            if (mPlayer->canJump()) {
-                mPlayer->jump(-mJumpVel);
+        if (!mPlayer->isDead()) {
+            if (event.key.code == sf::Keyboard::W) {
+                if (mPlayer->canJump()) {
+                    mPlayer->jump(-mJumpVel);
+                }
             }
         }
         if (event.key.code == sf::Keyboard::Num1) {
             addTrap(0, sf::Vector2f(1000, 50));
+        }
+
+        if (event.key.code == sf::Keyboard::Num2) {
+            addTrap(2, sf::Vector2f(500, 1030));
         }
         if (event.key.code == sf::Keyboard::Num7) {
             if (mTrapsAvailable[0]) {
@@ -157,25 +163,25 @@ bool GameScreen::handleEvent(const sf::Event& event) {
             if (mTrapsAvailable[3]) {
                 mTextTraps[3]->setString(std::to_string(--mTrapsAvailable[3]));
             }
-
         }
     }
     return true;
 }
 
 void GameScreen::handleRealtimeInput(){
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        mPlayer->setLookingRight(false);
-        mPlayer->setVel(-mMovVel,0.0f);
+    if (!mPlayer->isDead()) {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            mPlayer->setLookingRight(false);
+            mPlayer->setVel(-mMovVel,0.0f);
+        }
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            mPlayer->setLookingRight(true);
+            mPlayer->setVel(mMovVel,0.0f);
+        }
+        else {
+            mPlayer->scaleVel(0.0f, 1.0f);
+        }
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        mPlayer->setLookingRight(true);
-        mPlayer->setVel(mMovVel,0.0f);
-    }
-    else {
-        mPlayer->scaleVel(0.0f, 1.0f);
-    }
-
 }
 
 void GameScreen::addTrap(int type, sf::Vector2f pos) {
@@ -196,6 +202,15 @@ void GameScreen::addTrap(int type, sf::Vector2f pos) {
         case 1: // Spikes ball
             break;
         case 2: // Spikes
+        {
+            sf::Texture& trapTexture = getContext().mTextures->get(Textures::TrapBox);
+            std::unique_ptr<SpriteNode> spikes(new SpriteNode(trapTexture, CollisionType::Spikes));
+            spikes->setPosition(pos);
+            spikes->setSize(sf::Vector2u(100, 10));
+            spikes->createBody(mWorld, false, 0.8, 0.9, 1);
+            mTraps.push_back(spikes.get());
+            mSceneLayers[Traps]->attachChild(std::move(spikes));
+        }
             break;
         case 3: // Platform switcher
             break;

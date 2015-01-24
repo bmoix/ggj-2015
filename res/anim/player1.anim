@@ -32,3 +32,9 @@ ANIM FallRight 1
 
 ANIM FallLeft 1
   3632 0 -444 489 0.1
+
+ANIM DeadRight 1
+  3643 0 444 489 1
+
+ANIM DeadLeft 1
+  4087 0 -444 489 1

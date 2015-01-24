@@ -18,7 +18,8 @@ class Player: public AnimationNode {
             JumpLeft,
             FallRight,
             FallLeft,
-            Dying
+            DeadRight,
+            DeadLeft,
         };
 
         Player::States getState();
@@ -32,6 +33,7 @@ class Player: public AnimationNode {
         bool isJumping() const;
         bool canJump() const;
         void jump(float v);
+        bool isDead() const;
 
         virtual void createBody(b2World* world, bool dynamic, float bbscalex = 1.0f, float bbscaley = 1.0f, float density=1.0f) override;
         virtual void collidedWith(SpriteNode* other, b2Vec2 normal) override;
@@ -48,6 +50,7 @@ class Player: public AnimationNode {
 
         bool mDoubleJumpUsed;
         bool mLookingRight;
+        bool mDead;
 };
 
 #endif // PLAYER_H
