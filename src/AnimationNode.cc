@@ -118,3 +118,8 @@ void AnimationNode::updateTextureRect() {
 void AnimationNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(mSprite, states);
 }
+
+void AnimationNode::createBody(b2World* world, bool dynamic) {
+    setupBody(world, dynamic);
+    mBody->SetUserData(this);
+}

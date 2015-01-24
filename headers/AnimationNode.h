@@ -17,6 +17,8 @@ class AnimationNode: public SpriteNode {
         void setSize(sf::Vector2u desiredSize) override;
         void setAnimation(const std::string& animation);
 
+        virtual void createBody(b2World* world, bool dynamic) override;
+
     protected:
         void updateCurrent(sf::Time dt) override;
         

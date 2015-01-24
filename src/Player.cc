@@ -103,3 +103,9 @@ void Player::changeAnimation() {
             break;
     }
 }
+
+void Player::createBody(b2World* world, bool dynamic) {
+    setupBody(world, dynamic);
+    mBody->SetUserData(this);
+    mBody->SetFixedRotation(true);
+}

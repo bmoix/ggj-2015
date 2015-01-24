@@ -27,6 +27,7 @@ class Player: public AnimationNode {
         void setVel(float x, float y);
         sf::Vector2f getVel();
 
+        virtual void createBody(b2World* world, bool dynamic) override;
 
     private:
         void updateCurrent(sf::Time dt);

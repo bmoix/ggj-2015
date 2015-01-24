@@ -20,12 +20,12 @@ class SpriteNode: public SceneNode {
         b2Body* mBody;
         sf::Sprite mSprite;
         sf::Vector2f mSize;
+        // Setup the body definition and fixtures
+        void setupBody(b2World* world, bool dynamic); 
 
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         virtual void updateCurrent(sf::Time dt) override;
-        // Setup the body definition and fixtures
-        void setupBody(b2World* world, bool dynamic); 
 };
 
 #endif // SPRITE_NODE_HPP
