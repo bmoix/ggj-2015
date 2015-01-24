@@ -36,6 +36,11 @@ void Player::setVel(float x, float y) {
     mBody->SetLinearVelocity(b2Vec2(x/metersToPixels, y/metersToPixels+velocity.y));
 }
 
+void Player::scaleVel(float x, float y) {
+    b2Vec2 velocity = mBody->GetLinearVelocity();
+    mBody->SetLinearVelocity(b2Vec2(velocity.x * x, velocity.y * y));
+}
+
 sf::Vector2f Player::getVel() {
     return mVelocity;
 }
@@ -52,7 +57,9 @@ bool Player::canJump() const {
     return true;
 }
 
-void Player::jump() {
+void Player::jump(float v) {
+    scaleVel(1.0f, 0.0f);
+    setVel(0.0f, v);
     switch(mState) {
         case States::JumpLeft:
         case States::JumpRight:

@@ -105,8 +105,8 @@ bool GameScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::W) {
             if (mPlayer->canJump()) {
-                mPlayer->jump();
-                mPlayer->setVel(mPlayer->getVel().x,-mJumpVel);
+                mPlayer->jump(-mJumpVel);
+                //mPlayer->setVel(mPlayer->getVel().x,-mJumpVel);
             }
         }
     }
@@ -117,7 +117,11 @@ void GameScreen::handleRealtimeInput(){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         mPlayer->setVel(-mMovVel,0.0f);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         mPlayer->setVel(mMovVel,0.0f);
     }
+    else {
+        mPlayer->scaleVel(0.0f, 1.0f);
+    }
+
 }
