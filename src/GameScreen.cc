@@ -5,13 +5,13 @@
 
 GameScreen::GameScreen(StatesStack& stack, Context context)
 : State(stack, context)
-, mJumpVel(5000.0f)
-, mMovVel(2000.0f)
+, mJumpVel(3000.0f)
+, mMovVel(1500.0f)
 , mWalls(2) 
 , mGround() {
     // CREACIÓ ESCENA
     // Create box2D world;
-    const b2Vec2 gravity(0, 60.0f);
+    const b2Vec2 gravity(0, 50.0f);
     mWorld = new b2World(gravity);
     mWorld->SetContactListener(new Collision());
 
@@ -84,7 +84,6 @@ bool GameScreen::update(sf::Time dt) {
     const unsigned int velocityIterations = 6;
     const unsigned int positionIterations = 2;
     mWorld->Step(dt.asSeconds(), velocityIterations, positionIterations);
-    
     mSceneGraph.update(dt);
     return true;
 }

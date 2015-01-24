@@ -73,7 +73,6 @@ void SpriteNode::setupBody(b2World* world, bool dynamic) {
         // Add fixture to the body
         mBody->CreateFixture(&shape, 0.0f);
 
-
         cout << pos.x << " " << pos.y << " " << size.x << " " << size.y << endl;
     }
 }
