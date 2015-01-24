@@ -2,7 +2,9 @@
 #include "GameScreen.h"
 
 GameScreen::GameScreen(StatesStack& stack, Context context)
-: State(stack, context) {
+: State(stack, context),
+mJumpVel(900.0f),
+mMovVel(300.0f) {
 	// CREACIÓ ESCENA
 	// Inicialitza les dues capes
 	for (std::size_t i = 0; i < LayerCount; ++i) {
@@ -24,7 +26,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 	// Add the player to the scene
 	std::unique_ptr<Player> player(new Player(playerTexture));
 	mPlayer = player.get();
-	mPlayer->setPosition(0.0f,1080-256);
+	mPlayer->setPosition(0.0f,500-256); // HARD
 	mSceneLayers[Players]->attachChild(std::move(player));
 
 	// Prepara el text
@@ -46,30 +48,22 @@ bool GameScreen::update(sf::Time dt) {
 }
 
 bool GameScreen::handleEvent(const sf::Event& event) {
+	if (event.type == sf::Event::KeyPressed) {
+		if (event.key.code == sf::Keyboard::W) {
+			if (!mPlayer->isJumping()) {
+				mPlayer->isJumping(true);
+				mPlayer->setVel(mPlayer->getVel().x,-mJumpVel);
+			}
+        }
+        else if (event.key.code == sf::Keyboard::A) {
+        	mPlayer->setVel(-mMovVel,mPlayer->getVel().y);
+        }
+        else if (event.key.code == sf::Keyboard::D) {
+        	mPlayer->setVel(mMovVel,mPlayer->getVel().y);
+        }
+	} 
     return true;
 }
 
 void GameScreen::handleRealtimeInput(){
-	/*bool moving = false;
-	mPlayer->setVel(0,0);
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up ) ) {
-	mPlayer->setVel(mPlayer->getVel().x,mPlayer->getVel().y-movVel);
-	mPlayer->setDir(dir_up); moving = true;
-	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down ) ) {
-	mPlayer->setVel(mPlayer->getVel().x,mPlayer->getVel().y+movVel);
-	mPlayer->setDir(dir_down); moving = true;
-	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left ) ) {
-	mPlayer->setVel(mPlayer->getVel().x-movVel,mPlayer->getVel().y);
-	mPlayer->setDir(dir_left); moving = true;
-	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ) {
-	mPlayer->setVel(mPlayer->getVel().x+movVel,mPlayer->getVel().y);
-	mPlayer->setDir(dir_right); moving = true;
-	}
-	if(! moving) {
-		mPlayer->setVel(0,0);
-		mPlayer->setDir(dir_none);
-	}*/
 }

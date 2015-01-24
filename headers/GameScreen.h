@@ -41,6 +41,8 @@ class GameScreen: public State {
         TextNode* mText;
 
         Player* mPlayer;
+        float mJumpVel;
+        float mMovVel;
 
         std::string str;
 };
