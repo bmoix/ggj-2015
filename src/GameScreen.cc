@@ -163,6 +163,22 @@ bool GameScreen::update(sf::Time dt) {
     }
     if (sec > 30000) {
         requestStackPop();
+        if (getContext().mGameData->mCurrentPlayer) {
+            ++getContext().mGameData->mPointsP2;
+        }
+        else {
+            ++getContext().mGameData->mPointsP1;
+        }
+    }
+
+    if (mPlayer->isDead()) {
+        requestStackPop();
+        if (getContext().mGameData->mCurrentPlayer) {
+            ++getContext().mGameData->mPointsP1;
+        }
+        else {
+            ++getContext().mGameData->mPointsP2;
+        }
     }
     mSceneGraph.update(dt);
     return true;

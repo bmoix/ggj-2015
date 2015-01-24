@@ -16,7 +16,7 @@ Game::Game() :
 , mFonts()
 , mWindowSize(mWindow.getSize().x, mWindow.getSize().y)
 , mScale(float(mWindow.getSize().x)/1920.0, 9.0/16.0*float(mWindow.getSize().x)/1920.0)
-, mGameData(5,0,0,0)
+, mGameData(5,0,0,0, false)
 , mStatesStack(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow, mGameData))
 , mStatisticsText()
 , mStatisticsUpdateTime()
@@ -103,9 +103,9 @@ void Game::processInput() {
     {
         mStatesStack.handleEvent(event);
 
-        if (event.type == sf::Event::Closed)
+        if (event.type == sf::Event::Closed) {
             mWindow.close();
-
+        }
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
             mWindow.close();
         }
