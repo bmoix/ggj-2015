@@ -34,6 +34,11 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     sf::Texture& platformWoodTexture = getContext().mTextures->get(Textures::PlatformWood);
     sf::Texture& platformStoneTexture = getContext().mTextures->get(Textures::PlatformStone);
     sf::Texture& animationTexture = getContext().mTextures->get(Textures::PlayerAnimation);
+    std::vector<sf::Texture*> iconTexture(4, nullptr);
+    iconTexture[0] = &getContext().mTextures->get(Textures::IconBox);
+    iconTexture[1] = &getContext().mTextures->get(Textures::IconBall);
+    iconTexture[2] = &getContext().mTextures->get(Textures::IconSpikes);
+    iconTexture[3] = &getContext().mTextures->get(Textures::IconSwitch);
 
     // Add the background sprite to the scene
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
@@ -96,15 +101,15 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 
     // Add trap buttons
     for (int i = 0; i < (int)mTrapButtons.size(); ++i) {
-        std::unique_ptr<SpriteNode> trapButton(new SpriteNode(wallTexture));
+        std::unique_ptr<SpriteNode> trapButton(new SpriteNode(*iconTexture[i]));
         mTrapButtons[i] = trapButton.get();
-        mTrapButtons[i]->setPosition(500.f + i*100.f, 50.f);
-        mTrapButtons[i]->setSize(sf::Vector2u(75, 75));
+        mTrapButtons[i]->setPosition(500.f + i*150.f, 80.f);
+        mTrapButtons[i]->setSize(sf::Vector2u(150, 120));
         mSceneLayers[Text]->attachChild(std::move(trapButton));
 
         std::unique_ptr<TextNode> textTrap(new TextNode(font, std::to_string(mTrapsAvailable[i])));
         mTextTraps[i] = textTrap.get();
-        mTextTraps[i]->setPosition(510.f + i*100.f, 50.f);
+        mTextTraps[i]->setPosition(520.f + i*150.f, 90.f);
         mTextTraps[i]->setScale(sf::Vector2f(1.5,1.5));
         mSceneLayers[Text]->attachChild(std::move(textTrap));
 

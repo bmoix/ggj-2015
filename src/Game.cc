@@ -41,6 +41,10 @@ Game::Game() :
     mTextures.load(Textures::TrapBox, "res/pictures/trap_box.png");
     mTextures.load(Textures::PlatformWood, "res/pictures/platformWood.png");
     mTextures.load(Textures::PlatformStone, "res/pictures/platformStone.png");
+    mTextures.load(Textures::IconBox, "res/pictures/iconbox.png");
+    mTextures.load(Textures::IconBall, "res/pictures/iconball.png");
+    mTextures.load(Textures::IconSpikes, "res/pictures/iconspikes.png");
+    mTextures.load(Textures::IconSwitch, "res/pictures/iconswitch.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Sansation));
     mStatisticsText.setPosition(5.f, 5.f);
