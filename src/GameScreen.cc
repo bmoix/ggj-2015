@@ -104,9 +104,10 @@ bool GameScreen::update(sf::Time dt) {
 bool GameScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::W) {
-            //if (!mPlayer->isJumping()) {
+            if (mPlayer->canJump()) {
+                mPlayer->jump();
                 mPlayer->setVel(mPlayer->getVel().x,-mJumpVel);
-            //}
+            }
         }
     }
     return true;

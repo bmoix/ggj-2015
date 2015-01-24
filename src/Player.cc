@@ -1,11 +1,11 @@
 #include "Player.h"
 
-Player::Player(const sf::Texture& texture, const std::string& file)
-: AnimationNode(texture, file),
-mVelocity(sf::Vector2f(0.0f,0.0f)),
-mAcceleration(sf::Vector2f(0.0f,3000.0f)),
-mState(Player::States::Idle) {
-
+Player::Player(const sf::Texture& texture, const std::string& file) : 
+    AnimationNode(texture, file),
+    mVelocity(sf::Vector2f(0.0f,0.0f)),
+    mAcceleration(sf::Vector2f(0.0f,3000.0f)),
+    mState(Player::States::Idle),
+    mDoubleJumpUsed(false) {
 }
 
 void Player::updateCurrent(sf::Time dt) {
@@ -40,6 +40,29 @@ sf::Vector2f Player::getVel() {
     return mVelocity;
 }
 
+bool Player::canJump() const {
+    switch(mState) {
+        case States::JumpLeft:
+        case States::JumpRight:
+        case States::FallLeft:
+        case States::FallRight:
+            if (mDoubleJumpUsed) return false;
+            break;
+    }
+    return true;
+}
+
+void Player::jump() {
+    switch(mState) {
+        case States::JumpLeft:
+        case States::JumpRight:
+        case States::FallLeft:
+        case States::FallRight:
+            mDoubleJumpUsed = true;
+            break;
+    }
+}
+
 Player::States Player::getState() {
     return mState;
 }
@@ -53,14 +76,17 @@ void Player::updateState() {
     mVelocity = sf::Vector2f(v.x, v.y);
     if (abs(mVelocity.x) < 1e-4 && abs(mVelocity.y) < 1e-4) {
         setState(Player::States::Idle);
+        mDoubleJumpUsed = false;
     }
     else if (mVelocity.x > 0 && abs(mVelocity.y) < 1e-4) {
         setState(Player::States::Right);
+        mDoubleJumpUsed = false;
     }
     else if (mVelocity.x < 0 && abs(mVelocity.y) < 1e-4) {
         setState(Player::States::Left);
+        mDoubleJumpUsed = false;
     }
-    else if (mVelocity.x > 0 && mVelocity.y < 0) {
+    else if (mVelocity.x >= 0 && mVelocity.y < 0) {
         setState(Player::States::JumpRight);
     }
     else if (mVelocity.x < 0 && mVelocity.y < 0) {

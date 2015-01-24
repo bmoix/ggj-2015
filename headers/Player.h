@@ -26,6 +26,8 @@ class Player: public AnimationNode {
         void addVel(float x, float y);
         void setVel(float x, float y);
         sf::Vector2f getVel();
+        bool canJump() const;
+        void jump();
 
         virtual void createBody(b2World* world, bool dynamic, float bbscale = 1.0f) override;
         virtual void collidedWith(SpriteNode* other) override;
@@ -39,6 +41,8 @@ class Player: public AnimationNode {
 
         sf::Vector2f mVelocity;
         sf::Vector2f mAcceleration;
+
+        bool mDoubleJumpUsed;
 };
 
 #endif // PLAYER_H
