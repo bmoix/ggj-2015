@@ -42,7 +42,7 @@ void SpriteNode::updateCurrent(sf::Time dt) {
     }
 }
 
-void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscalex, float bbscaley) {
+void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscalex, float bbscaley, float density) {
     sf::Vector2f vpos = this->getWorldPosition();
 
     b2Vec2 pos(vpos.x/metersToPixels, vpos.y/metersToPixels);
@@ -76,8 +76,8 @@ void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscalex, float b
     }
 }
 
-void SpriteNode::createBody(b2World* world, bool dynamic, float bbscalex, float bbscaley) {
-    setupBody(world, dynamic, bbscalex, bbscaley);
+void SpriteNode::createBody(b2World* world, bool dynamic, float bbscalex, float bbscaley, float density) {
+    setupBody(world, dynamic, bbscalex, bbscaley, density);
     mBody->SetUserData(this);
 }
 

@@ -134,7 +134,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
             }
         }
         if (event.key.code == sf::Keyboard::Num1) {
-            addTrap(0, sf::Vector2f(500, 50));
+            addTrap(0, sf::Vector2f(1000, 50));
         }
     }
     return true;
@@ -165,7 +165,7 @@ void GameScreen::addTrap(int type, sf::Vector2f pos) {
                 mTraps.push_back(trap.get());
                 mTraps[mTraps.size()-1]->setPosition(pos);
                 mTraps[mTraps.size()-1]->setSize(sf::Vector2u(75, 75));
-                mTraps[mTraps.size()-1]->createBody(mWorld, true, 0.9, 0.9);
+                mTraps[mTraps.size()-1]->createBody(mWorld, true, 0.9, 0.9, 10);
                 mTraps[mTraps.size()-1]->mType = 1;
                 mSceneLayers[Traps]->attachChild(std::move(trap));
             }

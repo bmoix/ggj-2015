@@ -143,8 +143,8 @@ void Player::changeAnimation() {
     }
 }
 
-void Player::createBody(b2World* world, bool dynamic, float bbscalex, float bbscaley) {
-    setupBody(world, dynamic, bbscalex, bbscaley);
+void Player::createBody(b2World* world, bool dynamic, float bbscalex, float bbscaley, float density) {
+    setupBody(world, dynamic, bbscalex, bbscaley, density);
     mBody->SetUserData(this);
     mBody->SetFixedRotation(true);
 }
