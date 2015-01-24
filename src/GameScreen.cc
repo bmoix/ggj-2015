@@ -48,7 +48,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mSceneLayers[Players]->attachChild(std::move(player));
 
     // Add walls
-    std::unique_ptr<SpriteNode> wallLeft(new SpriteNode(wallTexture));
+    std::unique_ptr<InvisibleNode> wallLeft(new InvisibleNode(wallTexture));
     mWalls[0] = wallLeft.get();
     mWalls[0]->setPosition(25.f, 515.f);
     mWalls[0]->setSize(sf::Vector2u(50, 1030));
@@ -56,7 +56,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mWalls[0]->mType = 1;
     mSceneLayers[World]->attachChild(std::move(wallLeft));
 
-    std::unique_ptr<SpriteNode> wallRight(new SpriteNode(wallTexture));
+    std::unique_ptr<InvisibleNode> wallRight(new InvisibleNode(wallTexture));
     mWalls[1] = wallRight.get();
     mWalls[1]->setPosition(1895.f, 515.f);
     mWalls[1]->setSize(sf::Vector2u(50, 1030));
@@ -64,7 +64,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mWalls[1]->mType = 2;
     mSceneLayers[World]->attachChild(std::move(wallRight));
 
-    std::unique_ptr<SpriteNode> ground(new SpriteNode(groundTexture));
+    std::unique_ptr<InvisibleNode> ground(new InvisibleNode(groundTexture));
     mGround = ground.get();
     mGround->setPosition(960.f, 1055.f);
     mGround->setSize(sf::Vector2u(1920, 50));

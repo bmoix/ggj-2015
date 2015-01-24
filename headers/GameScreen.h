@@ -9,6 +9,7 @@
 #include "TextNode.h"
 #include "Player.h"
 #include "SpriteNode.h"
+#include "InvisibleNode.h"
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
 

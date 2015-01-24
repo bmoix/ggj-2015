@@ -21,7 +21,7 @@ namespace Textures
         Platform1,
         TrapBox,
         PlatformWood,
-        PlatformStone,
+        PlatformStone
 	};
 }
 
