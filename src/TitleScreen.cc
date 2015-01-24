@@ -57,9 +57,6 @@ bool TitleScreen::handleEvent(const sf::Event& event) {
         sf::IntRect helpBounds = mButtonHelp->getBounds();
         sf::IntRect exitBounds = mButtonExit->getBounds();
         if (newGameBounds.contains(newPos)) {
-        sf::IntRect bounds = mButtonPlay->getBounds();
-        std::cout << bounds.left << " " << bounds.top << " " << bounds.width << " " << bounds.height << std::endl;
-        if (bounds.contains(newPos)) {
             getContext().mMusic->stop();
             requestStackPop();
             requestStackPush(States::Countdown);
@@ -73,7 +70,7 @@ bool TitleScreen::handleEvent(const sf::Event& event) {
         }
         else {
             std::cout << "kek" << std::endl;
-        }
+        } 
     }
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Return) {
