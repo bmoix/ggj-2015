@@ -59,13 +59,13 @@ bool TitleScreen::handleEvent(const sf::Event& event) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(*getContext().mWindow);
         sf::Vector2i newPos = Utils::correctMouse(mousePos, getContext().mScale);
         sf::IntRect bounds = mButtonPlay->getBounds();
-        cout << bounds.left << " " << bounds.top << " " << bounds.width << " " << bounds.height << endl;
+        std::cout << bounds.left << " " << bounds.top << " " << bounds.width << " " << bounds.height << std::endl;
         if (bounds.contains(newPos)) {
             requestStackPop();
             requestStackPush(States::Game);
         }
         else {
-            cout << "kek" << endl;
+            std::cout << "kek" << std::endl;
         }
     }
     return true;

@@ -20,7 +20,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-using namespace std;
 
 const float metersToPixels = 192.0f;
 const float epsilon = 1e-4f;
@@ -96,7 +95,7 @@ namespace Utils {
         std::stringstream png, jpg;
         png << "res/pictures/" << name << ".png";
         jpg << "res/pictures/" << name << ".jpg";
-        ifstream f(png.str());
+        std::ifstream f(png.str());
         if (f.good()) {
             f.close();
             return png.str();
