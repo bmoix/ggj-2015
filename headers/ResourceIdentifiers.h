@@ -14,6 +14,7 @@ namespace Textures
 	enum ID
 	{
         GameBackground,
+        CountdownBackground,
         Player1,
         PlayerAnimation,
         Blue,

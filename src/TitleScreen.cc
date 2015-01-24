@@ -55,7 +55,7 @@ bool TitleScreen::handleEvent(const sf::Event& event) {
         std::cout << bounds.left << " " << bounds.top << " " << bounds.width << " " << bounds.height << std::endl;
         if (bounds.contains(newPos)) {
             requestStackPop();
-            requestStackPush(States::Game);
+            requestStackPush(States::Countdown);
         }
         else {
             std::cout << "kek" << std::endl;
