@@ -45,6 +45,16 @@ sf::Vector2f Player::getVel() {
     return mVelocity;
 }
 
+bool Player::isJumping() const {
+    if (mState == States::JumpLeft ||
+        mState == States::JumpRight ||
+        mState == States::FallLeft ||
+        mState == States::FallRight) {
+        return true;
+    }
+    return false;
+}
+
 bool Player::canJump() const {
     switch(mState) {
         case States::JumpLeft:
@@ -60,6 +70,9 @@ bool Player::canJump() const {
 void Player::jump(float v) {
     scaleVel(1.0f, 0.0f);
     setVel(0.0f, v);
+    if (isJumping()) {
+        scaleVel(1.0f, 0.7f); // Reduce double jump velocity
+    }
     switch(mState) {
         case States::JumpLeft:
         case States::JumpRight:

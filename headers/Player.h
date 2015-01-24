@@ -27,6 +27,7 @@ class Player: public AnimationNode {
         void setVel(float x, float y);
         void scaleVel(float x, float y);
         sf::Vector2f getVel();
+        bool isJumping() const;
         bool canJump() const;
         void jump(float v);
 

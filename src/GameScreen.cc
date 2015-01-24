@@ -5,13 +5,13 @@
 
 GameScreen::GameScreen(StatesStack& stack, Context context)
 : State(stack, context)
-, mJumpVel(3000.0f)
-, mMovVel(1500.0f)
+, mJumpVel(2000.0f)
+, mMovVel(1000.0f)
 , mWalls(2) 
 , mGround() {
     // CREACIÓ ESCENA
     // Create box2D world;
-    const b2Vec2 gravity(0, 50.0f);
+    const b2Vec2 gravity(0, 30.0f);
     mWorld = new b2World(gravity);
     mWorld->SetContactListener(new Collision());
 
