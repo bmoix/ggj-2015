@@ -37,6 +37,8 @@ TitleScreen::TitleScreen(StatesStack& stack, Context& context)
     mButtonExit->setPosition(325.f, 970.f);
     mButtonExit->setSize(sf::Vector2u(600, 200));
     mSceneLayers[Text]->attachChild(std::move(button3));
+
+    context.mMusic->play(Music::MenuTheme);
 }
 
 void TitleScreen::draw() {
@@ -55,6 +57,10 @@ bool TitleScreen::handleEvent(const sf::Event& event) {
         sf::IntRect helpBounds = mButtonHelp->getBounds();
         sf::IntRect exitBounds = mButtonExit->getBounds();
         if (newGameBounds.contains(newPos)) {
+        sf::IntRect bounds = mButtonPlay->getBounds();
+        std::cout << bounds.left << " " << bounds.top << " " << bounds.width << " " << bounds.height << std::endl;
+        if (bounds.contains(newPos)) {
+            getContext().mMusic->stop();
             requestStackPop();
             requestStackPush(States::Countdown);
         }

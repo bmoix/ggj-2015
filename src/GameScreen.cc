@@ -144,6 +144,8 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     cursorSprite->setSize(sf::Vector2u(100, 100));
     cursorSprite->setPosition(sf::Vector2f(500.f, 500.f));
     mSceneLayers[Text]->attachChild(std::move(cursorSprite));
+
+    getContext().mMusic->play(Music::GameTheme);
 }
 
 void GameScreen::draw() {
