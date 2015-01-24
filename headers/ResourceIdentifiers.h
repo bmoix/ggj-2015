@@ -20,6 +20,7 @@ namespace Textures
         Red,
         Platform1,
         TrapBox,
+        SpikesBall,
         PlatformWood,
         PlatformStone,
         IconBox,

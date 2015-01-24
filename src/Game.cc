@@ -39,6 +39,7 @@ Game::Game() :
     mTextures.load(Textures::Red, "res/pictures/red.png");
     mTextures.load(Textures::Platform1, "res/pictures/platform1.png");
     mTextures.load(Textures::TrapBox, "res/pictures/trap_box.png");
+    mTextures.load(Textures::SpikesBall, "res/pictures/spikes_ball.png");
     mTextures.load(Textures::PlatformWood, "res/pictures/platformWood.png");
     mTextures.load(Textures::PlatformStone, "res/pictures/platformStone.png");
     mTextures.load(Textures::IconBox, "res/pictures/iconbox.png");
