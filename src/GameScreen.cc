@@ -240,7 +240,16 @@ void GameScreen::handleRealtimeInput(){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             multivel.x+=speed;
         }
-        mCursor->move(multivel);
+        sf::Vector2f pos = mCursor->getWorldPosition();
+        if (pos.x + multivel.x > 1820 or pos.x + multivel.x < 100) {
+            mCursor->setPosition(pos);
+        } else if (pos.y + multivel.y > 980 or pos.y + multivel.y < 100) {
+            mCursor->setPosition(pos);
+        }
+        else {
+            mCursor->move(multivel);    
+        }
+        
         
     }
 }
