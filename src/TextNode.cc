@@ -24,6 +24,7 @@ void TextNode::setColor(const sf::Color& color) {
 }
 
 void TextNode::centerText() {
+    sf::Vector2f initPos = mText.getPosition();
     sf::FloatRect textRect = mText.getLocalBounds();
     mText.setOrigin(textRect.left + textRect.width/2.0f,
                    textRect.top  + textRect.height/2.0f);

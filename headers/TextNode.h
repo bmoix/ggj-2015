@@ -5,16 +5,18 @@
 #include "SceneNode.h"
 
 class TextNode: public SceneNode {
-	public:
-		explicit TextNode(const sf::Font& font, const std::string& text);
-		void setString(const std::string& text);
-		void setCharacterSize(unsigned int size);
-		void setColor(const sf::Color& color);
-    void centerText();
+    public:
+        explicit TextNode(const sf::Font& font, const std::string& text);
+        void setString(const std::string& text);
+        void setCharacterSize(unsigned int size);
+        void setColor(const sf::Color& color);
+        void centerText();
 
-	private:
-		virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-		sf::Text mText;
+    protected:
+        sf::Text mText;
+
+    private:
+        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
 #endif // TEXT_NODE_HPP
