@@ -25,7 +25,7 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     mText = textNode.get(); // Guarda una referència al TextNode
     mText->setString("3");
     mText->centerText();
-    mText->setInitPosition(sf::Vector2f(1920.0/2.0f, 1080.0f/2.0f));
+    mText->setInitPosition(sf::Vector2f(1920.0/2.0f, 1080.0f/1.2f));
     mText->setFinalPosition(sf::Vector2f(1920.0/2.0f, 1080.0f/2.0f));
     mText->setInitSize(100.0f);
     mText->setFinalSize(500.0f);
@@ -55,7 +55,7 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     mTextNodes[0] = textNode.get();
     mTextNodes[0]->centerText();
     mTextNodes[0]->setInitPosition(sf::Vector2f(1920.0/4.0f, 1080.0f/8.0f));
-    mTextNodes[0]->setFinalPosition(sf::Vector2f(1920.0/4.0f, 1080.0f/8.0f));
+    mTextNodes[0]->setFinalPosition(sf::Vector2f(1920.0/4.0f, 1080.0f/6.0f));
     mTextNodes[0]->setInitSize(60.0f);
     mTextNodes[0]->setFinalSize(100.0f);
     mTextNodes[0]->setDuration(3.0f);
@@ -70,7 +70,7 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     mTextNodes[1] = textNode.get();
     mTextNodes[1]->centerText();
     mTextNodes[1]->setInitPosition(sf::Vector2f(3.0f*1920.0/4.0f, 1080.0f/8.0f));
-    mTextNodes[1]->setFinalPosition(sf::Vector2f(3.0f*1920.0/4.0f, 1080.0f/8.0f));
+    mTextNodes[1]->setFinalPosition(sf::Vector2f(3.0f*1920.0/4.0f, 1080.0f/6.0f));
     mTextNodes[1]->setInitSize(60.0f);
     mTextNodes[1]->setFinalSize(100.0f);
     mTextNodes[1]->setDuration(3.0f);
