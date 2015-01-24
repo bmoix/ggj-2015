@@ -12,7 +12,7 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
 , mGround(nullptr)
 , mCursor(nullptr)
 , mTrapButtons(4)
-, mTrapsAvailable(4,3)
+, mTrapsAvailable(3)
 , mTextTraps(4)
 , mCountdown() {
     // CREACIÓ ESCENA
@@ -96,7 +96,9 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     mSceneLayers[World]->attachChild(std::move(platform2));
 
     
-
+    mTrapsAvailable[0] = 10;
+    mTrapsAvailable[1] = 5;
+    mTrapsAvailable[2] = 1;
     // Add trap buttons
     for (int i = 0; i < (int)mTrapButtons.size(); ++i) {
         std::unique_ptr<SpriteNode> trapButton(new SpriteNode(*iconTexture[i]));
@@ -105,13 +107,14 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
         mTrapButtons[i]->setSize(sf::Vector2u(150, 120));
         mSceneLayers[Text]->attachChild(std::move(trapButton));
 
-        std::unique_ptr<TextNode> textTrap(new TextNode(font, std::to_string(mTrapsAvailable[i])));
-        mTextTraps[i] = textTrap.get();
-        mTextTraps[i]->setPosition(520.f + i*150.f, 90.f);
-        mTextTraps[i]->setCharacterSize(50);
-        mTextTraps[i]->setColor(sf::Color::Red);
-        mSceneLayers[Text]->attachChild(std::move(textTrap));
-
+        if (i < 3) {
+            std::unique_ptr<TextNode> textTrap(new TextNode(font, std::to_string(mTrapsAvailable[i])));
+            mTextTraps[i] = textTrap.get();
+            mTextTraps[i]->setPosition(520.f + i*150.f, 90.f);
+            mTextTraps[i]->setCharacterSize(50);
+            mTextTraps[i]->setColor(sf::Color::Red);
+            mSceneLayers[Text]->attachChild(std::move(textTrap));
+        }
     }
 
     // Prepara el text of timer
