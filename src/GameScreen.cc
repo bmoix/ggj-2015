@@ -38,7 +38,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     // Add the player to the scene
     std::unique_ptr<Player> player(new Player(animationTexture, "res/anim/player.anim"));
     mPlayer = player.get();
-    mPlayer->setPosition(500, 500);
+    mPlayer->setPosition(250, 500);
     mPlayer->setSize(sf::Vector2u(411, 423));
     mPlayer->createBody(mWorld, true);
     mSceneLayers[Players]->attachChild(std::move(player));
@@ -67,6 +67,17 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mGround->createBody(mWorld, false);
     mSceneLayers[World]->attachChild(std::move(ground));
 
+    std::unique_ptr<SpriteNode> platform(new SpriteNode(groundTexture));
+    platform->setPosition(600.f, 700.f);
+    platform->setSize(sf::Vector2u(250, 25));
+    platform->createBody(mWorld, false);
+    mSceneLayers[World]->attachChild(std::move(platform));
+
+    std::unique_ptr<SpriteNode> platform2(new SpriteNode(groundTexture));
+    platform2->setPosition(1200.f, 500.f);
+    platform2->setSize(sf::Vector2u(250, 25));
+    platform2->createBody(mWorld, false);
+    mSceneLayers[World]->attachChild(std::move(platform2));
 
     // Prepara el text
     std::unique_ptr<TextNode> textNode(new TextNode(font, "WOLOLO"));
