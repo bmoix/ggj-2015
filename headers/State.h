@@ -21,7 +21,7 @@ class State {
             sf::RenderWindow* mWindow;
         };
 
-        State(StatesStack& stack, Context context);
+        State(StatesStack& stack, Context& context);
         virtual ~State();
 
         virtual void draw() = 0;

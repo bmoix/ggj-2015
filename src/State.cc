@@ -9,7 +9,7 @@ State::Context::Context(sf::RenderTexture& rTexture, TextureHolder& textures, Fo
 , mWindow(&window) {
 }
 
-State::State(StatesStack& stack, Context context)
+State::State(StatesStack& stack, Context& context)
 : mStack(&stack)
 , mContext(context) {
 }
