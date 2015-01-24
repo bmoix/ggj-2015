@@ -1,13 +1,11 @@
 #include "SpriteNode.h"
 
-SpriteNode::SpriteNode(const sf::Texture& texture, ObjectTypes::ID type)
-: mSprite(texture)
-, mType(type) {
+SpriteNode::SpriteNode(const sf::Texture& texture)
+: mSprite(texture) {
 }   
 
-SpriteNode::SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect, ObjectTypes::ID type) 
-: mSprite(texture, textureRect)
-, mType(type) {
+SpriteNode::SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect) 
+: mSprite(texture, textureRect) {
 }
 
 void SpriteNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -28,16 +26,4 @@ void SpriteNode::setColor(sf::Color color){
 
 sf::Color SpriteNode::getColor(){
     return mSprite.getColor();
-}
-
-ObjectTypes::ID SpriteNode::getType(){
-	return mType;
-}
-
-bool SpriteNode::canCollideWith(ObjectTypes::ID type) {
-	(void) type;
-	return false;
-}
-void SpriteNode::hasCollidedWith(SpriteNode* other) {
-	(void) other;
 }

@@ -11,7 +11,6 @@
 #include "SpriteNode.h"
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
-#include "ObjectTypeIdentifiers.h"
 
 class GameScreen: public State {
 
@@ -46,8 +45,6 @@ class GameScreen: public State {
         Player* mPlayer;
         float mJumpVel;
         float mMovVel;
-
-        std::list<SpriteNode*> mCollisionObjects;
 
         std::string str;
 };

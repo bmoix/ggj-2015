@@ -3,25 +3,18 @@
 
 #include "Utils.h"
 #include "SceneNode.h"
-#include "ObjectTypeIdentifiers.h"
 
 class SpriteNode: public SceneNode {
     public:
-        explicit SpriteNode(const sf::Texture& texture, ObjectTypes::ID type);
-        SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect, ObjectTypes::ID type);
+        explicit SpriteNode(const sf::Texture& texture);
+        SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect);
         virtual void setSize(sf::Vector2u desiredSize);
-
-        ObjectTypes::ID getType();
-
-        virtual bool canCollideWith(ObjectTypes::ID type);
-        virtual void hasCollidedWith(SpriteNode* other);
 
         void setColor(sf::Color color);
         sf::Color getColor();
 
     protected:
         sf::Sprite mSprite;
-        ObjectTypes::ID mType;
 
     private:
 

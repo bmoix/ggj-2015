@@ -7,7 +7,7 @@
 
 class Player: public SpriteNode {
     public:
-        explicit Player(const sf::Texture& texture, ObjectTypes::ID type);
+        explicit Player(const sf::Texture& texture);
 
         bool isJumping();
         void isJumping(bool isJumping);
@@ -15,7 +15,6 @@ class Player: public SpriteNode {
         void addVel(float x, float y);
         void setVel(float x, float y);
         sf::Vector2f getVel();
-
     private:
         void updateCurrent(sf::Time dt);
 

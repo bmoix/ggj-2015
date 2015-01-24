@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(const sf::Texture& texture, ObjectTypes::ID type)
-: SpriteNode(texture, type),
+Player::Player(const sf::Texture& texture)
+: SpriteNode(texture),
 mIsJumping(false),
 mVelocity(sf::Vector2f(0.0f,0.0f)),
 mAcceleration(sf::Vector2f(0.0f,3000.0f)) {
