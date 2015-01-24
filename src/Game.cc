@@ -9,7 +9,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 //Constructor
 Game::Game() :
   mWindow(sf::VideoMode(sf::VideoMode::getDesktopMode()), L"1714: La resistència de l'Història"
-    , sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize)
+    , sf::Style::None/*sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize*/)
 , mRenderTexture()
 , mTextures()
 , mFonts()
@@ -32,7 +32,7 @@ Game::Game() :
     // Carrega recursos comuns
     mFonts.load(Fonts::AlluraRegular, "res/media/AlluraRegular.otf");
     mFonts.load(Fonts::Sansation, "res/media/Sansation.ttf");
-    mTextures.load(Textures::GameBackground, "res/pictures/background.png");
+    mTextures.load(Textures::GameBackground, "res/pictures/background1.png");
     mTextures.load(Textures::Player1, "res/pictures/player1.png");
     mTextures.load(Textures::PlayerAnimation, "res/pictures/playerAnimation.png");
     mTextures.load(Textures::Blue, "res/pictures/blue.png");

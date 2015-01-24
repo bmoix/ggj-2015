@@ -107,7 +107,6 @@ void AnimationNode::setAnimation(const std::string &animation) {
 void AnimationNode::updateTextureRect() {
   AnimFrame frame = mAnimations[mCurrentAnim][mCurrentFrame];
   mSprite.setOrigin(std::abs(frame.mSize.x)/2.0f,std::abs(frame.mSize.y)/2.0f);
-  std::cout << mSprite.getOrigin().x << " " << mSprite.getOrigin().y << endl;
   mSprite.setTextureRect(sf::IntRect(frame.mPos, frame.mSize));
 
   float scaleX = mSize.x / float(frame.mSize.x);
