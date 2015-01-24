@@ -110,7 +110,8 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
         std::unique_ptr<TextNode> textTrap(new TextNode(font, std::to_string(mTrapsAvailable[i])));
         mTextTraps[i] = textTrap.get();
         mTextTraps[i]->setPosition(520.f + i*150.f, 90.f);
-        mTextTraps[i]->setScale(sf::Vector2f(1.5,1.5));
+        mTextTraps[i]->setScale(sf::Vector2f(2,2));
+        mTextTraps[i]->setColor(sf::Color::Red);
         mSceneLayers[Text]->attachChild(std::move(textTrap));
 
     }
