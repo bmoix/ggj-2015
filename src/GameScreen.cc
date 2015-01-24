@@ -46,6 +46,10 @@ mMovVel(300.0f) {
   animation->setSize(sf::Vector2u(822, 846));
   mSceneLayers[Players]->attachChild(std::move(animation));
 
+  	// Add things that collide in the collision list
+  	mCollisonObjects.push(mPlayer);
+  	// Walls, etc...
+
 }
 
 void GameScreen::draw() {
@@ -82,9 +86,16 @@ void GameScreen::handleRealtimeInput(){
 void GameScreen::handleCollisions() {
 	for (auto it: mCollisionObjects) {
 		for (auto jt: mCollisionObjects) {
-			if (it->getID() != jt->getID()) {
-				checkCollision();
+			if (it->canCollideWith(jt->getType())) {
+				if (checkCollision(it, jt)) {
+					it->hasCollidedWith(jt);
+					jt->hasCollidedWith(it);
+				}
 			}
 		}
 	}
+}
+
+bool checkCollision(SpriteNode* a, SpriteNode* b) {
+
 }

@@ -11,6 +11,7 @@
 #include "SpriteNode.h"
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
+#include "ObjectTypeIdentifiers.h"
 
 class GameScreen: public State {
 
