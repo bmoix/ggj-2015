@@ -1,7 +1,7 @@
-/*********************************TitleScreen.cc***********************************/
-#include "TitleScreen.h"
+/*********************************HelpScreen.cc***********************************/
+#include "HelpScreen.h"
 
-TitleScreen::TitleScreen(StatesStack& stack, Context& context)
+HelpScreen::HelpScreen(StatesStack& stack, Context& context)
 : State(stack, context) {
     for (std::size_t i = 0; i < LayerCount; ++i) {
         SceneNode::Ptr layer(new SceneNode());
@@ -39,14 +39,14 @@ TitleScreen::TitleScreen(StatesStack& stack, Context& context)
     mSceneLayers[Text]->attachChild(std::move(button3));
 }
 
-void TitleScreen::draw() {
+void HelpScreen::draw() {
     getContext().mRTexture->draw(mSceneGraph);
 }
-bool TitleScreen::update(sf::Time dt) {
+bool HelpScreen::update(sf::Time dt) {
     return true;
 }
 
-bool TitleScreen::handleEvent(const sf::Event& event) {
+bool HelpScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::EventType::MouseButtonPressed 
         and event.mouseButton.button == sf::Mouse::Button::Left) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(*getContext().mWindow);
@@ -78,7 +78,7 @@ bool TitleScreen::handleEvent(const sf::Event& event) {
     return true;
 }
 
-void TitleScreen::click(mouseButtons mouseButton, sf::Vector2f mouseClick) {
+void HelpScreen::click(mouseButtons mouseButton, sf::Vector2f mouseClick) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         //sf::Vector2i newMouse = Utils::correctMouse(mouseClick, mouseClick);
     }

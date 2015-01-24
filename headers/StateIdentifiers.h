@@ -9,7 +9,8 @@ namespace States {
         Game,
         Countdown,
         Pause,
-        Loading
+        Loading,
+        Help
     };
 }
 

@@ -10,6 +10,7 @@
 #include "TitleScreen.h"
 #include "GameScreen.h"
 #include "CountdownScreen.h"
+#include "HelpScreen.h"
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>

@@ -158,6 +158,7 @@ void Game::updateStatistics(sf::Time dt) {
 
 void Game::registerStates() {
     mStatesStack.registerState<TitleScreen>(States::Title);
+    mStatesStack.registerState<HelpScreen>(States::Help);
     mStatesStack.registerState<GameScreen>(States::Game);
     mStatesStack.registerState<CountdownScreen>(States::Countdown);
 }
