@@ -36,11 +36,11 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
     // Add the player to the scene
-    std::unique_ptr<Player> player(new Player(animationTexture, "res/anim/player2.anim"));
+    std::unique_ptr<Player> player(new Player(animationTexture, "res/anim/player1.anim"));
     mPlayer = player.get();
     mPlayer->setPosition(500, 500);
     mPlayer->setSize(sf::Vector2u(150, 163));
-    mPlayer->createBody(mWorld, true, 0.7f);
+    mPlayer->createBody(mWorld, true, bbscalex_p1, bbscaley_p1);
     mSceneLayers[Players]->attachChild(std::move(player));
 
     // Add walls

@@ -34,7 +34,7 @@ Game::Game() :
     mFonts.load(Fonts::Sansation, "res/media/Sansation.ttf");
     mTextures.load(Textures::GameBackground, "res/pictures/background1.png");
     mTextures.load(Textures::Player1, "res/pictures/player1.png");
-    mTextures.load(Textures::PlayerAnimation, "res/pictures/playerAnimation2.png");
+    mTextures.load(Textures::PlayerAnimation, "res/pictures/playerAnimation1.png");
     mTextures.load(Textures::Blue, "res/pictures/blue.png");
     mTextures.load(Textures::Red, "res/pictures/red.png");
 

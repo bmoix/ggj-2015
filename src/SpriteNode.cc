@@ -40,7 +40,7 @@ void SpriteNode::updateCurrent(sf::Time dt) {
     }
 }
 
-void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscale) {
+void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscalex, float bbscaley) {
     sf::Vector2f vpos = this->getWorldPosition();
 
     b2Vec2 pos(vpos.x/metersToPixels, vpos.y/metersToPixels);
@@ -53,7 +53,7 @@ void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscale) {
         mBody = world->CreateBody(&body_def);
 
         b2PolygonShape dynamic_box;
-        dynamic_box.SetAsBox(size.x*bbscale/2.0, size.y*bbscale/2.0);
+        dynamic_box.SetAsBox(size.x*bbscalex/2.0, size.y*bbscaley/2.0);
 
         b2FixtureDef fixture_def;
         fixture_def.shape = &dynamic_box;
@@ -67,15 +67,15 @@ void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscale) {
         mBody = world->CreateBody(&body_def);
 
         b2PolygonShape shape;
-        shape.SetAsBox(size.x*bbscale/2.0, size.y*bbscale/2.0);
+        shape.SetAsBox(size.x*bbscalex/2.0, size.y*bbscaley/2.0);
 
         // Add fixture to the body
         mBody->CreateFixture(&shape, 0.0f);
     }
 }
 
-void SpriteNode::createBody(b2World* world, bool dynamic, float bbscale) {
-    setupBody(world, dynamic, bbscale);
+void SpriteNode::createBody(b2World* world, bool dynamic, float bbscalex, float bbscaley) {
+    setupBody(world, dynamic, bbscalex, bbscaley);
     mBody->SetUserData(this);
 }
 

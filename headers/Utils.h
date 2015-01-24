@@ -24,6 +24,12 @@ using namespace std;
 
 const float metersToPixels = 192.0f;
 
+const float bbscalex_p1 = 0.70f;
+const float bbscaley_p1 = 0.69f;
+
+const float bbscalex_p2 = 0.44f;
+const float bbscaley_p2 = 0.60f;
+
 enum directions {
     dir_up, dir_down, dir_right, dir_left, dir_up_right, dir_down_left, dir_up_left, dir_down_right, dir_none
 };

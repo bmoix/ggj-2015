@@ -31,7 +31,7 @@ class Player: public AnimationNode {
         bool canJump() const;
         void jump(float v);
 
-        virtual void createBody(b2World* world, bool dynamic, float bbscale = 1.0f) override;
+        virtual void createBody(b2World* world, bool dynamic, float bbscalex = 1.0f, float bbscaley = 1.0f) override;
         virtual void collidedWith(SpriteNode* other) override;
 
     private:
