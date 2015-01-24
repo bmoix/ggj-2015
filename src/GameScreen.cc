@@ -9,7 +9,8 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 , mMovVel(1000.0f)
 , mWalls(2) 
 , mGround()
-, mTrapButtons(5) {
+, mTrapButtons(5) 
+, mTrapsAvailable(5,3) {
     // CREACIÓ ESCENA
     // Create box2D world;
     const b2Vec2 gravity(0, 30.0f);
@@ -101,6 +102,12 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
         mTrapButtons[i]->setPosition(500.f + i*100.f, 50.f);
         mTrapButtons[i]->setSize(sf::Vector2u(75, 75));
         mSceneLayers[Text]->attachChild(std::move(trapButton));
+
+        std::unique_ptr<TextNode> textTrap(new TextNode(font, std::to_string(mTrapsAvailable[i])));
+        mText = textTrap.get();
+        mText->setPosition(510.f + i*100.f, 50.f);
+        mText->setScale(sf::Vector2f(1.5,1.5));
+        mSceneLayers[Text]->attachChild(std::move(textTrap));
     }
 
 }

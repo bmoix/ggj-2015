@@ -45,6 +45,7 @@ class GameScreen: public State {
         std::vector<SpriteNode*> mWalls;
         SpriteNode* mGround;
         std::vector<SpriteNode*> mTrapButtons;
+        std::vector<int> mTrapsAvailable;
 
         b2World* mWorld;
 
