@@ -33,7 +33,6 @@ class TitleScreen: public State {
         SceneNode mSceneGraph;
         std::array<SceneNode*, LayerCount> mSceneLayers;
 
-        TextNode* mText;
         SpriteNode* mButtonPlay;
         SpriteNode* mButtonHelp;
         SpriteNode* mButtonExit;

@@ -48,6 +48,10 @@ Game::Game() :
     mTextures.load(Textures::IconSpikes, "res/pictures/iconspikes.png");
     mTextures.load(Textures::IconSwitch, "res/pictures/iconswitch.png");
     mTextures.load(Textures::Spikes, "res/pictures/spikes.png");
+    mTextures.load(Textures::Title, "res/pictures/titleScreen.png");
+    mTextures.load(Textures::Start, "res/pictures/starticon.png");
+    mTextures.load(Textures::Help, "res/pictures/helpicon.png");
+    mTextures.load(Textures::Exit, "res/pictures/exiticon.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Sansation));
     mStatisticsText.setPosition(5.f, 5.f);

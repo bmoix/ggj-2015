@@ -28,6 +28,10 @@ namespace Textures
         IconSpikes,
         IconSwitch,
         Spikes,
+        Title,
+        Start,
+        Help,
+        Exit,
 	};
 }
 
