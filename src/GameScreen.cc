@@ -215,10 +215,10 @@ void GameScreen::addTrap(int type, sf::Vector2f pos) {
         }
         case 2: // Spikes
         {
-            sf::Texture& trapTexture = getContext().mTextures->get(Textures::TrapBox);
+            sf::Texture& trapTexture = getContext().mTextures->get(Textures::Spikes);
             std::unique_ptr<SpriteNode> spikes(new SpriteNode(trapTexture, CollisionType::Spikes));
             spikes->setPosition(pos);
-            spikes->setSize(sf::Vector2u(100, 10));
+            spikes->setSize(sf::Vector2u(300, 50));
             spikes->createBody(mWorld, false, 0.8, 0.9, 1);
             mTraps.push_back(spikes.get());
             mSceneLayers[Traps]->attachChild(std::move(spikes));

@@ -46,6 +46,7 @@ Game::Game() :
     mTextures.load(Textures::IconBall, "res/pictures/iconball.png");
     mTextures.load(Textures::IconSpikes, "res/pictures/iconspikes.png");
     mTextures.load(Textures::IconSwitch, "res/pictures/iconswitch.png");
+    mTextures.load(Textures::Spikes, "res/pictures/spikes.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Sansation));
     mStatisticsText.setPosition(5.f, 5.f);

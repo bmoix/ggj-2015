@@ -27,6 +27,7 @@ namespace Textures
         IconBall,
         IconSpikes,
         IconSwitch,
+        Spikes,
 	};
 }
 
