@@ -176,7 +176,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         }
         if (event.key.code == sf::Keyboard::Num7) {
             if (mTrapsAvailable[Traps::Boxes]) {
-                addTrap(Traps::Boxes, sf::Vector2f(500, 50));
+                addTrap(Traps::Boxes, mCursor->getWorldPosition());
                 mTextTraps[Traps::Boxes]->setString(
                     std::to_string(--mTrapsAvailable[Traps::Boxes])
                 );
@@ -184,7 +184,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         }
         if (event.key.code == sf::Keyboard::Num8) {
             if (mTrapsAvailable[Traps::SpikesBall]) {
-                addTrap(Traps::SpikesBall, sf::Vector2f(500, 1030));
+                addTrap(Traps::SpikesBall, mCursor->getWorldPosition());
                 mTextTraps[Traps::SpikesBall]->setString(
                     std::to_string(--mTrapsAvailable[Traps::SpikesBall])
                 );
@@ -193,7 +193,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         }
         if (event.key.code == sf::Keyboard::Num9) {
             if (mTrapsAvailable[Traps::Spikes]) {
-                addTrap(Traps::Spikes, sf::Vector2f(500, 1030));
+                addTrap(Traps::Spikes, mCursor->getWorldPosition());
                 mTextTraps[Traps::Spikes]->setString(
                     std::to_string(--mTrapsAvailable[Traps::Spikes])
                 );
@@ -213,7 +213,8 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 
 void GameScreen::handleRealtimeInput(){
     if (!mPlayer->isDead()) {
-        float speed = 100.f;
+        float speed = 20.f;
+        sf::Vector2f multivel(0.0,0.0);
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             mPlayer->setLookingRight(false);
             mPlayer->setVel(-mMovVel,0.0f);
@@ -222,21 +223,25 @@ void GameScreen::handleRealtimeInput(){
             mPlayer->setLookingRight(true);
             mPlayer->setVel(mMovVel,0.0f);
         }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            mCursor->move(0.f, -speed);
-        }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            
-        }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            
-        }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            
-        }
         else {
             mPlayer->scaleVel(0.0f, 1.0f);
         }
+
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            multivel.y-=speed;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            multivel.y+=speed;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            multivel.x-=speed;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            multivel.x+=speed;
+        }
+        mCursor->move(multivel);
+        
     }
 }
 
