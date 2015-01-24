@@ -11,7 +11,8 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 , mGround()
 , mTrapButtons(4)
 , mTrapsAvailable(4,3)
-, mTextTraps(4) {
+, mTextTraps(4)
+, mCountdown() {
     // CREACIÓ ESCENA
     // Create box2D world;
     const b2Vec2 gravity(0, 30.0f);
@@ -92,12 +93,7 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
     platform2->createBody(mWorld, false, 0.8, 0.7);
     mSceneLayers[World]->attachChild(std::move(platform2));
 
-    // Prepara el text
-    std::unique_ptr<TextNode> textNode(new TextNode(font, "WOLOLO"));
-    mText = textNode.get(); // Guarda una referència al TextNode
-    mText->setPosition(100 , 0);
-    mText->setScale(sf::Vector2f(2,2));
-    mSceneLayers[Text]->attachChild(std::move(textNode));
+    
 
     // Add trap buttons
     for (int i = 0; i < (int)mTrapButtons.size(); ++i) {
@@ -116,6 +112,15 @@ GameScreen::GameScreen(StatesStack& stack, Context context)
 
     }
 
+    // Prepara el text of timer
+    std::unique_ptr<TextNode> textNode(new TextNode(font, "30:00"));
+    mText = textNode.get(); // Guarda una referència al TextNode
+    mText->setPosition(100 , 0);
+    mText->setScale(sf::Vector2f(2,2));
+    mSceneLayers[Text]->attachChild(std::move(textNode));
+
+    // Start timer
+    mCountdown.restart();
 }
 
 void GameScreen::draw() {
@@ -127,6 +132,16 @@ bool GameScreen::update(sf::Time dt) {
     const unsigned int velocityIterations = 6;
     const unsigned int positionIterations = 2;
     mWorld->Step(dt.asSeconds(), velocityIterations, positionIterations);
+
+    sf::Time elapsed = mCountdown.getElapsedTime();
+    std::stringstream ss;
+    int sec = elapsed.asMilliseconds();
+    ss << std::setfill('0') << std::setw(2) << (29-sec/1000) << ":" 
+        << std::setfill('0') << std::setw(2) << (1000-sec%1000)/10;
+    std::string s;
+    ss >> s;
+    std::cout << s << std::endl;
+    mText->setString(s);
     mSceneGraph.update(dt);
     return true;
 }

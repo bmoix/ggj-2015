@@ -68,6 +68,8 @@ class GameScreen: public State {
         std::vector<SpriteNode*> mTraps;
 
         std::string str;
+
+        sf::Clock mCountdown;
 };
 
 
