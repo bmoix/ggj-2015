@@ -39,6 +39,7 @@ Game::Game() :
     mFonts.load(Fonts::Gomo, "res/media/Gomo.ttf");
     mTextures.load(Textures::GameBackground1, "res/pictures/background1.png");
     mTextures.load(Textures::GameBackground2, "res/pictures/background2.png");
+    mTextures.load(Textures::HelpBackground, "res/pictures/helpBackground.png");
     mTextures.load(Textures::CountdownBackground, "res/pictures/countdownBackground.png");
     mTextures.load(Textures::RaccoonWins, "res/pictures/raccoonWins.png");
     mTextures.load(Textures::FoxWins, "res/pictures/foxWins.png");
@@ -61,6 +62,7 @@ Game::Game() :
     mTextures.load(Textures::Help, "res/pictures/helpicon.png");
     mTextures.load(Textures::Exit, "res/pictures/exiticon.png");
     mTextures.load(Textures::Cursor, "res/pictures/cursor.png");
+    mTextures.load(Textures::Return, "res/pictures/return.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Sansation));
     mStatisticsText.setPosition(5.f, 5.f);

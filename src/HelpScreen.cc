@@ -9,36 +9,42 @@ HelpScreen::HelpScreen(StatesStack& stack, Context& context)
         mSceneGraph.attachChild(std::move(layer));
     }
     // Prepara el fons de pantalla i la font
-    sf::Font& font = getContext().mFonts->get(Fonts::Sansation);
-    sf::Texture& backTexture = getContext().mTextures->get(Textures::Title);
-    sf::Texture& startTexture = getContext().mTextures->get(Textures::Start);
-    sf::Texture& helpTexture = getContext().mTextures->get(Textures::Help);
-    sf::Texture& exitTexture = getContext().mTextures->get(Textures::Exit);
+    sf::Font& font = getContext().mFonts->get(Fonts::Gomo);
+    sf::Texture& backTexture = getContext().mTextures->get(Textures::HelpBackground);
+    sf::Texture& returnTexture = getContext().mTextures->get(Textures::Return);
 
     // Add the background sprite to the scene
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
     backgroundSprite->setPosition(sf::Vector2f(1920.0/2.f, 1080.0f/2.0f));
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
-    std::unique_ptr<SpriteNode> button1(new SpriteNode(startTexture));
-    mButtonPlay = button1.get();
-    mButtonPlay->setPosition(325.f, 570.f);
-    mButtonPlay->setSize(sf::Vector2u(600, 200));
-    mSceneLayers[Text]->attachChild(std::move(button1));
+    std::unique_ptr<SpriteNode> buttonBack(new SpriteNode(returnTexture));
+    mButtonBack = buttonBack.get();
+    mButtonBack->setPosition(150, 150);
+    mButtonBack->setSize(sf::Vector2u(100, 100));
+    mSceneLayers[Text]->attachChild(std::move(buttonBack));
 
-    std::unique_ptr<SpriteNode> button2(new SpriteNode(helpTexture));
-    mButtonHelp = button2.get();
-    mButtonHelp->setPosition(325.f, 770.f);
-    mButtonHelp->setSize(sf::Vector2u(600, 200));
-    mSceneLayers[Text]->attachChild(std::move(button2));
+    std::unique_ptr<TextNode> textHelp(new TextNode(font, "SURVIVAL MODE\n\tRun for your life\n\tUse 'W' 'A' 'S'"));
+    mText = textHelp.get();
+    mText->setPosition(800.f, 265.f);
+    mText->setCharacterSize(50);
+    mText->setColor(sf::Color::Black);
+    mSceneLayers[Text]->attachChild(std::move(textHelp));
 
-    std::unique_ptr<SpriteNode> button3(new SpriteNode(exitTexture));
-    mButtonExit = button3.get();
-    mButtonExit->setPosition(325.f, 970.f);
-    mButtonExit->setSize(sf::Vector2u(600, 200));
-    mSceneLayers[Text]->attachChild(std::move(button3));
+    std::unique_ptr<TextNode> textHelp2(new TextNode(font, "KILLER MODE\n\tKill them all\n\tUse your arrows\n\tAttack with '7' '8' '9' '0'"));
+    mText2 = textHelp2.get();
+    mText2->setPosition(1100.f, 710.f);
+    mText2->setCharacterSize(50);
+    mText2->setColor(sf::Color::Black);
+    mSceneLayers[Text]->attachChild(std::move(textHelp2));
 
-    context.mMusic->play(Music::MenuTheme);
+    std::unique_ptr<TextNode> textWat(new TextNode(font, "WAT DO"));
+    mTextWat = textWat.get();
+    mTextWat->setPosition(400.f, 475.f);
+    mTextWat->setCharacterSize(150);
+    mTextWat->setRotation(25);
+    mTextWat->setColor(sf::Color::Red);
+    mSceneLayers[Text]->attachChild(std::move(textWat));
 }
 
 void HelpScreen::draw() {
@@ -53,28 +59,10 @@ bool HelpScreen::handleEvent(const sf::Event& event) {
         and event.mouseButton.button == sf::Mouse::Button::Left) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(*getContext().mWindow);
         sf::Vector2i newPos = Utils::correctMouse(mousePos, getContext().mScale);
-        sf::IntRect newGameBounds = mButtonPlay->getBounds();
-        sf::IntRect helpBounds = mButtonHelp->getBounds();
-        sf::IntRect exitBounds = mButtonExit->getBounds();
-        if (newGameBounds.contains(newPos)) {
+        sf::IntRect buttonBounds = mButtonBack->getBounds();
+        if (buttonBounds.contains(newPos)) {
             requestStackPop();
-            requestStackPush(States::Countdown);
-        }
-        else if (helpBounds.contains(newPos)) {
-            requestStackPop();
-            requestStackPush(States::Help);
-        }
-        else if (exitBounds.contains(newPos)) {
-            requestStackPop();
-        }
-        else {
-            std::cout << "kek" << std::endl;
-        }
-    }
-    if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::Return) {
-            requestStackPop();
-            requestStackPush(States::Countdown);
+            requestStackPush(States::Title);
         }
     }
     return true;

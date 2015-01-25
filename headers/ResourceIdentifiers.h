@@ -16,6 +16,7 @@ namespace Textures
 	{
         GameBackground1,
         GameBackground2,
+        HelpBackground,
         CountdownBackground,
         Player1,
         Player2,
@@ -39,7 +40,8 @@ namespace Textures
         Exit,
         RaccoonWins,
         FoxWins,
-        Cursor
+        Cursor,
+        Return
 	};
 }
 

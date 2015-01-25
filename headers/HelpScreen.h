@@ -33,9 +33,10 @@ class HelpScreen: public State {
         SceneNode mSceneGraph;
         std::array<SceneNode*, LayerCount> mSceneLayers;
 
-        SpriteNode* mButtonPlay;
-        SpriteNode* mButtonHelp;
-        SpriteNode* mButtonExit;
+        SpriteNode* mButtonBack;
+        TextNode* mText;
+        TextNode* mText2;
+        TextNode* mTextWat;
 
         std::string str;
 };
