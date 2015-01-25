@@ -52,6 +52,7 @@ void AnimatedTextNode::initAnimation() {
     mClock.restart();
 }
 void AnimatedTextNode::updateCurrent(sf::Time dt) {
+    (void) dt;
     float elapsedTime = mClock.getElapsedTime().asSeconds();
     if (elapsedTime > mDuration) return;
 
