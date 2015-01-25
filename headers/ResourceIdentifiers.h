@@ -58,14 +58,22 @@ namespace Music
         enum ID
         {
                 MenuTheme,
-                GameTheme
+                GameTheme,
+                StartTheme,
+                FinishTheme,
+                WinningTheme,
         };
 }
 
 namespace SoundEffect {
         enum ID
         {
-
+                Cage,
+                Gong,
+                Jump,
+                Spikeball,
+                Spikes,
+                Switch,
         };
 }
 

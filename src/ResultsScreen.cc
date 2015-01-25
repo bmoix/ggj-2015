@@ -81,6 +81,14 @@ ResultsScreen::ResultsScreen(StatesStack& stack, Context& context) :
     mTextNodes[1]->setFinalRotation(0.0f);
     mTextNodes[1]->initAnimation();
     mSceneLayers[Text]->attachChild(std::move(textNode));
+    
+    auto gameData = getContext().mGameData;
+    if (gameData->mRoundsPassed >= gameData->mNumRounds) {
+        context.mMusic->play(Music::WinningTheme);
+    }
+    else {
+        context.mMusic->play(Music::FinishTheme);
+    }
 }
 
 void ResultsScreen::draw() {
@@ -94,6 +102,8 @@ bool ResultsScreen::update(sf::Time dt) {
 bool ResultsScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Return) {
+            getContext().mMusic->stop();
+            
             requestStackPop();
             requestStackPop();
 

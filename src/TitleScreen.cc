@@ -58,6 +58,7 @@ bool TitleScreen::handleEvent(const sf::Event& event) {
         sf::IntRect exitBounds = mButtonExit->getBounds();
         if (newGameBounds.contains(newPos)) {
             getContext().mMusic->stop();
+            getContext().mSound->play(SoundEffect::Gong);
             requestStackPop();
             requestStackPush(States::Countdown);
         }

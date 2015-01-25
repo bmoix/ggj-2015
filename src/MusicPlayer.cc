@@ -6,6 +6,10 @@ MusicPlayer::MusicPlayer()
 , mVolume(100.f) {
     mFilenames[Music::MenuTheme] = "res/music/menuTheme.ogg";
     mFilenames[Music::GameTheme] = "res/music/gameTheme.ogg";
+    mFilenames[Music::FinishTheme] = "res/music/finishTheme.ogg";
+    mFilenames[Music::StartTheme] = "res/music/startTheme.ogg";
+    mFilenames[Music::GameTheme] = "res/music/gameTheme.ogg";
+    mFilenames[Music::WinningTheme] = "res/music/winningTheme.ogg";
 }
 
 void MusicPlayer::play(Music::ID theme) {

@@ -37,6 +37,8 @@ HelpScreen::HelpScreen(StatesStack& stack, Context& context)
     mButtonExit->setPosition(325.f, 970.f);
     mButtonExit->setSize(sf::Vector2u(600, 200));
     mSceneLayers[Text]->attachChild(std::move(button3));
+
+    context.mMusic->play(Music::MenuTheme);
 }
 
 void HelpScreen::draw() {

@@ -179,6 +179,7 @@ bool GameScreen::update(sf::Time dt) {
         mText->setPosition(sf::Vector2f(1e9, 1e9));
     }
     if (sec > 30000) {
+        getContext().mMusic->stop();
         requestStackPush(States::Results);
         if (getContext().mGameData->mSurvivingPlayer) {
             ++getContext().mGameData->mPointsP2;
@@ -189,6 +190,7 @@ bool GameScreen::update(sf::Time dt) {
         getContext().mGameData->mSurvivingPlayer = 1-getContext().mGameData->mSurvivingPlayer;
     }
     else if (mPlayer->isDead()) {
+        getContext().mMusic->stop();
         requestStackPush(States::Results);
         if (getContext().mGameData->mSurvivingPlayer) {
             ++getContext().mGameData->mPointsP1;
