@@ -8,6 +8,7 @@ enum class CollisionType {
     Ground,
     Wall,
     Spikes,
+    SpikesBall,
 };
 
 class Collision : public b2ContactListener {

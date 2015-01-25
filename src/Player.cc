@@ -184,7 +184,9 @@ void Player::collidedWith(SpriteNode* other, b2Vec2 normal) {
     if (other) {
         if (normal.y > 0) mDoubleJumpUsed = false;
         CollisionType type = other->getCollisionType();
-        if (type == CollisionType::Spikes) {
+        if (type == CollisionType::SpikesBall ||
+            (type == CollisionType::Spikes && 
+            (normal.y > 0 || std::abs(normal.x) > epsilon))) {
             mDead = true;
             setVel(0, -1000);
         }

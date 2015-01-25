@@ -461,7 +461,7 @@ void GameScreen::addTrap(int type, sf::Vector2f pos) {
         {
             float mVel = 50.0f;
             sf::Texture& trapTexture = getContext().mTextures->get(Textures::SpikesBall);
-            std::unique_ptr<SpriteNode> trap(new SpriteNode(trapTexture, CollisionType::Spikes));
+            std::unique_ptr<SpriteNode> trap(new SpriteNode(trapTexture, CollisionType::SpikesBall));
             mTraps.push_back(trap.get());
             mTraps[mTraps.size()-1]->setPosition(pos);
             mTraps[mTraps.size()-1]->setSize(sf::Vector2u(85, 85));
