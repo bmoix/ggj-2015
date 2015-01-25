@@ -174,6 +174,10 @@ bool GameScreen::update(sf::Time dt) {
         mText->setPosition(10, 0);
         mText->setCharacterSize(180);
     }
+    if (sec > 30000 or mPlayer->isDead()) {
+        // I am going to hell for this
+        mText->setPosition(sf::Vector2f(1e9, 1e9));
+    }
     if (sec > 30000) {
         requestStackPush(States::Results);
         if (getContext().mGameData->mSurvivingPlayer) {
