@@ -397,7 +397,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 
 void GameScreen::handleRealtimeInput(){
     if (!mPlayer->isDead()) {
-        float speed = 15.f;
+        float speed = 10.f;
         sf::Vector2f multivel(0.0,0.0);
         
 
@@ -545,6 +545,7 @@ void GameScreen::activateTrap(Traps::Traps trap) {
                 mTrapButtons[Traps::SpikesBall]->resetAnimation();
             }
         }
+        break;
 
         case Traps::Spikes:
         {
