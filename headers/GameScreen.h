@@ -68,6 +68,8 @@ class GameScreen: public State {
         Player* mPlayer;
         float mJumpVel;
         float mMovVel;
+        bool wololo;
+        bool topkek;
 
         std::vector<SpriteNode*> mTraps;
 

@@ -16,7 +16,9 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
 , mTextTraps(4)
 , mPlatforms(12, nullptr)
 , mFixedPlatforms(4, nullptr)
-, mCountdown() {
+, mCountdown()
+, wololo(false)
+, topkek(false) {
     // CREACIÓ ESCENA
     // Create box2D world;
     const b2Vec2 gravity(0, 30.0f);
@@ -208,10 +210,22 @@ bool GameScreen::update(sf::Time dt) {
     ss >> s;
     mText->setString(s);
     if (sec > 20000) {
+        if (!topkek) {
+            for (int i = 0; i < 5; ++i) {
+                addTrap(2, sf::Vector2f(250 + 350*i, 1020));
+            }
+            topkek = true;
+        }
         mText->setPosition(50, 0);
         mText->setCharacterSize(150);
     }
     if (sec > 25000) {
+        if (!wololo) {
+            for (auto pltf : mFixedPlatforms) {
+                pltf->changeVisibility();
+            }
+            wololo = true;
+        }
         mText->setPosition(10, 0);
         mText->setCharacterSize(180);
     }
