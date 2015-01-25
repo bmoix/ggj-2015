@@ -37,3 +37,12 @@ bin
 ggj2015
 x64
 Debug
+
+#VC
+*.opensdf
+*.sdf
+*.sln
+*.suo
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
