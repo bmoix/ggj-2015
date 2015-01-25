@@ -44,11 +44,11 @@ void SpriteNode::updateCurrent(sf::Time dt) {
         b2Vec2 pos = mBody->GetPosition();
         float rot = mBody->GetAngle();
         this->setPosition(pos.x*metersToPixels, pos.y*metersToPixels);
-        this->setRotation(rot*180/(atan(1)*2));
+        this->setRotation(rot*180/(atan(1)*4));
     }
 }
 
-void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscalex, float bbscaley, float density) {
+void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscalex, float bbscaley, float density, float rotation) {
     sf::Vector2f vpos = this->getWorldPosition();
 
     b2Vec2 pos(vpos.x/metersToPixels, vpos.y/metersToPixels);
@@ -80,10 +80,12 @@ void SpriteNode::setupBody(b2World* world, bool dynamic, float bbscalex, float b
         // Add fixture to the body
         mBody->CreateFixture(&shape, 0.0f);
     }
+
+    mBody->SetTransform(mBody->GetPosition(), rotation);
 }
 
-void SpriteNode::createBody(b2World* world, bool dynamic, float bbscalex, float bbscaley, float density) {
-    setupBody(world, dynamic, bbscalex, bbscaley, density);
+void SpriteNode::createBody(b2World* world, bool dynamic, float bbscalex, float bbscaley, float density, float rotation) {
+    setupBody(world, dynamic, bbscalex, bbscaley, density, rotation);
     mBody->SetUserData(this);
 }
 

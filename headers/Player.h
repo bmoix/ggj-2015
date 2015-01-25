@@ -37,7 +37,7 @@ class Player: public AnimationNode {
         void jump(float v);
         bool isDead() const;
 
-        virtual void createBody(b2World* world, bool dynamic, float bbscalex = 1.0f, float bbscaley = 1.0f, float density=1.0f) override;
+        virtual void createBody(b2World* world, bool dynamic, float bbscalex = 1.0f, float bbscaley = 1.0f, float density=1.0f, float rotation = 0.0f) override;
         virtual void collidedWith(SpriteNode* other, b2Vec2 normal) override;
         virtual void endContactWith(SpriteNode* other, b2Vec2 normal) override;
 
