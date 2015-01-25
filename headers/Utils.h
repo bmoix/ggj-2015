@@ -86,7 +86,7 @@ namespace Utils {
         size_t i = 0;
         while (i < utf8.size()) {
             unsigned long uni; size_t todo;
-            bool error = false; unsigned char ch = utf8[i++];
+            unsigned char ch = utf8[i++];
             if (ch <= 0x7F) { uni = ch; todo = 0; }
             else if (ch <= 0xBF) { throw std::logic_error("not a UTF-8 string"); }
             else if (ch <= 0xDF) { uni = ch&0x1F; todo = 1; }
