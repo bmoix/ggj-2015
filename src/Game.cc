@@ -39,6 +39,8 @@ Game::Game() :
     mTextures.load(Textures::GameBackground1, "res/pictures/background1.png");
     mTextures.load(Textures::GameBackground2, "res/pictures/background2.png");
     mTextures.load(Textures::CountdownBackground, "res/pictures/countdownBackground.png");
+    mTextures.load(Textures::RaccoonWins, "res/pictures/raccoonWins.png");
+    mTextures.load(Textures::FoxWins, "res/pictures/foxWins.png");
     mTextures.load(Textures::Player1, "res/pictures/playerAnimation1.png");
     mTextures.load(Textures::Player2, "res/pictures/playerAnimation2.png");
     mTextures.load(Textures::Blue, "res/pictures/blue.png");
@@ -162,5 +164,6 @@ void Game::registerStates() {
     mStatesStack.registerState<HelpScreen>(States::Help);
     mStatesStack.registerState<GameScreen>(States::Game);
     mStatesStack.registerState<CountdownScreen>(States::Countdown);
+    mStatesStack.registerState<ResultsScreen>(States::Results);
 }
 

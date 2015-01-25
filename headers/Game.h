@@ -11,6 +11,7 @@
 #include "GameScreen.h"
 #include "CountdownScreen.h"
 #include "HelpScreen.h"
+#include "ResultsScreen.h"
 #include "MusicPlayer.h"
 
 #include <SFML/System.hpp>

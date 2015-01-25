@@ -176,7 +176,7 @@ bool GameScreen::update(sf::Time dt) {
     }
     if (sec > 30000) {
         requestStackPop();
-        requestStackPush(States::Countdown);
+        requestStackPush(States::Results);
         if (getContext().mGameData->mSurvivingPlayer) {
             ++getContext().mGameData->mPointsP2;
         }
@@ -187,7 +187,7 @@ bool GameScreen::update(sf::Time dt) {
     }
     else if (mPlayer->isDead()) {
         requestStackPop();
-        requestStackPush(States::Countdown);
+        requestStackPush(States::Results);
         if (getContext().mGameData->mSurvivingPlayer) {
             ++getContext().mGameData->mPointsP1;
         }

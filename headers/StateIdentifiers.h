@@ -8,6 +8,7 @@ namespace States {
         Title,
         Game,
         Countdown,
+        Results,
         Pause,
         Loading,
         Help

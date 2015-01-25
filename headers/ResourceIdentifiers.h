@@ -36,6 +36,8 @@ namespace Textures
         Start,
         Help,
         Exit,
+        RaccoonWins,
+        FoxWins,
         Cursor
 	};
 }
