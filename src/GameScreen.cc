@@ -210,51 +210,121 @@ bool GameScreen::update(sf::Time dt) {
 }
 
 bool GameScreen::handleEvent(const sf::Event& event) {
-    if (event.type == sf::Event::KeyPressed) {
-        if (!mPlayer->isDead()) {
-            if (event.key.code == sf::Keyboard::W) {
-                if (mPlayer->canJump()) {
-                    getContext().mSound->play(SoundEffect::Jump);
-                    mPlayer->jump(-mJumpVel);
+    if (sf::Joystick::isConnected(0) || sf::Joystick::isConnected(1)) {
+        int survival = getContext().mGameData->mSurvivingPlayer;
+        int attacking = 1-survival;
+        if (event.type == sf::Event::JoystickButtonPressed) {
+            std::cout << "joystick button pressed!" << std::endl;
+            std::cout << "joystick id: " << event.joystickButton.joystickId << std::endl;
+            std::cout << "button: " << event.joystickButton.button << std::endl;
+        }
+
+        if (event.type == sf::Event::JoystickButtonPressed) {
+            if (event.joystickButton.joystickId == survival) {
+                // Jump
+                if (!mPlayer->isDead()) {
+                    if (event.joystickButton.button == 0) {
+                        if (mPlayer->canJump()) {
+                            getContext().mSound->play(SoundEffect::Jump);
+                            mPlayer->jump(-mJumpVel);
+                        }
+                    }
+                }
+            }
+            else {
+                if (event.joystickButton.button == 0) {
+                    if (mTrapsAvailable[Traps::Boxes]) {
+                        getContext().mSound->play(SoundEffect::Cage);
+                        addTrap(Traps::Boxes, mCursor->getWorldPosition());
+                        mTextTraps[Traps::Boxes]->setString(
+                            std::to_string(--mTrapsAvailable[Traps::Boxes])
+                        );
+                    }
+                }
+                if (event.joystickButton.button == 1) {
+                    if (mTrapsAvailable[Traps::SpikesBall]) {
+                        getContext().mSound->play(SoundEffect::Spikeball);
+                        addTrap(Traps::SpikesBall, mCursor->getWorldPosition());
+                        mTextTraps[Traps::SpikesBall]->setString(
+                            std::to_string(--mTrapsAvailable[Traps::SpikesBall])
+                        );
+                    }
+
+                }
+                if (event.joystickButton.button == 2) {
+                    if (mTrapsAvailable[Traps::Spikes]) {
+                        getContext().mSound->play(SoundEffect::Spikes);
+                        addTrap(Traps::Spikes, mCursor->getWorldPosition());
+                        mTextTraps[Traps::Spikes]->setString(
+                            std::to_string(--mTrapsAvailable[Traps::Spikes])
+                        );
+                    }
+
+                }
+                if (event.joystickButton.button == 3) {
+                    getContext().mSound->play(SoundEffect::Switch);
+                    for (auto pltf : mPlatforms) {
+                        pltf->changeVisibility();
+                    }
                 }
             }
         }
-        if (event.key.code == sf::Keyboard::Num7) {
-            if (mTrapsAvailable[Traps::Boxes]) {
-                getContext().mSound->play(SoundEffect::Cage);
-                addTrap(Traps::Boxes, mCursor->getWorldPosition());
-                mTextTraps[Traps::Boxes]->setString(
-                    std::to_string(--mTrapsAvailable[Traps::Boxes])
-                );
-            }
-        }
-        if (event.key.code == sf::Keyboard::Num8) {
-            if (mTrapsAvailable[Traps::SpikesBall]) {
-                getContext().mSound->play(SoundEffect::Spikeball);
-                addTrap(Traps::SpikesBall, mCursor->getWorldPosition());
-                mTextTraps[Traps::SpikesBall]->setString(
-                    std::to_string(--mTrapsAvailable[Traps::SpikesBall])
-                );
-            }
-
-        }
-        if (event.key.code == sf::Keyboard::Num9) {
-            if (mTrapsAvailable[Traps::Spikes]) {
-                getContext().mSound->play(SoundEffect::Spikes);
-                addTrap(Traps::Spikes, mCursor->getWorldPosition());
-                mTextTraps[Traps::Spikes]->setString(
-                    std::to_string(--mTrapsAvailable[Traps::Spikes])
-                );
-            }
-
-        }
-        if (event.key.code == sf::Keyboard::Num0) {
-            getContext().mSound->play(SoundEffect::Switch);
-            for (auto pltf : mPlatforms) {
-                pltf->changeVisibility();
+        else if (event.type == sf::Event::JoystickMoved) {
+            if (event.joystickMove.axis == sf::Joystick::X) {
+                std::cout << "X axis moved!" << std::endl;
+                std::cout << "joystick id: " << event.joystickMove.joystickId << std::endl;
+                std::cout << "new position: " << event.joystickMove.position << std::endl;
             }
         }
     }
+    else {
+        if (event.type == sf::Event::KeyPressed) {
+            if (!mPlayer->isDead()) {
+                if (event.key.code == sf::Keyboard::W) {
+                    if (mPlayer->canJump()) {
+                        getContext().mSound->play(SoundEffect::Jump);
+                        mPlayer->jump(-mJumpVel);
+                    }
+                }
+            }
+            if (event.key.code == sf::Keyboard::Num7) {
+                if (mTrapsAvailable[Traps::Boxes]) {
+                    getContext().mSound->play(SoundEffect::Cage);
+                    addTrap(Traps::Boxes, mCursor->getWorldPosition());
+                    mTextTraps[Traps::Boxes]->setString(
+                        std::to_string(--mTrapsAvailable[Traps::Boxes])
+                    );
+                }
+            }
+            if (event.key.code == sf::Keyboard::Num8) {
+                if (mTrapsAvailable[Traps::SpikesBall]) {
+                    getContext().mSound->play(SoundEffect::Spikeball);
+                    addTrap(Traps::SpikesBall, mCursor->getWorldPosition());
+                    mTextTraps[Traps::SpikesBall]->setString(
+                        std::to_string(--mTrapsAvailable[Traps::SpikesBall])
+                    );
+                }
+
+            }
+            if (event.key.code == sf::Keyboard::Num9) {
+                if (mTrapsAvailable[Traps::Spikes]) {
+                    getContext().mSound->play(SoundEffect::Spikes);
+                    addTrap(Traps::Spikes, mCursor->getWorldPosition());
+                    mTextTraps[Traps::Spikes]->setString(
+                        std::to_string(--mTrapsAvailable[Traps::Spikes])
+                    );
+                }
+
+            }
+            if (event.key.code == sf::Keyboard::Num0) {
+                getContext().mSound->play(SoundEffect::Switch);
+                for (auto pltf : mPlatforms) {
+                    pltf->changeVisibility();
+                }
+            }
+        }
+    }
+    
     return true;
 }
 
@@ -262,31 +332,66 @@ void GameScreen::handleRealtimeInput(){
     if (!mPlayer->isDead()) {
         float speed = 20.f;
         sf::Vector2f multivel(0.0,0.0);
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            mPlayer->setLookingRight(false);
-            mPlayer->setVel(-mMovVel,0.0f);
-        }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            mPlayer->setLookingRight(true);
-            mPlayer->setVel(mMovVel,0.0f);
+        
+
+        if (sf::Joystick::isConnected(0) || sf::Joystick::isConnected(1)) {
+            int survival = getContext().mGameData->mSurvivingPlayer;
+            int attacking = 1-survival;
+
+            float position = sf::Joystick::getAxisPosition(survival, sf::Joystick::X);
+            if(position < -20) {
+                mPlayer->setLookingRight(false);
+                mPlayer->setVel(mMovVel*position/100.0f,0.0f);
+            }
+            else if(position > 20) {
+                mPlayer->setLookingRight(true);
+                mPlayer->setVel(mMovVel*position/100.0f,0.0f);
+            }
+
+            float positionX = sf::Joystick::getAxisPosition(attacking, sf::Joystick::X);
+            float positionY = sf::Joystick::getAxisPosition(attacking, sf::Joystick::Y);
+
+            if(positionY < -20) {
+                multivel.y+=speed*positionY/100.0f;
+            }
+            if(positionY > 20) {
+                multivel.y+=speed*positionY/100.0f;
+            }
+            if(positionX < -20) {
+                multivel.x+=speed*positionX/100.0f;
+            }
+            if(positionX > 20) {
+                multivel.x+=speed*positionX/100.0f;
+            }
+
         }
         else {
-            mPlayer->scaleVel(0.0f, 1.0f);
-        }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                mPlayer->setLookingRight(false);
+                mPlayer->setVel(-mMovVel,0.0f);
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                mPlayer->setLookingRight(true);
+                mPlayer->setVel(mMovVel,0.0f);
+            }
+            else {
+                mPlayer->scaleVel(0.0f, 1.0f);
+            }
 
-
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            multivel.y-=speed;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+                multivel.y-=speed;
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+                multivel.y+=speed;
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+                multivel.x-=speed;
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+                multivel.x+=speed;
+            }
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            multivel.y+=speed;
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            multivel.x-=speed;
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            multivel.x+=speed;
-        }
+        
         sf::Vector2f pos = mCursor->getWorldPosition();
         if (pos.x + multivel.x > 1820 or pos.x + multivel.x < 100) {
             mCursor->setPosition(pos);
