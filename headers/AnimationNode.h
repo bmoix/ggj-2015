@@ -16,6 +16,8 @@ class AnimationNode: public SpriteNode {
         AnimationNode(const sf::Texture& texture, const sf::IntRect& textureRect, const std::string& file);
         void setSize(sf::Vector2u desiredSize) override;
         void setAnimation(const std::string& animation);
+        void resetAnimation();
+        float getElapsedTime() const;
 
         virtual void createBody(b2World* world, bool dynamic, float bbscalex=1.0f, float bbscaley = 1.0f, float density = 1.0f, float rotation = 0.0f) override;
 

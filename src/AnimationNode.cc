@@ -103,6 +103,16 @@ void AnimationNode::setAnimation(const std::string &animation) {
   }
 }
 
+void AnimationNode::resetAnimation() {
+    mCurrentFrame = 0;
+    mCurrentTime = 0.0f;
+    updateTextureRect();
+}
+
+float AnimationNode::getElapsedTime() const {
+    return mCurrentTime;
+}
+
 void AnimationNode::updateTextureRect() {
   AnimFrame frame = mAnimations[mCurrentAnim][mCurrentFrame];
   mSprite.setOrigin(std::abs(frame.mSize.x)/2.0f,std::abs(frame.mSize.y)/2.0f);
