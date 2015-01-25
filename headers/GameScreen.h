@@ -76,6 +76,7 @@ class GameScreen: public State {
 
         int mGamepad1;
         int mGamepad2;
+        bool mHasGamepads;
 
         std::vector<SpriteNode*> mTraps;
 

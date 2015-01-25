@@ -19,7 +19,8 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
 , wololo(false)
 , topkek(false)
 , mGamepad1(-1)
-, mGamepad2(-1) {
+, mGamepad2(-1)
+, mHasGamepads(false) {
     // CREACIÓ ESCENA
     // Create box2D world;
     const b2Vec2 gravity(0, 30.0f);
@@ -234,6 +235,7 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
             }
         }
     }
+    mHasGamepads = (mGamepad2 != -1); // Check if there are two gamepads
 }
 
 void GameScreen::draw() {
@@ -309,7 +311,7 @@ bool GameScreen::update(sf::Time dt) {
 }
 
 bool GameScreen::handleEvent(const sf::Event& event) {
-    if (sf::Joystick::isConnected(mGamepad1) || sf::Joystick::isConnected(mGamepad2)) {
+    if (mHasGamepads && (sf::Joystick::isConnected(mGamepad1) || sf::Joystick::isConnected(mGamepad2))) {
         int survival = getContext().mGameData->mSurvivingPlayer;
         int attacking = 1-survival;
         std::map<int, int> translateGamepads;
@@ -392,7 +394,7 @@ void GameScreen::handleRealtimeInput(){
         sf::Vector2f multivel(0.0,0.0);
         
 
-        if (sf::Joystick::isConnected(mGamepad1) || sf::Joystick::isConnected(mGamepad2)) {
+        if (mHasGamepads && (sf::Joystick::isConnected(mGamepad1) || sf::Joystick::isConnected(mGamepad2))) {
             int survival = getContext().mGameData->mSurvivingPlayer;
             int attacking = 1-survival;
 
