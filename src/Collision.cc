@@ -9,7 +9,7 @@ void Collision::BeginContact(b2Contact* contact) {
     contact->GetWorldManifold( &worldManifold );
     b2Vec2 normal = worldManifold.normal;
 
-    if (a and b) {
+    if (a && b) {
         a->collidedWith(b, normal);
         std::swap(normal.x, normal.y);
         normal *= -1.0f;
@@ -25,7 +25,7 @@ void Collision::EndContact(b2Contact* contact) {
     contact->GetWorldManifold( &worldManifold );
     b2Vec2 normal = worldManifold.normal;
 
-    if (a and b) {
+    if (a && b) {
         a->endContactWith(b, normal);
         std::swap(normal.x, normal.y);
         normal *= -1.0f;

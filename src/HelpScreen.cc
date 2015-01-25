@@ -56,7 +56,7 @@ bool HelpScreen::update(sf::Time dt) {
 
 bool HelpScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::EventType::MouseButtonPressed 
-        and event.mouseButton.button == sf::Mouse::Button::Left) {
+        && event.mouseButton.button == sf::Mouse::Button::Left) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(*getContext().mWindow);
         sf::Vector2i newPos = Utils::correctMouse(mousePos, getContext().mScale);
         sf::IntRect buttonBounds = mButtonBack->getBounds();

@@ -28,7 +28,7 @@ void AnimationNode::load(const std::string &filename) {
     if (begin == std::string::npos || end == std::string::npos) line = "";
     else line = line.substr(begin, begin-end);
 
-    if (line == "" or line[0] == '#') continue;
+    if (line == "" || line[0] == '#') continue;
     std::stringstream stream(line);
     if (line[0] == 'A') {
       std::string token;
@@ -76,7 +76,7 @@ void AnimationNode::updateCurrent(sf::Time dt) {
             ++mCurrentCycle;
             unsigned int animationCycles = mAnimationCycles[mCurrentAnim];
             // If reached limit of animaton cycles, keep with last cycle
-            if (animationCycles and mCurrentCycle >= animationCycles) {
+            if (animationCycles && mCurrentCycle >= animationCycles) {
                 --mCurrentFrame;
                 needUpdate = 0;
             }

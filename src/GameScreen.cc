@@ -266,7 +266,7 @@ bool GameScreen::update(sf::Time dt) {
         mText->setPosition(10, 0);
         mText->setCharacterSize(180);
     }
-    if (sec > 30000 or mPlayer->isDead()) {
+    if (sec > 30000 || mPlayer->isDead()) {
         // I am going to hell for this
         mText->setPosition(sf::Vector2f(1e9, 1e9));
     }
@@ -491,9 +491,9 @@ void GameScreen::handleRealtimeInput(){
         }
         
         sf::Vector2f pos = mCursor->getWorldPosition();
-        if (pos.x + multivel.x > 1820 or pos.x + multivel.x < 100) {
+        if (pos.x + multivel.x > 1820 || pos.x + multivel.x < 100) {
             mCursor->setPosition(pos);
-        } else if (pos.y + multivel.y > 980 or pos.y + multivel.y < 100) {
+        } else if (pos.y + multivel.y > 980 || pos.y + multivel.y < 100) {
             mCursor->setPosition(pos);
         }
         else {

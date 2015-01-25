@@ -104,7 +104,7 @@ void Player::updateState() {
     mVelocity = sf::Vector2f(v.x, v.y);
 
     if (abs(mVelocity.x) < epsilon && abs(mVelocity.y) < epsilon) {
-        if (mInWall and !mInGround) {
+        if (mInWall && !mInGround) {
             if (mLookingRight) setState(Player::States::WallRight);
             else setState(Player::States::WallLeft);
         }
