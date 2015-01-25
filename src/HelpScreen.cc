@@ -24,25 +24,25 @@ HelpScreen::HelpScreen(StatesStack& stack, Context& context)
     mButtonBack->setSize(sf::Vector2u(100, 100));
     mSceneLayers[Text]->attachChild(std::move(buttonBack));
 
-    std::unique_ptr<TextNode> textHelp(new TextNode(font, "SURVIVAL MODE\n\tRun for your life\n\tUse 'W' 'A' 'S'"));
+    std::unique_ptr<TextNode> textHelp(new TextNode(font, "SURVIVAL MODE"));
     mText = textHelp.get();
-    mText->setPosition(800.f, 265.f);
-    mText->setCharacterSize(50);
+    mText->setPosition(1100.f, 260.f);
+    mText->setCharacterSize(100);
     mText->setColor(sf::Color::Black);
     mSceneLayers[Text]->attachChild(std::move(textHelp));
 
-    std::unique_ptr<TextNode> textHelp2(new TextNode(font, "KILLER MODE\n\tKill them all\n\tUse your arrows\n\tAttack with '7' '8' '9' '0'"));
+    std::unique_ptr<TextNode> textHelp2(new TextNode(font, "KILLER MODE"));
     mText2 = textHelp2.get();
-    mText2->setPosition(1100.f, 710.f);
-    mText2->setCharacterSize(50);
+    mText2->setPosition(1175.f, 760.f);
+    mText2->setCharacterSize(100);
     mText2->setColor(sf::Color::Black);
     mSceneLayers[Text]->attachChild(std::move(textHelp2));
 
     std::unique_ptr<TextNode> textWat(new TextNode(font, "WAT DO"));
     mTextWat = textWat.get();
-    mTextWat->setPosition(400.f, 475.f);
+    mTextWat->setPosition(1250.f, 430.f);
     mTextWat->setCharacterSize(150);
-    mTextWat->setRotation(25);
+    mTextWat->setRotation(15);
     mTextWat->setColor(sf::Color::Red);
     mSceneLayers[Text]->attachChild(std::move(textWat));
 }
