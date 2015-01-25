@@ -6,7 +6,7 @@
 enum class CollisionType {
     None,
     Ground,
-    Walls,
+    Wall,
     Spikes,
 };
 

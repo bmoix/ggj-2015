@@ -122,6 +122,10 @@ void SpriteNode::collidedWith(SpriteNode* other, b2Vec2 normal) {
   (void) other;
 }
 
+void SpriteNode::endContactWith(SpriteNode* other, b2Vec2 normal) {
+  (void) other;
+}
+
 sf::IntRect SpriteNode::getBounds() {
     sf::Vector2f pos = getWorldPosition();
     sf::Vector2i newPos = sf::Vector2i(pos.x-mSize.x/2, pos.y-mSize.y/2);

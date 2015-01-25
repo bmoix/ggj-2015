@@ -7,7 +7,9 @@ Player::Player(const sf::Texture& texture, const std::string& file) :
     mState(Player::States::IdleRight),
     mDoubleJumpUsed(false),
     mLookingRight(true),
-    mDead(false) {
+    mDead(false),
+    mInGround(0),
+    mInWall(0) {
 }
 
 void Player::updateCurrent(sf::Time dt) {
@@ -102,8 +104,14 @@ void Player::updateState() {
     mVelocity = sf::Vector2f(v.x, v.y);
 
     if (abs(mVelocity.x) < epsilon && abs(mVelocity.y) < epsilon) {
-        if (mLookingRight) setState(Player::States::IdleRight);
-        else setState(Player::States::IdleLeft);
+        if (mInWall and !mInGround) {
+            if (mLookingRight) setState(Player::States::WallRight);
+            else setState(Player::States::WallLeft);
+        }
+        else {
+            if (mLookingRight) setState(Player::States::IdleRight);
+            else setState(Player::States::IdleLeft);
+        }
     }
     else if (abs(mVelocity.y) < epsilon) {
         if (mLookingRight) setState(Player::States::Right);
@@ -155,6 +163,12 @@ void Player::changeAnimation() {
         case States::DeadLeft:
             setAnimation("DeadLeft");
             break;
+        case States::WallRight:
+            setAnimation("WallRight");
+            break;
+        case States::WallLeft:
+            setAnimation("WallLeft");
+            break;
         default:
             break;
     }
@@ -173,6 +187,26 @@ void Player::collidedWith(SpriteNode* other, b2Vec2 normal) {
         if (type == CollisionType::Spikes) {
             mDead = true;
             setVel(0, -1000);
+        }
+        if (type == CollisionType::Ground) {
+            ++mInGround;
+            mDoubleJumpUsed = false;
+        }
+        if (std::abs(normal.x) > epsilon && type == CollisionType::Wall) {
+            ++mInWall;
+            mDoubleJumpUsed = false;
+        }
+    }
+}
+
+void Player::endContactWith(SpriteNode* other, b2Vec2 normal) {
+    if (other) {
+        CollisionType type = other->getCollisionType();
+        if (type == CollisionType::Ground) {
+            mInGround = 0;
+        }
+        if (type == CollisionType::Wall) {
+            mInWall = 0;
         }
     }
 }

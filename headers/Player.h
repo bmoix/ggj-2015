@@ -20,6 +20,8 @@ class Player: public AnimationNode {
             FallLeft,
             DeadRight,
             DeadLeft,
+            WallRight,
+            WallLeft,
         };
 
         Player::States getState();
@@ -37,6 +39,7 @@ class Player: public AnimationNode {
 
         virtual void createBody(b2World* world, bool dynamic, float bbscalex = 1.0f, float bbscaley = 1.0f, float density=1.0f) override;
         virtual void collidedWith(SpriteNode* other, b2Vec2 normal) override;
+        virtual void endContactWith(SpriteNode* other, b2Vec2 normal) override;
 
     private:
         void updateCurrent(sf::Time dt);
@@ -51,6 +54,8 @@ class Player: public AnimationNode {
         bool mDoubleJumpUsed;
         bool mLookingRight;
         bool mDead;
+        int mInGround;
+        int mInWall;
 };
 
 #endif // PLAYER_H

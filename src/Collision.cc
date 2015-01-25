@@ -18,5 +18,18 @@ void Collision::BeginContact(b2Contact* contact) {
 }
 
 void Collision::EndContact(b2Contact* contact) {
+    SpriteNode* a = (SpriteNode*) contact->GetFixtureA()->GetBody()->GetUserData();
+    SpriteNode* b = (SpriteNode*) contact->GetFixtureB()->GetBody()->GetUserData();
+
+    b2WorldManifold worldManifold;
+    contact->GetWorldManifold( &worldManifold );
+    b2Vec2 normal = worldManifold.normal;
+
+    if (a and b) {
+        a->endContactWith(b, normal);
+        std::swap(normal.x, normal.y);
+        normal *= -1.0f;
+        b->endContactWith(a, normal);
+    }
 }
 
