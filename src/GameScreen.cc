@@ -238,9 +238,11 @@ bool GameScreen::update(sf::Time dt) {
         requestStackPush(States::Results);
         if (getContext().mGameData->mSurvivingPlayer) {
             ++getContext().mGameData->mPointsP2;
+            getContext().mGameData->mWinningPlayer = 1;
         }
         else {
             ++getContext().mGameData->mPointsP1;
+            getContext().mGameData->mWinningPlayer = 0;
         }
         getContext().mGameData->mSurvivingPlayer = 1-getContext().mGameData->mSurvivingPlayer;
     }
@@ -249,9 +251,11 @@ bool GameScreen::update(sf::Time dt) {
         requestStackPush(States::Results);
         if (getContext().mGameData->mSurvivingPlayer) {
             ++getContext().mGameData->mPointsP1;
+            getContext().mGameData->mWinningPlayer = 0;
         }
         else {
             ++getContext().mGameData->mPointsP2;
+            getContext().mGameData->mWinningPlayer = 1;
         }
         getContext().mGameData->mSurvivingPlayer = 1-getContext().mGameData->mSurvivingPlayer;
     }
