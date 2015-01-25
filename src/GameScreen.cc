@@ -124,7 +124,7 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
         mPlatforms[i] = platform.get();
         mPlatforms[i]->setPosition(600.f + i*200.f, 550.f);
         mPlatforms[i]->setSize(sf::Vector2u(175, 60));
-        mPlatforms[i]->createBody(mWorld, false, 0.8, 0.7);
+        mPlatforms[i]->createBody(mWorld, false, 0.75, 0.7);
         mPlatforms[i]->setCollisionType(CollisionType::Wall);
         if (i%2) mPlatforms[i]->changeVisibility();
         mSceneLayers[World]->attachChild(std::move(platform));
@@ -151,7 +151,7 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
         //if (i%2) mPlatforms[4+i]->setRotation(90);
         float rotation = 0.0f;
         if (i%2) rotation = atan(1)*2.0f;
-        mPlatforms[4+i]->createBody(mWorld, false, 0.8, 0.7, 1.0f, rotation);
+        mPlatforms[4+i]->createBody(mWorld, false, 0.8, 0.3, 1.0f, rotation);
         mPlatforms[4+i]->setCollisionType(CollisionType::Wall);
         mPlatforms[4+i]->changeVisibility();
         mSceneLayers[World]->attachChild(std::move(platform));
@@ -162,7 +162,7 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
         mPlatforms[8+i]->setSize(sf::Vector2u(200, 70));
         rotation = 0.0f;
         if (i%2) rotation = atan(1)*2.0f;
-        mPlatforms[8+i]->createBody(mWorld, false, 0.8, 0.7, 1.0f, rotation);
+        mPlatforms[8+i]->createBody(mWorld, false, 0.8, 0.3, 1.0f, rotation);
         mPlatforms[8+i]->setCollisionType(CollisionType::Wall);
         mSceneLayers[World]->attachChild(std::move(platform2));
     }
