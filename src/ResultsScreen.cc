@@ -91,10 +91,14 @@ bool ResultsScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Return) {
             requestStackPop();
+            requestStackPop();
 
             GameData* gd = getContext().mGameData;
             assert(gd != NULL);
+            // Finished game, reset number of rounds, score and return to title
             if (gd->mRoundsPassed >= gd->mNumRounds) {
+                gd->mRoundsPassed = 0;
+                gd->mPointsP1 = gd->mPointsP2 = 0;
                 requestStackPush(States::Title);
             }
             else {
