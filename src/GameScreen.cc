@@ -13,7 +13,6 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
 , mCursor(nullptr)
 , mTrapButtons(4)
 , mTrapsAvailable(3)
-, mTextTraps(4)
 , mPlatforms(12, nullptr)
 , mFixedPlatforms(4, nullptr)
 , mCountdown()
@@ -203,14 +202,6 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
         sprite->setSize(sf::Vector2u(50, 50));
         mSceneLayers[Text]->attachChild(std::move(gamepadButton));
 
-        if (i < 3) {
-            std::unique_ptr<TextNode> textTrap(new TextNode(font, std::to_string(mTrapsAvailable[i])));
-            mTextTraps[i] = textTrap.get();
-            mTextTraps[i]->setPosition(520.f + i*150.f, 90.f);
-            mTextTraps[i]->setCharacterSize(50);
-            mTextTraps[i]->setColor(sf::Color::Red);
-            mSceneLayers[Text]->attachChild(std::move(textTrap));
-        }
     }
 
     // Prepara el text of timer
