@@ -18,7 +18,7 @@ Game::Game() :
 , mScale(float(mWindow.getSize().x)/1920.0, 9.0/16.0*float(mWindow.getSize().x)/1920.0)
 , mMusic()
 , mSound()
-, mGameData(5,0,0,0,0,0)
+, mGameData(1000,0,0,0,0,0) // Set to 1000 rounds for more fun
 , mStatesStack(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow, mMusic, mSound, mGameData))
 , mStatisticsText()
 , mStatisticsUpdateTime()
