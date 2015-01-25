@@ -2,8 +2,6 @@
 
 Player::Player(const sf::Texture& texture, const std::string& file) : 
     AnimationNode(texture, file),
-    mVelocity(sf::Vector2f(0.0f,0.0f)),
-    mAcceleration(sf::Vector2f(0.0f,3000.0f)),
     mState(Player::States::IdleRight),
     mDoubleJumpUsed(false),
     mLookingRight(true),
@@ -14,7 +12,6 @@ Player::Player(const sf::Texture& texture, const std::string& file) :
 
 void Player::updateCurrent(sf::Time dt) {
     AnimationNode::updateCurrent(dt);
-    float dtime = dt.asSeconds();
     Player::States oldState = mState;
     updateState();
     if (mState != oldState) {
@@ -37,10 +34,6 @@ void Player::setVel(float x, float y) {
 void Player::scaleVel(float x, float y) {
     b2Vec2 velocity = mBody->GetLinearVelocity();
     mBody->SetLinearVelocity(b2Vec2(velocity.x * x, velocity.y * y));
-}
-
-sf::Vector2f Player::getVel() {
-    return mVelocity;
 }
 
 bool Player::isJumping() const {
@@ -101,7 +94,7 @@ void Player::updateState() {
     }
 
     b2Vec2 v = mBody->GetLinearVelocity();
-    mVelocity = sf::Vector2f(v.x, v.y);
+    sf::Vector2f mVelocity(v.x, v.y);
 
     if (abs(mVelocity.x) < epsilon && abs(mVelocity.y) < epsilon) {
         if (mInWall && !mInGround) {

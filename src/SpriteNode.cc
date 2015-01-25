@@ -1,9 +1,9 @@
 #include "SpriteNode.h"
 
 SpriteNode::SpriteNode(const sf::Texture& texture) : 
+    mSize(texture.getSize()),
     mBody(NULL),
-    mSprite(texture),
-    mSize(texture.getSize()) {
+    mSprite(texture) {
     Utils::centerOrigin(mSprite);
 }
 

@@ -31,7 +31,6 @@ class Player: public AnimationNode {
         void addVel(float x, float y);
         void setVel(float x, float y);
         void scaleVel(float x, float y);
-        sf::Vector2f getVel();
         bool isJumping() const;
         bool canJump() const;
         void jump(float v);
@@ -47,9 +46,6 @@ class Player: public AnimationNode {
         void changeAnimation();
 
         States mState;
-
-        sf::Vector2f mVelocity;
-        sf::Vector2f mAcceleration;
 
         bool mDoubleJumpUsed;
         bool mLookingRight;

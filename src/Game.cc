@@ -11,11 +11,11 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 Game::Game() :
   mWindow(sf::VideoMode(sf::VideoMode::getDesktopMode()), L"Kill Or Survive"
     , sf::Style::None/*sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize*/)
-, mRenderTexture()
-, mTextures()
-, mFonts()
 , mWindowSize(mWindow.getSize().x, mWindow.getSize().y)
 , mScale(float(mWindow.getSize().x)/1920.0, 9.0/16.0*float(mWindow.getSize().x)/1920.0)
+, mRenderTexture()
+, mFonts()
+, mTextures()
 , mMusic()
 , mSound()
 , mGameData(1000,0,0,0,0,0) // Set to 1000 rounds for more fun
