@@ -18,7 +18,9 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
 , mFixedPlatforms(4, nullptr)
 , mCountdown()
 , wololo(false)
-, topkek(false) {
+, topkek(false)
+, mGamepad1(-1)
+, mGamepad2(-1) {
     // CREACIÓ ESCENA
     // Create box2D world;
     const b2Vec2 gravity(0, 30.0f);
@@ -212,6 +214,18 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     mSceneLayers[Text]->attachChild(std::move(cursorSprite));
 
     getContext().mMusic->play(Music::GameTheme);
+
+    // COMPROVA GAMEPADS
+    for (int i = 0; i < 8; ++i) {
+        if (sf::Joystick::isConnected(i)) {
+            if (mGamepad1 == -1) {
+                mGamepad1 = i;
+            }
+            else {
+                mGamepad2 = i;
+            }
+        }
+    }
 }
 
 void GameScreen::draw() {
@@ -287,9 +301,12 @@ bool GameScreen::update(sf::Time dt) {
 }
 
 bool GameScreen::handleEvent(const sf::Event& event) {
-    if (sf::Joystick::isConnected(0) || sf::Joystick::isConnected(1)) {
+    if (sf::Joystick::isConnected(mGamepad1) || sf::Joystick::isConnected(mGamepad2)) {
         int survival = getContext().mGameData->mSurvivingPlayer;
         int attacking = 1-survival;
+        std::map<int, int> translateGamepads;
+        translateGamepads[std::min(survival,attacking)] = mGamepad1;
+        translateGamepads[std::max(survival,attacking)] = mGamepad2;
         if (event.type == sf::Event::JoystickButtonPressed) {
             std::cout << "joystick button pressed!" << std::endl;
             std::cout << "joystick id: " << event.joystickButton.joystickId << std::endl;
@@ -297,7 +314,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         }
 
         if (event.type == sf::Event::JoystickButtonPressed) {
-            if (event.joystickButton.joystickId == survival) {
+            if (event.joystickButton.joystickId == translateGamepads[survival]) {
                 // Jump
                 if (!mPlayer->isDead()) {
                     if (event.joystickButton.button == 0) {
@@ -411,11 +428,15 @@ void GameScreen::handleRealtimeInput(){
         sf::Vector2f multivel(0.0,0.0);
         
 
-        if (sf::Joystick::isConnected(0) || sf::Joystick::isConnected(1)) {
+        if (sf::Joystick::isConnected(mGamepad1) || sf::Joystick::isConnected(mGamepad2)) {
             int survival = getContext().mGameData->mSurvivingPlayer;
             int attacking = 1-survival;
 
-            float position = sf::Joystick::getAxisPosition(survival, sf::Joystick::X);
+            std::map<int, int> translateGamepads;
+            translateGamepads[std::min(survival,attacking)] = mGamepad1;
+            translateGamepads[std::max(survival,attacking)] = mGamepad2;
+
+            float position = sf::Joystick::getAxisPosition(translateGamepads[survival], sf::Joystick::X);
             if(position < -20) {
                 mPlayer->setLookingRight(false);
                 mPlayer->setVel(mMovVel*position/100.0f,0.0f);
@@ -425,8 +446,8 @@ void GameScreen::handleRealtimeInput(){
                 mPlayer->setVel(mMovVel*position/100.0f,0.0f);
             }
 
-            float positionX = sf::Joystick::getAxisPosition(attacking, sf::Joystick::X);
-            float positionY = sf::Joystick::getAxisPosition(attacking, sf::Joystick::Y);
+            float positionX = sf::Joystick::getAxisPosition(translateGamepads[attacking], sf::Joystick::X);
+            float positionY = sf::Joystick::getAxisPosition(translateGamepads[attacking], sf::Joystick::Y);
 
             if(positionY < -20) {
                 multivel.y+=speed*positionY/100.0f;

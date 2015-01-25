@@ -71,6 +71,9 @@ class GameScreen: public State {
         bool wololo;
         bool topkek;
 
+        int mGamepad1;
+        int mGamepad2;
+
         std::vector<SpriteNode*> mTraps;
 
         std::string str;
