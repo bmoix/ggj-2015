@@ -39,8 +39,8 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
 
     GameData* gd = getContext().mGameData;
     assert(gd != NULL);
-    std::string player1Mission = "Player 1 ";
-    std::string player2Mission = "Player 2 ";
+    std::string player1Mission = "Raccoon ";
+    std::string player2Mission = "Fox ";
     if (gd->mSurvivingPlayer == 0) {
         player1Mission += "Survives";
         player2Mission += "Attacks";
