@@ -59,6 +59,7 @@ class GameScreen: public State {
         std::vector<int> mTrapsAvailable;
         std::vector<TextNode*> mTextTraps;
         std::vector<PlatformNode*> mPlatforms;
+        std::vector<PlatformNode*> mFixedPlatforms;
 
         b2World* mWorld;
 
