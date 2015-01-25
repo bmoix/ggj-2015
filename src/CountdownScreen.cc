@@ -80,6 +80,8 @@ CountdownScreen::CountdownScreen(StatesStack& stack, Context& context) :
     mTextNodes[1]->setFinalRotation(-5.0f);
     mTextNodes[1]->initAnimation();
     mSceneLayers[Text]->attachChild(std::move(textNode));
+
+    getContext().mMusic->play(Music::StartTheme);
 }
 
 void CountdownScreen::draw() {
@@ -89,6 +91,7 @@ bool CountdownScreen::update(sf::Time dt) {
     mSceneGraph.update(dt);
     float timeLeft = mWaitingTime - mClock.getElapsedTime().asSeconds();
     if (timeLeft < 0.0f) {
+        getContext().mMusic->stop();
         requestStackPop();
         requestStackPush(States::Game);
     }
