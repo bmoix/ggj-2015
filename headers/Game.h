@@ -36,19 +36,21 @@ class Game {
 
         static const sf::Time TimePerFrame;
 
+		sf::RenderWindow mWindow;
+		sf::Vector2u mWindowSize;
         sf::Vector2f mScale;
-        sf::Vector2u mWindowSize;
-        sf::RenderWindow mWindow;
-        sf::Text mStatisticsText;
-        sf::Time mStatisticsUpdateTime;
+        
         sf::RenderTexture mRenderTexture;
 
         FontHolder mFonts;
+		TextureHolder mTextures;
+		MusicPlayer mMusic;
+		SoundPlayer mSound;
+		GameData mGameData;
         StatesStack mStatesStack;
-        TextureHolder mTextures;
-        MusicPlayer mMusic;
-        SoundPlayer mSound;
-        GameData mGameData;
+        
+		sf::Text mStatisticsText;
+		sf::Time mStatisticsUpdateTime;
         std::size_t mStatisticsNumFrames;
 };
 

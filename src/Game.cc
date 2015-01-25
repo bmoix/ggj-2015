@@ -22,7 +22,8 @@ Game::Game() :
 , mStatesStack(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow, mMusic, mSound, mGameData))
 , mStatisticsText()
 , mStatisticsUpdateTime()
-, mStatisticsNumFrames(0){
+, mStatisticsNumFrames(0)
+{
     bool renderCreated = mRenderTexture.create(1920, 1080);
     assert(renderCreated);
     mRenderTexture.setSmooth(true);
@@ -32,7 +33,7 @@ Game::Game() :
     mStatesStack.setContext(State::Context(mRenderTexture, mTextures, mFonts, mScale, mWindow, mMusic, mSound, mGameData));
 
     mWindow.setKeyRepeatEnabled(false);
-
+	std::cout << 1 << std::endl;
     // Carrega recursos comuns
     mFonts.load(Fonts::AlluraRegular, "res/media/AlluraRegular.otf");
     mFonts.load(Fonts::Sansation, "res/media/Sansation.ttf");
