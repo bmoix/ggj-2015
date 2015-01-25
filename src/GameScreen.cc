@@ -54,6 +54,11 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     iconTexture[1] = &getContext().mTextures->get(Textures::IconBall);
     iconTexture[2] = &getContext().mTextures->get(Textures::IconSpikes);
     iconTexture[3] = &getContext().mTextures->get(Textures::IconSwitch);
+    std::vector<sf::Texture*> buttonTexture(4, nullptr);
+    buttonTexture[0] = &getContext().mTextures->get(Textures::AButton);
+    buttonTexture[1] = &getContext().mTextures->get(Textures::BButton);
+    buttonTexture[2] = &getContext().mTextures->get(Textures::XButton);
+    buttonTexture[3] = &getContext().mTextures->get(Textures::YButton);
 
     // Add the background sprite to the scene
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(backTexture));
@@ -172,6 +177,12 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
         mTrapButtons[i]->setPosition(500.f + i*150.f, 80.f);
         mTrapButtons[i]->setSize(sf::Vector2u(150, 120));
         mSceneLayers[Text]->attachChild(std::move(trapButton));
+
+        std::unique_ptr<SpriteNode> gamepadButton(new SpriteNode(*buttonTexture[i]));
+        SpriteNode* sprite = gamepadButton.get();
+        sprite->setPosition(500.f + i*150.f, 30.f);
+        sprite->setSize(sf::Vector2u(50, 50));
+        mSceneLayers[Text]->attachChild(std::move(gamepadButton));
 
         if (i < 3) {
             std::unique_ptr<TextNode> textTrap(new TextNode(font, std::to_string(mTrapsAvailable[i])));

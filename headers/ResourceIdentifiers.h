@@ -41,7 +41,11 @@ namespace Textures
         RaccoonWins,
         FoxWins,
         Cursor,
-        Return
+        Return,
+        AButton,
+        BButton,
+        XButton,
+        YButton
 	};
 }
 

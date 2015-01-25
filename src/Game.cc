@@ -63,6 +63,10 @@ Game::Game() :
     mTextures.load(Textures::Exit, "res/pictures/exiticon.png");
     mTextures.load(Textures::Cursor, "res/pictures/cursor.png");
     mTextures.load(Textures::Return, "res/pictures/return.png");
+    mTextures.load(Textures::AButton, "res/pictures/abutton.png");
+    mTextures.load(Textures::BButton, "res/pictures/bbutton.png");
+    mTextures.load(Textures::XButton, "res/pictures/xbutton.png");
+    mTextures.load(Textures::YButton, "res/pictures/ybutton.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Sansation));
     mStatisticsText.setPosition(5.f, 5.f);
