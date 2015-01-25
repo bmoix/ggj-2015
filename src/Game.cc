@@ -52,10 +52,10 @@ Game::Game() :
     mTextures.load(Textures::SpikesBall, "res/pictures/spikes_ball.png");
     mTextures.load(Textures::PlatformWood, "res/pictures/platformWood.png");
     mTextures.load(Textures::PlatformStone, "res/pictures/platformStone.png");
-    mTextures.load(Textures::IconBox, "res/pictures/iconbox.png");
-    mTextures.load(Textures::IconBall, "res/pictures/iconball.png");
-    mTextures.load(Textures::IconSpikes, "res/pictures/iconspikes.png");
-    mTextures.load(Textures::IconSwitch, "res/pictures/iconswitch.png");
+    mTextures.load(Textures::IconBox, "res/pictures/iconBox.png");
+    mTextures.load(Textures::IconBall, "res/pictures/iconBall.png");
+    mTextures.load(Textures::IconSpikes, "res/pictures/iconSpikes.png");
+    mTextures.load(Textures::IconSwitch, "res/pictures/iconSwitch.png");
     mTextures.load(Textures::Spikes, "res/pictures/spikes.png");
     mTextures.load(Textures::Title, "res/pictures/titleScreen.png");
     mTextures.load(Textures::Start, "res/pictures/starticon.png");

@@ -51,6 +51,14 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     sf::Texture& platformWoodTexture = getContext().mTextures->get(Textures::PlatformWood);
     sf::Texture& platformStoneTexture = getContext().mTextures->get(Textures::PlatformStone);
     sf::Texture& cursorTexture = getContext().mTextures->get(Textures::Cursor);
+
+    std::vector<std::string> iconAnimFilename {
+        "res/anim/iconBox.anim",
+        "res/anim/iconBall.anim",
+        "res/anim/iconSpikes.anim",
+        "res/anim/iconSwitch.anim"
+    };
+
     std::vector<sf::Texture*> iconTexture(4, nullptr);
     iconTexture[0] = &getContext().mTextures->get(Textures::IconBox);
     iconTexture[1] = &getContext().mTextures->get(Textures::IconBall);
@@ -169,12 +177,21 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
         mSceneLayers[World]->attachChild(std::move(platform2));
     }
     
+    // TRAPS
+    // Trap cooldown, must be aligned with anim
+    mTrapCooldown[Traps::Boxes] = 1.6f;
+    mTrapCooldown[Traps::SpikesBall] = 6.0f;
+    mTrapCooldown[Traps::Spikes] = 6.0f;
+    mTrapCooldown[Traps::Platform] = 0.5f;
+
+
     mTrapsAvailable[0] = 10;
     mTrapsAvailable[1] = 5;
     mTrapsAvailable[2] = 1;
     // Add trap buttons
     for (int i = 0; i < (int)mTrapButtons.size(); ++i) {
-        std::unique_ptr<SpriteNode> trapButton(new SpriteNode(*iconTexture[i]));
+        std::unique_ptr<AnimationNode> trapButton(new AnimationNode(*iconTexture[i], 
+                                                                 iconAnimFilename[i]));
         mTrapButtons[i] = trapButton.get();
         mTrapButtons[i]->setPosition(500.f + i*150.f, 80.f);
         mTrapButtons[i]->setSize(sf::Vector2u(150, 120));
@@ -327,39 +344,16 @@ bool GameScreen::handleEvent(const sf::Event& event) {
             }
             else {
                 if (event.joystickButton.button == 0) {
-                    if (mTrapsAvailable[Traps::Boxes]) {
-                        getContext().mSound->play(SoundEffect::Cage);
-                        addTrap(Traps::Boxes, mCursor->getWorldPosition());
-                        mTextTraps[Traps::Boxes]->setString(
-                            std::to_string(--mTrapsAvailable[Traps::Boxes])
-                        );
-                    }
+                    activateTrap(Traps::Boxes);
                 }
                 if (event.joystickButton.button == 1) {
-                    if (mTrapsAvailable[Traps::SpikesBall]) {
-                        getContext().mSound->play(SoundEffect::Spikeball);
-                        addTrap(Traps::SpikesBall, mCursor->getWorldPosition());
-                        mTextTraps[Traps::SpikesBall]->setString(
-                            std::to_string(--mTrapsAvailable[Traps::SpikesBall])
-                        );
-                    }
-
+                    activateTrap(Traps::SpikesBall);
                 }
                 if (event.joystickButton.button == 2) {
-                    if (mTrapsAvailable[Traps::Spikes]) {
-                        getContext().mSound->play(SoundEffect::Spikes);
-                        addTrap(Traps::Spikes, mCursor->getWorldPosition());
-                        mTextTraps[Traps::Spikes]->setString(
-                            std::to_string(--mTrapsAvailable[Traps::Spikes])
-                        );
-                    }
-
+                    activateTrap(Traps::Spikes);
                 }
                 if (event.joystickButton.button == 3) {
-                    getContext().mSound->play(SoundEffect::Switch);
-                    for (auto pltf : mPlatforms) {
-                        pltf->changeVisibility();
-                    }
+                    activateTrap(Traps::Platform);
                 }
             }
         }
@@ -382,39 +376,18 @@ bool GameScreen::handleEvent(const sf::Event& event) {
                 }
             }
             if (event.key.code == sf::Keyboard::Num7) {
-                if (mTrapsAvailable[Traps::Boxes]) {
-                    getContext().mSound->play(SoundEffect::Cage);
-                    addTrap(Traps::Boxes, mCursor->getWorldPosition());
-                    mTextTraps[Traps::Boxes]->setString(
-                        std::to_string(--mTrapsAvailable[Traps::Boxes])
-                    );
-                }
+                activateTrap(Traps::Boxes);
             }
             if (event.key.code == sf::Keyboard::Num8) {
-                if (mTrapsAvailable[Traps::SpikesBall]) {
-                    getContext().mSound->play(SoundEffect::Spikeball);
-                    addTrap(Traps::SpikesBall, mCursor->getWorldPosition());
-                    mTextTraps[Traps::SpikesBall]->setString(
-                        std::to_string(--mTrapsAvailable[Traps::SpikesBall])
-                    );
-                }
+                activateTrap(Traps::SpikesBall);
 
             }
             if (event.key.code == sf::Keyboard::Num9) {
-                if (mTrapsAvailable[Traps::Spikes]) {
-                    getContext().mSound->play(SoundEffect::Spikes);
-                    addTrap(Traps::Spikes, mCursor->getWorldPosition());
-                    mTextTraps[Traps::Spikes]->setString(
-                        std::to_string(--mTrapsAvailable[Traps::Spikes])
-                    );
-                }
+                activateTrap(Traps::Spikes);
 
             }
             if (event.key.code == sf::Keyboard::Num0) {
-                getContext().mSound->play(SoundEffect::Switch);
-                for (auto pltf : mPlatforms) {
-                    pltf->changeVisibility();
-                }
+                activateTrap(Traps::Platform);
             }
         }
     }
@@ -548,4 +521,51 @@ void GameScreen::addTrap(int type, sf::Vector2f pos) {
         case 3: // Platform switcher
             break;
     }
+}
+
+void GameScreen::activateTrap(Traps::Traps trap) {
+    switch(trap) {
+        case Traps::Boxes:
+        {
+            float elapsedTime = mTrapButtons[Traps::Boxes]->getElapsedTime();
+            if (elapsedTime > mTrapCooldown[Traps::Boxes]) {
+                getContext().mSound->play(SoundEffect::Cage);
+                addTrap(Traps::Boxes, mCursor->getWorldPosition());
+                mTrapButtons[Traps::Boxes]->resetAnimation();
+            }
+        }
+        break;
+
+        case Traps::SpikesBall:
+        {
+            float elapsedTime = mTrapButtons[Traps::SpikesBall]->getElapsedTime();
+            if (elapsedTime > mTrapCooldown[Traps::SpikesBall]) {
+                getContext().mSound->play(SoundEffect::Spikeball);
+                addTrap(Traps::SpikesBall, mCursor->getWorldPosition());
+                mTrapButtons[Traps::SpikesBall]->resetAnimation();
+            }
+        }
+
+        case Traps::Spikes:
+        {
+            float elapsedTime = mTrapButtons[Traps::Spikes]->getElapsedTime();
+            if (elapsedTime > mTrapCooldown[Traps::Spikes]) {
+                getContext().mSound->play(SoundEffect::Cage);
+                addTrap(Traps::Spikes, mCursor->getWorldPosition());
+                mTrapButtons[Traps::Spikes]->resetAnimation();
+            }
+        }
+        break;
+
+        case Traps::Platform:
+        {
+            getContext().mSound->play(SoundEffect::Switch);
+            for (auto pltf : mPlatforms) {
+                pltf->changeVisibility();
+            }
+        }
+        break;
+
+    }
+
 }

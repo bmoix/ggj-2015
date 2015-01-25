@@ -7,7 +7,8 @@ AnimationNode::AnimationNode(const sf::Texture& texture, const std::string& file
     mCurrentFrame(0),
     mCurrentCycle(0),
     mCurrentAnim(""),
-    mCurrentTime(0.0f)
+    mCurrentTime(0.0f),
+    mTotalTime(0.0f)
     {
     load(filename);
 }   
@@ -66,6 +67,7 @@ void AnimationNode::load(const std::string &filename) {
 void AnimationNode::updateCurrent(sf::Time dt) {
     float deltaTime = dt.asSeconds();
     mCurrentTime += deltaTime;
+    mTotalTime += deltaTime;
     const std::vector<AnimFrame> CurrentFrames = mAnimations[mCurrentAnim];
 
     bool needUpdate = true;
@@ -81,6 +83,7 @@ void AnimationNode::updateCurrent(sf::Time dt) {
                 needUpdate = 0;
             }
             else {
+                mTotalTime = 0;
                 mCurrentFrame = 0;
             }
         }
@@ -99,6 +102,7 @@ void AnimationNode::setAnimation(const std::string &animation) {
     mCurrentAnim = animation;
     mCurrentFrame = 0;
     mCurrentTime = 0.0f;
+    mTotalTime = 0.0f;
     updateTextureRect();
   }
 }
@@ -106,11 +110,12 @@ void AnimationNode::setAnimation(const std::string &animation) {
 void AnimationNode::resetAnimation() {
     mCurrentFrame = 0;
     mCurrentTime = 0.0f;
+    mTotalTime = 0.0f;
     updateTextureRect();
 }
 
 float AnimationNode::getElapsedTime() const {
-    return mCurrentTime;
+    return mTotalTime;
 }
 
 void AnimationNode::updateTextureRect() {

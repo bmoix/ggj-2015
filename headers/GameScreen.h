@@ -20,6 +20,7 @@ namespace Traps {
         SpikesBall,
         Spikes,
         Platform,
+        TrapsCount,
     };
 }
 
@@ -40,6 +41,7 @@ class GameScreen: public State {
         void handleCollisions();
         bool checkCollision(SpriteNode* a, SpriteNode* b);
         void click(mouseButtons mouseButton, sf::Vector2f mouseClick);
+        void activateTrap(Traps::Traps trap);
 
         enum Layer {
             Background,
@@ -55,7 +57,8 @@ class GameScreen: public State {
         std::vector<SpriteNode*> mWalls;
         SpriteNode* mGround;
         SpriteNode* mCursor;
-        std::vector<SpriteNode*> mTrapButtons;
+        std::vector<AnimationNode*> mTrapButtons;
+        std::array<float, Traps::TrapsCount> mTrapCooldown;
         std::vector<int> mTrapsAvailable;
         std::vector<TextNode*> mTextTraps;
         std::vector<PlatformNode*> mPlatforms;

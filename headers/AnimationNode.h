@@ -37,6 +37,7 @@ class AnimationNode: public SpriteNode {
         unsigned int mCurrentCycle;
         std::string mCurrentAnim;
         float mCurrentTime;
+        float mTotalTime;
 };
 
 #endif // ANIMATION_NODE_HPP
