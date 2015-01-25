@@ -85,6 +85,15 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     mWalls[1]->setCollisionType(CollisionType::Wall);
     mSceneLayers[World]->attachChild(std::move(wallRight));
 
+    // Ceiling
+    std::unique_ptr<InvisibleNode> ceiling(new InvisibleNode(wallTexture));
+    ceiling->setPosition(960.f, -50.f);
+    // Aparently same size as the ground is not enough to cover same space
+    ceiling->setSize(sf::Vector2u(2500, 50));
+    ceiling->createBody(mWorld, false,0.8,1.0);
+    ceiling->setCollisionType(CollisionType::Wall);
+    mSceneLayers[World]->attachChild(std::move(ceiling));
+
     std::unique_ptr<InvisibleNode> ground(new InvisibleNode(groundTexture));
     mGround = ground.get();
     mGround->setPosition(960.f, 1055.f);
