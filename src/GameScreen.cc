@@ -214,12 +214,14 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         if (!mPlayer->isDead()) {
             if (event.key.code == sf::Keyboard::W) {
                 if (mPlayer->canJump()) {
+                    getContext().mSound->play(SoundEffect::Jump);
                     mPlayer->jump(-mJumpVel);
                 }
             }
         }
         if (event.key.code == sf::Keyboard::Num7) {
             if (mTrapsAvailable[Traps::Boxes]) {
+                getContext().mSound->play(SoundEffect::Cage);
                 addTrap(Traps::Boxes, mCursor->getWorldPosition());
                 mTextTraps[Traps::Boxes]->setString(
                     std::to_string(--mTrapsAvailable[Traps::Boxes])
@@ -228,6 +230,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         }
         if (event.key.code == sf::Keyboard::Num8) {
             if (mTrapsAvailable[Traps::SpikesBall]) {
+                getContext().mSound->play(SoundEffect::Spikeball);
                 addTrap(Traps::SpikesBall, mCursor->getWorldPosition());
                 mTextTraps[Traps::SpikesBall]->setString(
                     std::to_string(--mTrapsAvailable[Traps::SpikesBall])
@@ -237,6 +240,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         }
         if (event.key.code == sf::Keyboard::Num9) {
             if (mTrapsAvailable[Traps::Spikes]) {
+                getContext().mSound->play(SoundEffect::Spikes);
                 addTrap(Traps::Spikes, mCursor->getWorldPosition());
                 mTextTraps[Traps::Spikes]->setString(
                     std::to_string(--mTrapsAvailable[Traps::Spikes])
@@ -245,6 +249,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 
         }
         if (event.key.code == sf::Keyboard::Num0) {
+            getContext().mSound->play(SoundEffect::Switch);
             for (auto pltf : mPlatforms) {
                 pltf->changeVisibility();
             }
