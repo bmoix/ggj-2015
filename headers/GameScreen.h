@@ -59,8 +59,6 @@ class GameScreen: public State {
         SpriteNode* mCursor;
         std::vector<AnimationNode*> mTrapButtons;
         std::array<float, Traps::TrapsCount> mTrapCooldown;
-        std::vector<int> mTrapsAvailable;
-        std::vector<TextNode*> mTextTraps;
         std::vector<PlatformNode*> mPlatforms;
         std::vector<PlatformNode*> mFixedPlatforms;
 

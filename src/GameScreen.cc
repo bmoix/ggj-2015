@@ -5,22 +5,21 @@
 
 GameScreen::GameScreen(StatesStack& stack, Context& context)
 : State(stack, context)
-, mJumpVel(2000.0f)
-, mMovVel(1000.0f)
-, mWalls(2) 
-, mPlayer(nullptr)
+, mWalls(2)
 , mGround(nullptr)
 , mCursor(nullptr)
 , mTrapButtons(4)
-, mTrapsAvailable(3)
 , mPlatforms(12, nullptr)
 , mFixedPlatforms(4, nullptr)
-, mCountdown()
+, mPlayer(nullptr)
+, mJumpVel(2000.0f)
+, mMovVel(1000.0f)
 , wololo(false)
 , topkek(false)
 , mGamepad1(-1)
 , mGamepad2(-1)
-, mHasGamepads(false) {
+, mHasGamepads(false)
+, mCountdown() {
     // CREACIÓ ESCENA
     // Create box2D world;
     const b2Vec2 gravity(0, 30.0f);
@@ -185,9 +184,6 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     mTrapCooldown[Traps::Platform] = 0.5f;
 
 
-    mTrapsAvailable[0] = 10;
-    mTrapsAvailable[1] = 5;
-    mTrapsAvailable[2] = 1;
     // Add trap buttons
     for (int i = 0; i < (int)mTrapButtons.size(); ++i) {
         std::unique_ptr<AnimationNode> trapButton(new AnimationNode(*iconTexture[i], 
@@ -324,7 +320,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
         }
 
         if (event.type == sf::Event::JoystickButtonPressed) {
-            if (event.joystickButton.joystickId == translateGamepads[survival]) {
+            if ((int)event.joystickButton.joystickId == translateGamepads[survival]) {
                 // Jump
                 if (!mPlayer->isDead()) {
                     if (event.joystickButton.button == 0) {
@@ -558,6 +554,9 @@ void GameScreen::activateTrap(Traps::Traps trap) {
                 pltf->changeVisibility();
             }
         }
+        break;
+
+        default:
         break;
 
     }
