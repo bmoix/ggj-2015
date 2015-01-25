@@ -5,6 +5,7 @@
 #include "StateIdentifiers.h"
 #include "ResourceIdentifiers.h"
 #include "MusicPlayer.h"
+#include "SoundPlayer.h"
 
 class StatesStack;
 
@@ -13,7 +14,7 @@ class State {
         typedef std::unique_ptr<State> Ptr;
 
         struct Context {
-            Context(sf::RenderTexture& rTexture, TextureHolder& textures, FontHolder& fonts, sf::Vector2f Scale, sf::RenderWindow& window, MusicPlayer& music, GameData& gameData);
+            Context(sf::RenderTexture& rTexture, TextureHolder& textures, FontHolder& fonts, sf::Vector2f Scale, sf::RenderWindow& window, MusicPlayer& music, SoundPlayer& sound, GameData& gameData);
 
             sf::RenderTexture* mRTexture;
             TextureHolder* mTextures;
@@ -21,6 +22,7 @@ class State {
             sf::Vector2f mScale;
             sf::RenderWindow* mWindow;
             MusicPlayer* mMusic;
+            SoundPlayer* mSound;
             GameData* mGameData;
         };
 

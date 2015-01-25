@@ -3,13 +3,16 @@
 
 
 
-State::Context::Context(sf::RenderTexture& rTexture, TextureHolder& textures, FontHolder& fonts, sf::Vector2f Scale, sf::RenderWindow& window, MusicPlayer& music, GameData& gameData)
+State::Context::Context(sf::RenderTexture& rTexture, TextureHolder& textures, 
+    FontHolder& fonts, sf::Vector2f Scale, sf::RenderWindow& window, MusicPlayer& music, 
+    SoundPlayer& sound, GameData& gameData)
 : mRTexture(&rTexture)
 , mTextures(&textures)
 , mFonts(&fonts)
 , mScale(Scale)
 , mWindow(&window)
 , mMusic(&music)
+, mSound(&sound)
 , mGameData(&gameData) {
 }
 

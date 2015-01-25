@@ -1,6 +1,7 @@
 #ifndef RESOURCE_IDENTIFIERS_H
 #define RESOURCE_IDENTIFIERS_H
 
+#include <SFML/Audio.hpp>
 
 // Forward declaration of SFML classes
 namespace sf
@@ -61,11 +62,19 @@ namespace Music
         };
 }
 
+namespace SoundEffect {
+        enum ID
+        {
+
+        };
+}
+
 // Forward declaration and a few type definitions
 template <typename Resource, typename Identifier>
 class ResourceHolder;
 
 typedef ResourceHolder<sf::Texture, Textures::ID> TextureHolder;
 typedef ResourceHolder<sf::Font, Fonts::ID>	FontHolder;
+typedef ResourceHolder<sf::SoundBuffer, SoundEffect::ID> SoundBufferHolder;
 
 #endif // RESOURCE_IDENTIFIERS_H

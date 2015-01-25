@@ -13,6 +13,7 @@
 #include "HelpScreen.h"
 #include "ResultsScreen.h"
 #include "MusicPlayer.h"
+#include "SoundPlayer.h"
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -46,6 +47,7 @@ class Game {
         StatesStack mStatesStack;
         TextureHolder mTextures;
         MusicPlayer mMusic;
+        SoundPlayer mSound;
         GameData mGameData;
         std::size_t mStatisticsNumFrames;
 };
