@@ -37,6 +37,8 @@ class GameScreen: public State {
         void addTrap(int type, sf::Vector2f pos);
 
     private:
+        void addRandomPlatforms(int numSwitchedPlatforms, int numFixedPlatforms);
+        void addPregeneratedPlatforms();
         void handleRealtimeInput();
         void handleCollisions();
         bool checkCollision(SpriteNode* a, SpriteNode* b);

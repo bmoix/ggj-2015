@@ -9,8 +9,8 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
 , mGround(nullptr)
 , mCursor(nullptr)
 , mTrapButtons(4)
-, mPlatforms(12, nullptr)
-, mFixedPlatforms(4, nullptr)
+, mPlatforms()
+, mFixedPlatforms()
 , mPlayer(nullptr)
 , mJumpVel(2000.0f)
 , mMovVel(1000.0f)
@@ -116,65 +116,13 @@ GameScreen::GameScreen(StatesStack& stack, Context& context)
     mGround->setCollisionType(CollisionType::Ground);
     mSceneLayers[World]->attachChild(std::move(ground));
 
-    // grass -> 0.6 0.58
-    // wood -> 0.8 0.7
-    // stone -> 0.8 0.7
-
-    std::vector<sf::Vector2f> fixedPos(4);
-    fixedPos[0] = sf::Vector2f(150, 400);
-    fixedPos[1] = sf::Vector2f(150, 800);
-    fixedPos[2] = sf::Vector2f(1800, 400);
-    fixedPos[3] = sf::Vector2f(1800, 800);
-    for (int i = 0; i < 4; ++i) {
-        sf::Texture* ptrTexture = nullptr;
-        if (i%2) ptrTexture = &platformWoodTexture;
-        else ptrTexture = &platformStoneTexture;
-        std::unique_ptr<PlatformNode> platform(new PlatformNode(*ptrTexture));
-        mPlatforms[i] = platform.get();
-        mPlatforms[i]->setPosition(600.f + i*200.f, 550.f);
-        mPlatforms[i]->setSize(sf::Vector2u(175, 60));
-        mPlatforms[i]->createBody(mWorld, false, 0.75, 0.7);
-        mPlatforms[i]->setCollisionType(CollisionType::Wall);
-        if (i%2) mPlatforms[i]->changeVisibility();
-        mSceneLayers[World]->attachChild(std::move(platform));
-
-        std::unique_ptr<PlatformNode> platform2(new PlatformNode(platformTexture));
-        mFixedPlatforms[i] = platform2.get();
-        mFixedPlatforms[i]->setPosition(fixedPos[i]);
-        mFixedPlatforms[i]->setSize(sf::Vector2u(200, 70));
-        mFixedPlatforms[i]->createBody(mWorld, false, 0.6, 0.58);
-        mFixedPlatforms[i]->setCollisionType(CollisionType::Wall);
-        mSceneLayers[World]->attachChild(std::move(platform2));
-    }
-
-    std::vector<sf::Vector2f> prisonPos(4);
-    prisonPos[0] = sf::Vector2f(450, 100);
-    prisonPos[1] = sf::Vector2f(550, 200);
-    prisonPos[2] = sf::Vector2f(450, 300);
-    prisonPos[3] = sf::Vector2f(350, 200);
-    for (int i = 0; i < 4; ++i) {
-        std::unique_ptr<PlatformNode> platform(new PlatformNode(platformWoodTexture));
-        mPlatforms[4+i] = platform.get();
-        mPlatforms[4+i]->setPosition(prisonPos[i]);
-        mPlatforms[4+i]->setSize(sf::Vector2u(175, 60));
-        //if (i%2) mPlatforms[4+i]->setRotation(90);
-        float rotation = 0.0f;
-        if (i%2) rotation = atan(1)*2.0f;
-        mPlatforms[4+i]->createBody(mWorld, false, 0.8, 0.3, 1.0f, rotation);
-        mPlatforms[4+i]->setCollisionType(CollisionType::Wall);
-        mPlatforms[4+i]->changeVisibility();
-        mSceneLayers[World]->attachChild(std::move(platform));
-
-        std::unique_ptr<PlatformNode> platform2(new PlatformNode(platformStoneTexture));
-        mPlatforms[8+i] = platform2.get();
-        mPlatforms[8+i]->setPosition(prisonPos[i].x + 1000, prisonPos[i].y);
-        mPlatforms[8+i]->setSize(sf::Vector2u(200, 70));
-        rotation = 0.0f;
-        if (i%2) rotation = atan(1)*2.0f;
-        mPlatforms[8+i]->createBody(mWorld, false, 0.8, 0.3, 1.0f, rotation);
-        mPlatforms[8+i]->setCollisionType(CollisionType::Wall);
-        mSceneLayers[World]->attachChild(std::move(platform2));
-    }
+    // Add random platforms
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator(seed);
+    std::uniform_int_distribution<int> distribution(1,10); // number of platforms, [1, 10]
+    addRandomPlatforms(distribution(generator), distribution(generator));
+    // Uncomment this for pregenerated platforms
+    //addPregeneratedPlatforms(); 
     
     // TRAPS
     // Trap cooldown, must be aligned with anim
@@ -369,11 +317,9 @@ bool GameScreen::handleEvent(const sf::Event& event) {
             }
             if (event.key.code == sf::Keyboard::Num8) {
                 activateTrap(Traps::SpikesBall);
-
             }
             if (event.key.code == sf::Keyboard::Num9) {
                 activateTrap(Traps::Spikes);
-
             }
             if (event.key.code == sf::Keyboard::Num0) {
                 activateTrap(Traps::Platform);
@@ -382,6 +328,128 @@ bool GameScreen::handleEvent(const sf::Event& event) {
     }
     
     return true;
+}
+
+void GameScreen::addRandomPlatforms(int numSwitchedPlatforms, int numFixedPlatforms) {
+    mPlatforms.resize(numSwitchedPlatforms, nullptr);
+    mFixedPlatforms.resize(numFixedPlatforms, nullptr);
+
+    sf::Texture& platformTexture = getContext().mTextures->get(Textures::Platform1);
+    sf::Texture& platformWoodTexture = getContext().mTextures->get(Textures::PlatformWood);
+    sf::Texture& platformStoneTexture = getContext().mTextures->get(Textures::PlatformStone);
+  // Generators and distributions
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator(seed);
+    std::uniform_int_distribution<int> bool_distribution(0,1); // random number [0, 1]
+    sf::Vector2u platformSize(175, 60);
+    sf::Vector2u platformOffset(50, 50); // Minimum distance of platform and screen borders
+    std::uniform_int_distribution<int> width_distribution(
+        platformSize.x/2 + platformOffset.x,
+        1920 - platformSize.x/2 - platformOffset.x
+    );
+    std::uniform_int_distribution<int> height_distribution(
+        platformSize.y/2 + platformOffset.y,
+        1080 - platformSize.y/2 - platformOffset.y
+    );
+
+    for (int i = 0; i < numSwitchedPlatforms; ++i) {
+        int platformType = bool_distribution(generator); // 0 for stone, 1 for wood
+        sf::Texture* ptrTexture = nullptr;
+        if (platformType) ptrTexture = &platformWoodTexture;
+        else ptrTexture = &platformStoneTexture;
+
+        std::unique_ptr<PlatformNode> platform(new PlatformNode(*ptrTexture));
+        mPlatforms[i] = platform.get();
+        mPlatforms[i]->setSize(platformSize);
+        mPlatforms[i]->setPosition(
+            width_distribution(generator),
+            height_distribution(generator)
+        );
+        mPlatforms[i]->createBody(mWorld, false, 0.75, 0.7);
+        mPlatforms[i]->setCollisionType(CollisionType::Wall);
+        mSceneLayers[World]->attachChild(std::move(platform));
+        if (platformType) mPlatforms[i]->changeVisibility();
+    }
+
+    for (int i = 0; i < numFixedPlatforms; ++i) {
+        std::unique_ptr<PlatformNode> platform(new PlatformNode(platformTexture));
+        mFixedPlatforms[i] = platform.get();
+        mFixedPlatforms[i]->setPosition(
+            width_distribution(generator),
+            height_distribution(generator)
+        );
+        mFixedPlatforms[i]->setSize(platformSize);
+        mFixedPlatforms[i]->createBody(mWorld, false, 0.6, 0.58);
+        mFixedPlatforms[i]->setCollisionType(CollisionType::Wall);
+        mSceneLayers[World]->attachChild(std::move(platform));
+    }
+}
+
+void GameScreen::addPregeneratedPlatforms() {
+    sf::Texture& platformTexture = getContext().mTextures->get(Textures::Platform1);
+    sf::Texture& platformWoodTexture = getContext().mTextures->get(Textures::PlatformWood);
+    sf::Texture& platformStoneTexture = getContext().mTextures->get(Textures::PlatformStone);
+    // grass -> 0.6 0.58
+    // wood -> 0.8 0.7
+    // stone -> 0.8 0.7
+    mPlatforms.resize(12, nullptr);
+    mFixedPlatforms.resize(4, nullptr);
+
+    std::vector<sf::Vector2f> fixedPos(4);
+    fixedPos[0] = sf::Vector2f(150, 400);
+    fixedPos[1] = sf::Vector2f(150, 800);
+    fixedPos[2] = sf::Vector2f(1800, 400);
+    fixedPos[3] = sf::Vector2f(1800, 800);
+    for (int i = 0; i < 4; ++i) {
+        sf::Texture* ptrTexture = nullptr;
+        if (i%2) ptrTexture = &platformWoodTexture;
+        else ptrTexture = &platformStoneTexture;
+        std::unique_ptr<PlatformNode> platform(new PlatformNode(*ptrTexture));
+        mPlatforms[i] = platform.get();
+        mPlatforms[i]->setPosition(600.f + i*200.f, 550.f);
+        mPlatforms[i]->setSize(sf::Vector2u(175, 60));
+        mPlatforms[i]->createBody(mWorld, false, 0.75, 0.7);
+        mPlatforms[i]->setCollisionType(CollisionType::Wall);
+        if (i%2) mPlatforms[i]->changeVisibility();
+        mSceneLayers[World]->attachChild(std::move(platform));
+
+        std::unique_ptr<PlatformNode> platform2(new PlatformNode(platformTexture));
+        mFixedPlatforms[i] = platform2.get();
+        mFixedPlatforms[i]->setPosition(fixedPos[i]);
+        mFixedPlatforms[i]->setSize(sf::Vector2u(200, 70));
+        mFixedPlatforms[i]->createBody(mWorld, false, 0.6, 0.58);
+        mFixedPlatforms[i]->setCollisionType(CollisionType::Wall);
+        mSceneLayers[World]->attachChild(std::move(platform2));
+    }
+
+    std::vector<sf::Vector2f> prisonPos(4);
+    prisonPos[0] = sf::Vector2f(450, 100);
+    prisonPos[1] = sf::Vector2f(550, 200);
+    prisonPos[2] = sf::Vector2f(450, 300);
+    prisonPos[3] = sf::Vector2f(350, 200);
+    for (int i = 0; i < 4; ++i) {
+        std::unique_ptr<PlatformNode> platform(new PlatformNode(platformWoodTexture));
+        mPlatforms[4+i] = platform.get();
+        mPlatforms[4+i]->setPosition(prisonPos[i]);
+        mPlatforms[4+i]->setSize(sf::Vector2u(175, 60));
+        //if (i%2) mPlatforms[4+i]->setRotation(90);
+        float rotation = 0.0f;
+        if (i%2) rotation = atan(1)*2.0f;
+        mPlatforms[4+i]->createBody(mWorld, false, 0.8, 0.3, 1.0f, rotation);
+        mPlatforms[4+i]->setCollisionType(CollisionType::Wall);
+        mPlatforms[4+i]->changeVisibility();
+        mSceneLayers[World]->attachChild(std::move(platform));
+
+        std::unique_ptr<PlatformNode> platform2(new PlatformNode(platformStoneTexture));
+        mPlatforms[8+i] = platform2.get();
+        mPlatforms[8+i]->setPosition(prisonPos[i].x + 1000, prisonPos[i].y);
+        mPlatforms[8+i]->setSize(sf::Vector2u(200, 70));
+        rotation = 0.0f;
+        if (i%2) rotation = atan(1)*2.0f;
+        mPlatforms[8+i]->createBody(mWorld, false, 0.8, 0.3, 1.0f, rotation);
+        mPlatforms[8+i]->setCollisionType(CollisionType::Wall);
+        mSceneLayers[World]->attachChild(std::move(platform2));
+    }
 }
 
 void GameScreen::handleRealtimeInput(){
