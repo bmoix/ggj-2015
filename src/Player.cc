@@ -179,7 +179,7 @@ void Player::collidedWith(SpriteNode* other, b2Vec2 normal) {
         CollisionType type = other->getCollisionType();
         if (type == CollisionType::SpikesBall ||
             (type == CollisionType::Spikes && 
-            (normal.y > 0 || std::abs(normal.x) > epsilon))) {
+            (normal.y > 0 ))) {
             mDead = true;
             setVel(0, -1000);
         }
